@@ -1,22 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  /* Braxton-inspired color palette */
+  --color-accent: #aa70e0;
+  --color-accent-light: #CEC4EF;
+  --color-accent-dark: #8f56cc;
+  
+  --color-secondary: #7059e2;
+  --color-secondary-light: #CEC4EF;
+  --color-secondary-dark: #5d4ec4;
+  
+  --color-base: #111111;
+  --color-base-tint: #161616;
+  --color-base-shade: #000000;
+  
+  --color-text-bright: #e9e9f1;
+  --color-text-medium: #C7C6D3;
+  --color-text-muted: #A1A1AF;
 
+  /* Fonts */
+  --font-sans: 'Syne', system-ui, sans-serif;
+
+  /* Border Radius */
+  --radius-sm: 1.5rem;
+  --radius-md: 2.2rem;
+  --radius-lg: 3rem;
+  --radius-xl: 3.6rem;
+
+  /* Custom Easing */
+  --ease-custom: cubic-bezier(0.23, 0.65, 0.74, 1.09);
+}
+
+/* Global Styles */
 @layer base {
   html {
-    @apply text-[62.5%]; /* 1rem = 10px */
+    font-size: 62.5%; /* 1rem = 10px */
   }
 
   body {
     @apply bg-base text-text-medium text-[1.6rem] leading-relaxed overflow-x-hidden;
-    font-family: 'Syne', system-ui, sans-serif;
+    font-family: var(--font-sans);
   }
 }
 
+/* Utilities */
 @layer utilities {
-  /* Gradient text utility */
   .gradient-text {
     @apply bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent;
   }
