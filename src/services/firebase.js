@@ -3,7 +3,21 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 
-// Configuration Firebase depuis les variables d'environnement
+/**
+ * Firebase Configuration
+ * 
+ * Loads configuration from environment variables for security.
+ * Never commit the .env file to version control!
+ * 
+ * Required environment variables:
+ * - VITE_FIREBASE_API_KEY
+ * - VITE_FIREBASE_AUTH_DOMAIN
+ * - VITE_FIREBASE_PROJECT_ID
+ * - VITE_FIREBASE_STORAGE_BUCKET
+ * - VITE_FIREBASE_MESSAGING_SENDER_ID
+ * - VITE_FIREBASE_APP_ID
+ * - VITE_FIREBASE_MEASUREMENT_ID
+ */
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -14,12 +28,12 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialiser Firebase
+// Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 
-// Exporter les services
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-export const auth = getAuth(app);
+// Initialize and export Firebase services
+export const db = getFirestore(app);      // Firestore database
+export const storage = getStorage(app);   // Cloud storage
+export const auth = getAuth(app);         // Authentication
 
 export default app;

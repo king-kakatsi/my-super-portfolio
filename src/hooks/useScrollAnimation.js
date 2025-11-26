@@ -5,9 +5,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Hook pour animer les éléments au scroll
- * @param {string} type - Type d'animation: 'fade-up', 'fade-in', 'slide-left', etc.
- * @returns {React.RefObject} - Ref à attacher à l'élément
+ * Custom hook for scroll-triggered animations using GSAP
+ * 
+ * @param {string} type - Animation type: 'fade-up', 'fade-in', 'slide-left', 'slide-right', 'scale'
+ * @returns {React.RefObject} - Ref to attach to the element to be animated
+ * 
+ * @example
+ * const ref = useScrollAnimation('fade-up');
+ * return <div ref={ref}>Animated content</div>
  */
 export const useScrollAnimation = (type = 'fade-up') => {
   const ref = useRef();
@@ -16,7 +21,7 @@ export const useScrollAnimation = (type = 'fade-up') => {
     const element = ref.current;
     if (!element) return;
 
-    // Différents types d'animations
+    // Animation configurations
     const animations = {
       'fade-up': {
         from: { opacity: 0, y: 50 },
@@ -42,7 +47,7 @@ export const useScrollAnimation = (type = 'fade-up') => {
 
     const anim = animations[type] || animations['fade-up'];
 
-    // Animation GSAP avec ScrollTrigger
+    // Create GSAP animation with ScrollTrigger
     gsap.fromTo(
       element,
       anim.from,
@@ -56,7 +61,7 @@ export const useScrollAnimation = (type = 'fade-up') => {
       }
     );
 
-    // Cleanup
+    // Cleanup function
     return () => {
       ScrollTrigger.getAll().forEach(trigger => {
         if (trigger.trigger === element) {

@@ -1,9 +1,19 @@
 import { useEffect, useState, useRef } from 'react';
 
 /**
- * Hook pour l'effet torch/spotlight qui suit le curseur
- * Optimisé avec requestAnimationFrame pour une fluidité maximale
- * @returns {{ x: number, y: number }} - Position du curseur
+ * Custom hook for the torch/spotlight effect that follows the cursor
+ * Optimized with requestAnimationFrame for maximum smoothness
+ * 
+ * Features:
+ * - Smooth cursor tracking with interpolation
+ * - Performance-optimized with RAF
+ * - Automatic cleanup on unmount
+ * 
+ * @returns {{ x: number, y: number }} - Current cursor position
+ * 
+ * @example
+ * const { x, y } = useTorchEffect();
+ * // Use x and y to position the spotlight
  */
 export const useTorchEffect = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -12,7 +22,7 @@ export const useTorchEffect = () => {
   const currentRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Handler pour le mouvement de la souris
+    // Mouse move handler - updates target position
     const handleMouseMove = (e) => {
       targetRef.current = {
         x: e.clientX,
@@ -20,9 +30,10 @@ export const useTorchEffect = () => {
       };
     };
 
-    // Animation loop avec interpolation smooth
+    // Animation loop with smooth interpolation
     const animate = () => {
-      // Interpolation pour un mouvement fluide
+      // Lerp (linear interpolation) for smooth movement
+      // 0.1 = smoothing factor (lower = smoother but slower)
       currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.1;
       currentRef.current.y += (targetRef.current.y - currentRef.current.y) * 0.1;
 
@@ -34,11 +45,11 @@ export const useTorchEffect = () => {
       rafRef.current = requestAnimationFrame(animate);
     };
 
-    // Démarrer l'animation
+    // Start listening and animating
     window.addEventListener('mousemove', handleMouseMove);
     rafRef.current = requestAnimationFrame(animate);
 
-    // Cleanup
+    // Cleanup on unmount
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       if (rafRef.current) {

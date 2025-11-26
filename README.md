@@ -1,36 +1,36 @@
 # Portfolio React + Firebase 🔥
 
-Portfolio moderne avec animations fluides (GSAP + Lenis) et effet torch/spotlight.
+Modern portfolio with ultra-smooth animations (GSAP + Lenis) and torch/spotlight effect.
 
-## 🚀 Setup Initial
+## 🚀 Quick Start
 
-### 1. Installation des dépendances
+### 1. Install Dependencies
 
 ```bash
 cd my-portfolio
 npm install
 ```
 
-### 2. Configuration Firebase
+### 2. Firebase Configuration
 
-#### Étape 1 : Créer un projet Firebase
+#### Step 1: Create Firebase Project
 
-1. Va sur [Firebase Console](https://console.firebase.google.com/)
-2. Clique sur "Ajouter un projet"
-3. Nomme ton projet (ex: "my-portfolio")
-4. Désactive Google Analytics (optionnel)
-5. Clique sur "Créer le projet"
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Click "Add project"
+3. Name your project (e.g., "my-portfolio")
+4. Disable Google Analytics (optional)
+5. Click "Create project"
 
-#### Étape 2 : Ajouter une application Web
+#### Step 2: Add Web App
 
-1. Dans la console Firebase, clique sur l'icône **Web** (`</>`)
-2. Nomme ton app (ex: "Portfolio Web")
-3. **NE PAS** cocher "Firebase Hosting" pour l'instant
-4. Clique sur "Enregistrer l'application"
+1. In Firebase Console, click the **Web** icon (`</>`)
+2. Name your app (e.g., "Portfolio Web")
+3. **DO NOT** check "Firebase Hosting" yet
+4. Click "Register app"
 
-#### Étape 3 : Récupérer les clés de configuration
+#### Step 3: Get Configuration Keys
 
-Tu vas voir un objet `firebaseConfig` qui ressemble à ça :
+You'll see a `firebaseConfig` object like this:
 
 ```javascript
 const firebaseConfig = {
@@ -44,14 +44,14 @@ const firebaseConfig = {
 };
 ```
 
-#### Étape 4 : Créer le fichier .env
+#### Step 4: Create .env File
 
-1. Copie le fichier `.env.example` :
+1. Copy the example file:
    ```bash
    cp .env.example .env
    ```
 
-2. Ouvre `.env` et remplace les valeurs avec celles de Firebase :
+2. Open `.env` and replace with your Firebase values:
 
 ```env
 VITE_FIREBASE_API_KEY=AIzaSy...
@@ -63,106 +63,118 @@ VITE_FIREBASE_APP_ID=1:123456789:web:abcdef
 VITE_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
-#### Étape 5 : Activer Firestore Database
+#### Step 5: Enable Firestore Database
 
-1. Dans la console Firebase, va dans **Build** → **Firestore Database**
-2. Clique sur "Créer une base de données"
-3. Choisis **Mode test** (pour commencer)
-4. Sélectionne une région (ex: `europe-west1`)
-5. Clique sur "Activer"
+1. In Firebase Console, go to **Build** → **Firestore Database**
+2. Click "Create database"
+3. Choose **Test mode** (for development)
+4. Select a region (e.g., `europe-west1`)
+5. Click "Enable"
 
-#### Étape 6 : Activer Storage
+#### Step 6: Enable Storage
 
-1. Dans la console Firebase, va dans **Build** → **Storage**
-2. Clique sur "Commencer"
-3. Choisis **Mode test**
-4. Clique sur "Suivant" puis "OK"
+1. In Firebase Console, go to **Build** → **Storage**
+2. Click "Get started"
+3. Choose **Test mode**
+4. Click "Next" then "Done"
 
-#### Étape 7 : Activer Authentication
+#### Step 7: Enable Authentication
 
-1. Dans la console Firebase, va dans **Build** → **Authentication**
-2. Clique sur "Commencer"
-3. Active **Email/Password** dans l'onglet "Sign-in method"
-4. Clique sur "Enregistrer"
+1. In Firebase Console, go to **Build** → **Authentication**
+2. Click "Get started"
+3. Enable **Email/Password** in "Sign-in method" tab
+4. Click "Save"
 
-### 3. Lancer le projet
+### 3. Run Development Server
 
 ```bash
 npm run dev
 ```
 
-Le site sera accessible sur `http://localhost:5173`
+Visit `http://localhost:5173` to see your portfolio!
 
-## ✨ Fonctionnalités
+## ✨ Features
 
-- ✅ **Effet torch/spotlight** qui suit le curseur
-- ✅ **Smooth scroll** ultra-fluide avec Lenis
-- ✅ **Animations GSAP** au scroll
-- ✅ **Firebase** prêt pour le backend
-- 🔜 Sections Portfolio, About, Resume, Contact
-- 🔜 Dashboard admin pour gérer le contenu
+- ✅ **Torch/spotlight effect** following cursor
+- ✅ **Ultra-smooth scroll** with Lenis
+- ✅ **GSAP animations** on scroll
+- ✅ **Tailwind CSS** for styling
+- ✅ **Firebase** backend ready
+- 🔜 Portfolio, About, Resume, Contact sections
+- 🔜 Admin dashboard for content management
 
-## 📁 Structure du projet
+## 📁 Project Structure
 
 ```
 my-portfolio/
 ├── src/
 │   ├── components/
 │   │   ├── layout/
-│   │   │   └── TorchEffect.jsx    # Effet torch
-│   │   ├── sections/              # Sections du site
-│   │   ├── ui/                    # Composants UI
-│   │   └── admin/                 # Dashboard admin
+│   │   │   └── TorchEffect.jsx    # Torch effect component
+│   │   ├── sections/              # Page sections
+│   │   ├── ui/                    # UI components
+│   │   └── admin/                 # Admin dashboard
 │   ├── hooks/
-│   │   ├── useLenis.js            # Smooth scroll
-│   │   ├── useScrollAnimation.js  # Animations scroll
-│   │   └── useTorchEffect.js      # Effet torch
+│   │   ├── useLenis.js            # Smooth scroll hook
+│   │   ├── useScrollAnimation.js  # Scroll animations hook
+│   │   └── useTorchEffect.js      # Torch effect hook
 │   ├── services/
-│   │   └── firebase.js            # Config Firebase
+│   │   └── firebase.js            # Firebase config
 │   ├── App.jsx
 │   └── main.jsx
-├── .env                           # Variables Firebase
+├── .env                           # Firebase credentials
 └── package.json
 ```
 
-## 🎨 Personnalisation
+## 🎨 Customization
 
-### Couleurs
+### Colors
 
-Modifie les variables CSS dans `src/App.css` :
+Edit Tailwind config in `tailwind.config.js`:
 
-```css
-:root {
-  --accent: #aa70e0;      /* Couleur principale */
-  --secondary: #7059e2;   /* Couleur secondaire */
-  --base: #111111;        /* Fond */
+```javascript
+colors: {
+  accent: {
+    DEFAULT: '#aa70e0',  // Primary color
+  },
+  secondary: {
+    DEFAULT: '#7059e2',  // Secondary color
+  },
 }
 ```
 
-### Effet Torch
+### Torch Effect
 
-Ajuste la taille et l'opacité dans `src/components/layout/TorchEffect.jsx` :
+Adjust size and opacity in `src/components/layout/TorchEffect.jsx`:
 
 ```javascript
-background: `radial-gradient(
-  circle 300px at ${x}px ${y}px,  // Taille du halo
-  rgba(255, 255, 255, 0.15),      // Opacité
-  transparent 80%
-)`
+const TORCH_SIZE = 300;      // Spotlight size in pixels
+const TORCH_OPACITY = 0.15;  // Opacity (0-1)
 ```
 
-## 📚 Prochaines étapes
+## 🛠️ Tech Stack
 
-1. ✅ Setup initial
-2. ⏳ **Configuration Firebase** ← Tu es ici !
-3. 🔜 Créer les sections (Hero, Portfolio, About, etc.)
-4. 🔜 Implémenter les animations GSAP
-5. 🔜 Connecter Firestore pour les données
-6. 🔜 Créer le dashboard admin
-7. 🔜 Déployer sur Firebase Hosting
+- **React 19** - UI framework
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **GSAP 3** - Animations
+- **Lenis** - Smooth scroll
+- **Firebase** - Backend (Firestore, Storage, Auth)
 
-## 🆘 Besoin d'aide ?
+## 📚 Next Steps
 
-- [Documentation Firebase](https://firebase.google.com/docs)
-- [Documentation GSAP](https://gsap.com/docs/v3/)
-- [Documentation Lenis](https://github.com/studio-freight/lenis)
+1. ✅ Initial setup
+2. ✅ Tailwind CSS configuration
+3. ⏳ **Firebase setup** ← You are here!
+4. 🔜 Create sections (Hero, Portfolio, About, etc.)
+5. 🔜 Implement GSAP animations
+6. 🔜 Connect Firestore for data
+7. 🔜 Build admin dashboard
+8. 🔜 Deploy to Firebase Hosting
+
+## 🆘 Need Help?
+
+- [Firebase Documentation](https://firebase.google.com/docs)
+- [GSAP Documentation](https://gsap.com/docs/v3/)
+- [Lenis Documentation](https://github.com/studio-freight/lenis)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
