@@ -3,46 +3,26 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
 import Lottie from 'lottie-react';
+import { TypeAnimation } from 'react-type-animation';
 import developerAnimation from '../../assets/lottie/developer.json';
 
 /**
  * Hero Section
  * Main introduction section with animated headline, Lottie animation, and rotating scroll button
  */
-const Hero = () => {
+const Hero = ({ profile }) => {
   const containerRef = useRef(null);
 
   // GSAP Animations
   useGSAP(() => {
+    // ... (keep existing animations)
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-    // Staggered animation for headline elements
-    tl.fromTo('.animate-headline',
-      { y: 50, opacity: 0 },
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 1, 
-        stagger: 0.15,
-        delay: 0.2
-      }
-    );
-
-    // Fade in Lottie animation
-    gsap.fromTo('.animate-lottie',
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 1.5, delay: 0.5, ease: 'elastic.out(1, 0.75)' }
-    );
-
-    // Rotating button animation
-    gsap.to('.rotating-text', {
-      rotation: 360,
-      duration: 10,
-      repeat: -1,
-      ease: 'linear'
-    });
-
+    tl.fromTo('.animate-headline', { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, delay: 0.2 });
+    gsap.fromTo('.animate-lottie', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.5, delay: 0.5, ease: 'elastic.out(1, 0.75)' });
+    gsap.to('.rotating-text', { rotation: 360, duration: 10, repeat: -1, ease: 'linear' });
   }, { scope: containerRef });
+
+  if (!profile) return null;
 
   return (
     <section id="home" className="min-h-screen flex items-center relative pt-20 pb-20" ref={containerRef}>
@@ -60,13 +40,30 @@ const Hero = () => {
           </div>
 
           {/* Main Title */}
-          <h1 className="animate-headline text-[clamp(3.5rem,6vw,7rem)] font-bold leading-[1.1] mb-10 text-text-bright">
-            I'm Alex Walker<br/>
-            <span className="text-text-medium">Digital designer and illustrator.</span>
+          <h1 className="animate-headline text-[clamp(3rem,5vw,5rem)] font-bold leading-[1.1] mb-8 text-text-bright">
+            I'm {profile.name}<br/>
+            <span className="text-text-medium block min-h-[1.2em] mt-2">
+              <TypeAnimation
+                sequence={[
+                  'Clean Code Enthusiast.',
+                  1000,
+                  'Software Architect.',
+                  1000,
+                  'Fullstack Developer.',
+                  1000,
+                  'Problem Solver.',
+                  1000
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+                className="text-text-medium"
+              />
+            </span>
           </h1>
 
           {/* Buttons */}
-          <div className="animate-headline flex flex-col sm:flex-row gap-6">
+          <div className="animate-headline flex flex-col sm:flex-row gap-6 mt-12">
             <a 
               href="#portfolio" 
               className="group flex items-center justify-between px-8 py-4 rounded-xl bg-transparent border border-white/10 text-text-bright hover:border-accent transition-all duration-300 w-full sm:w-auto min-w-[200px]"

@@ -1,40 +1,40 @@
 import { Article, GraduationCap, Briefcase } from '@phosphor-icons/react';
 
-const education = [
-  {
-    period: '2018 - 2022',
-    title: 'Bachelor of Computer Science',
-    institution: 'University of Technology',
-    description: 'Focused on software engineering, web development, and UI/UX design principles.'
-  },
-  {
-    period: '2016 - 2018',
-    title: 'High School Diploma',
-    institution: 'Central High School',
-    description: 'Specialized in Mathematics and Computer Science.'
-  }
-];
+const Resume = ({ resume: resumeProp }) => {
+  // Fallback data
+  const fallbackResume = {
+    education: [
+      {
+        period: '2018 - 2022',
+        title: 'Bachelor of Computer Science',
+        institution: 'University of Technology',
+        description: 'Focused on software engineering, web development, and UI/UX design principles.'
+      },
+      {
+        period: '2016 - 2018',
+        title: 'High School Diploma',
+        institution: 'Central High School',
+        description: 'Specialized in Mathematics and Computer Science.'
+      }
+    ],
+    experience: [
+      {
+        period: '2022 - Present',
+        title: 'Senior Frontend Developer',
+        company: 'Tech Solutions Inc.',
+        description: 'Leading frontend development for enterprise applications using React, TypeScript, and modern web technologies.'
+      },
+      {
+        period: '2020 - 2022',
+        title: 'UI/UX Designer',
+        company: 'Creative Agency',
+        description: 'Designed user interfaces and experiences for various clients, focusing on modern and accessible design.'
+      }
+    ]
+  };
 
-const experience = [
-  {
-    period: '2022 - Present',
-    title: 'Senior Frontend Developer',
-    company: 'Tech Solutions Inc.',
-    description: 'Leading frontend development for enterprise applications using React, TypeScript, and modern web technologies.'
-  },
-  {
-    period: '2020 - 2022',
-    title: 'UI/UX Designer',
-    company: 'Creative Agency',
-    description: 'Designed user interfaces and experiences for various clients, focusing on modern and accessible design.'
-  }
-];
+  const resume = resumeProp || fallbackResume;
 
-/**
- * Resume Section
- * Displays education and experience timeline
- */
-const Resume = () => {
   return (
     <section id="resume" className="py-20 md:py-32">
       
@@ -59,7 +59,7 @@ const Resume = () => {
           </div>
           
           <div className="space-y-8">
-            {education.map((item, index) => (
+            {resume.education.map((item, index) => (
               <div 
                 key={index} 
                 className="animate-card-3 opacity-0 translate-y-[100px] relative pl-8 border-l-2 border-white/10 hover:border-accent/50 transition-colors duration-300"
@@ -82,7 +82,7 @@ const Resume = () => {
           </div>
           
           <div className="space-y-8">
-            {experience.map((item, index) => (
+            {resume.experience.map((item, index) => (
               <div 
                 key={index} 
                 className="animate-card-3 opacity-0 translate-y-[100px] relative pl-8 border-l-2 border-white/10 hover:border-accent/50 transition-colors duration-300"

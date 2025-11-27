@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
  * Custom hook to handle global animations based on CSS classes
  * Replicates the animation logic from the original template
  */
-export const useAnimations = () => {
+export const useAnimations = (deps = []) => {
   useEffect(() => {
     // Animate elements with .animate-in-up class
     const animateInUpElements = document.querySelectorAll('.animate-in-up');
@@ -66,5 +66,5 @@ export const useAnimations = () => {
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, []);
+  }, deps);
 };

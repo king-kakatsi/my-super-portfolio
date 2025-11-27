@@ -1,12 +1,15 @@
-import { House, SquaresFour, User, Article, Envelope, ChatDots, Sun, Moon } from '@phosphor-icons/react';
+import { House, SquaresFour, User, Article, Envelope, ChatDots, Sun, Moon, Translate } from '@phosphor-icons/react';
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 
 /**
  * Header Component
- * Contains the main navigation and theme controls
+ * Contains the main navigation, theme controls, and language toggle
  */
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
+  
   const [theme, setTheme] = useState(() => {
     // Get theme from localStorage or default to 'dark'
     return localStorage.getItem('theme') || 'dark';
@@ -35,11 +38,11 @@ const Header = () => {
   };
 
   const navItems = [
-    { name: 'Home', href: '#home', icon: House },
-    { name: 'Portfolio', href: '#portfolio', icon: SquaresFour },
-    { name: 'About Me', href: '#about', icon: User },
-    { name: 'Resume', href: '#resume', icon: Article },
-    { name: 'Contact', href: '#contact', icon: Envelope },
+    { name: t('nav.home'), href: '#home', icon: House },
+    { name: t('nav.portfolio'), href: '#portfolio', icon: SquaresFour },
+    { name: t('nav.about'), href: '#about', icon: User },
+    { name: t('nav.resume'), href: '#resume', icon: Article },
+    { name: t('nav.contact'), href: '#contact', icon: Envelope },
   ];
 
   return (
@@ -52,7 +55,7 @@ const Header = () => {
       <nav className="hidden md:block">
         <ul className="flex gap-3 bg-base-tint/80 backdrop-blur-sm p-3 rounded-2xl border border-white/10">
           {navItems.map((item) => (
-            <li key={item.name}>
+            <li key={item.href}>
               <a 
                 href={item.href}
                 className="flex items-center gap-3 px-6 py-3 rounded-xl text-text-bright hover:text-white hover:bg-white/10 transition-all duration-300 group"
@@ -72,6 +75,15 @@ const Header = () => {
 
       {/* Header Controls */}
       <div className="flex items-center gap-4">
+        {/* Language Toggle */}
+        <button 
+          onClick={toggleLanguage}
+          className="w-14 h-14 flex items-center justify-center rounded-full bg-base-tint/80 border border-white/10 text-text-bright hover:text-accent hover:border-accent/30 transition-all duration-300 font-bold text-lg"
+          aria-label="Toggle language"
+        >
+          {language === 'en' ? 'FR' : 'EN'}
+        </button>
+
         {/* Theme Switcher */}
         <button 
           onClick={toggleTheme}
@@ -83,10 +95,10 @@ const Header = () => {
 
         {/* Let's Talk Button */}
         <a 
-          href="mailto:example@example.com"
+          href="mailto:leroi.kakatsi@epitech.eu"
           className="flex items-center gap-3 px-8 h-14 rounded-full bg-base-tint/80 border border-white/10 text-text-bright hover:bg-white/10 hover:border-accent/30 transition-all duration-300 group"
         >
-          <span className="text-lg font-bold tracking-wide">Let's Talk</span>
+          <span className="text-lg font-bold tracking-wide">{t('nav.letsTalk')}</span>
           <ChatDots weight="bold" className="text-2xl text-accent group-hover:scale-110 transition-transform" />
         </a>
       </div>
