@@ -29,37 +29,24 @@ export const useAnimations = (deps = []) => {
       );
     });
 
-    // Batch animations for cards (.animate-card-2)
-    ScrollTrigger.batch('.animate-card-2', {
-      interval: 0.1,
-      batchMax: 2,
-      onEnter: (batch) => {
-        gsap.to(batch, {
+    // Simple fade-in for card-3 elements (Resume section) - no scroll trigger
+    const card3Elements = document.querySelectorAll('.animate-card-3');
+    card3Elements.forEach((element, index) => {
+      gsap.fromTo(element,
+        { opacity: 0, y: 50 },
+        {
           opacity: 1,
           y: 0,
-          stagger: 0.15,
-          overwrite: true,
-          duration: 1,
-          ease: 'power3.out'
-        });
-      },
-      onLeave: (batch) => {
-        gsap.set(batch, { opacity: 0, y: 100, overwrite: true });
-      },
-      onEnterBack: (batch) => {
-        gsap.to(batch, {
-          opacity: 1,
-          y: 0,
-          stagger: 0.15,
-          overwrite: true,
-          duration: 1,
-          ease: 'power3.out'
-        });
-      },
-      onLeaveBack: (batch) => {
-        gsap.set(batch, { opacity: 0, y: 100, overwrite: true });
-      },
-      start: 'top 85%',
+          duration: 0.6,
+          delay: index * 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: element,
+            start: 'top 90%',
+            once: true
+          }
+        }
+      );
     });
 
     // Cleanup

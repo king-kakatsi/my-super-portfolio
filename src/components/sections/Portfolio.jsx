@@ -44,7 +44,7 @@ const Portfolio = ({ projects: projectsProp }) => {
         {projects.map((project, index) => (
           <div 
             key={project.id}
-            className={`animate-card-2 group relative rounded-3xl overflow-hidden bg-base-tint border border-white/5 hover:border-accent/30 transition-all duration-500 will-change-transform ${
+            className={`group relative rounded-3xl overflow-hidden bg-base-tint border border-white/5 hover:border-accent/30 transition-all duration-500 will-change-transform ${
               index % 2 === 1 ? 'md:translate-y-16' : ''
             }`}
           >
