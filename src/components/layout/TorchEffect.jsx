@@ -25,21 +25,27 @@ const TorchEffect = () => {
   const { x, y } = useTorchEffect();
 
   // Torch configuration
-  const TORCH_SIZE = 300; // Size of the spotlight in pixels
-  const TORCH_OPACITY = 0.15; // Opacity of the light (0-1)
+  const TORCH_SIZE = 600; // Size of the spotlight in pixels
+  const TORCH_OPACITY = 0.4; // Increased opacity for better visibility
 
   return (
-    <div
-      className="fixed inset-0 pointer-events-none z-[9999] mix-blend-screen transition-all duration-50 ease-out md:block hidden"
-      style={{
-        background: `radial-gradient(
-          circle ${TORCH_SIZE}px at ${x}px ${y}px,
-          rgba(255, 255, 255, ${TORCH_OPACITY}),
-          transparent 80%
-        )`
-      }}
+    <div 
+      className="fixed inset-0 pointer-events-none z-50 hidden md:block"
       aria-hidden="true"
-    />
+    >
+      <div
+        className="absolute rounded-full blur-[100px] transition-opacity duration-300"
+        style={{
+          width: `${TORCH_SIZE}px`,
+          height: `${TORCH_SIZE}px`,
+          left: `${x}px`,
+          top: `${y}px`,
+          transform: 'translate(-50%, -50%)',
+          background: `radial-gradient(circle, rgba(139, 21, 56, ${TORCH_OPACITY}) 0%, rgba(139, 21, 56, ${TORCH_OPACITY * 0.5}) 40%, transparent 70%)`,
+          opacity: x === 0 && y === 0 ? 0 : 1,
+        }}
+      />
+    </div>
   );
 };
 
