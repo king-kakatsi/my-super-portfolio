@@ -29,12 +29,12 @@ const About = ({ about: aboutProp, skills }) => {
   return (
     <section id="about" className="py-20 md:py-32">
       
-      {/* Achievements Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+      {/* Achievements Grid with adaptive background for light/dark modes */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 bg-accent/5 dark:bg-gray-800/80 p-16 rounded-lg border border-accent/10">
         {about.stats.map((stat, index) => (
           <div 
             key={index} 
-            className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/5 hover:border-accent/30 transition-all duration-300 group"
+            className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-white/50 dark:bg-base-tint/30 border border-accent/20 dark:border-white/50 hover:border-accent/50 dark:hover:border-accent/30 transition-all duration-300 group"
           >
             <p className="text-5xl md:text-6xl font-bold text-accent mb-2 group-hover:scale-110 transition-transform origin-left">
               {stat.number}

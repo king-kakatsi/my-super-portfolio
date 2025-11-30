@@ -33,16 +33,10 @@ const TorchEffect = () => {
       className="fixed inset-0 pointer-events-none z-50 hidden md:block"
       aria-hidden="true"
     >
-      <div
-        className="absolute rounded-full blur-[100px] transition-opacity duration-300"
+      <div 
+        className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
         style={{
-          width: `${TORCH_SIZE}px`,
-          height: `${TORCH_SIZE}px`,
-          left: `${x}px`,
-          top: `${y}px`,
-          transform: 'translate(-50%, -50%)',
-          background: `radial-gradient(circle, rgba(139, 21, 56, ${TORCH_OPACITY}) 0%, rgba(139, 21, 56, ${TORCH_OPACITY * 0.5}) 40%, transparent 70%)`,
-          opacity: x === 0 && y === 0 ? 0 : 1,
+          background: `radial-gradient(600px at ${x}px ${y}px, rgba(139, 21, 56, 0.15), transparent 80%)`,
         }}
       />
     </div>

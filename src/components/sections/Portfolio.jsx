@@ -2,10 +2,11 @@ import { SquaresFour } from '@phosphor-icons/react';
 
 /**
  * Portfolio Section
- * Displays a grid of project cards with batch animations
+ * Displays a grid of project cards with enhanced visibility
+ * Cards feature improved borders and backgrounds for better visual hierarchy
  */
 const Portfolio = ({ projects: projectsProp }) => {
-  // Fallback data
+  // Fallback data for when Firestore data is not available
   const fallbackProjects = [
     {
       id: 1,
@@ -44,7 +45,7 @@ const Portfolio = ({ projects: projectsProp }) => {
         {projects.map((project, index) => (
           <div 
             key={project.id}
-            className={`group relative rounded-3xl overflow-hidden bg-base-tint border border-white/5 hover:border-accent/30 transition-all duration-500 will-change-transform ${
+            className={`group relative rounded-3xl overflow-hidden bg-base-tint/50 border border-white/10 hover:border-accent/50 transition-all duration-500 will-change-transform hover:shadow-lg hover:shadow-accent/10 ${
               index % 2 === 1 ? 'md:translate-y-16' : ''
             }`}
           >
@@ -56,20 +57,26 @@ const Portfolio = ({ projects: projectsProp }) => {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-base via-transparent to-transparent opacity-60"></div>
+              {/* Gradient overlay for better text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-base via-base/50 to-transparent opacity-80"></div>
             </div>
 
-            {/* Content */}
+            {/* Content overlay */}
             <div className="absolute bottom-0 left-0 w-full p-8">
               <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 will-change-transform">
+                {/* Technology tags */}
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.technologies?.map((tag, i) => (
-                    <span key={i} className="px-3 py-1 rounded-full bg-base/80 backdrop-blur-sm text-xs font-medium text-white border border-white/10">
+                    <span key={i} className="px-3 py-1 rounded-full bg-base/90 backdrop-blur-sm text-xs font-medium text-white border border-white/20">
                       {tag}
                     </span>
                   ))}
                 </div>
+                
+                {/* Project title */}
                 <h3 className="text-2xl font-bold text-white mb-2">{project.name}</h3>
+                
+                {/* Project description - visible on hover */}
                 <p className="text-text-muted line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                   {project.description}
                 </p>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Envelope, PaperPlaneTilt } from '@phosphor-icons/react';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { db } from '../../services/firebase';
 import toast, { Toaster } from 'react-hot-toast';
 
 /**
@@ -27,21 +29,38 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      // Save message to Firestore
+      await addDoc(collection(db, 'messages'), {
+        ...formData,
+        read: false,
+        createdAt: Timestamp.now()
+      });
 
-    toast.success('Message sent successfully! I\'ll get back to you soon.', {
-      duration: 4000,
-      style: {
-        background: '#8B1538',
-        color: '#fff',
-        padding: '16px',
-        borderRadius: '12px',
-      },
-    });
+      toast.success('Message sent successfully! I\'ll get back to you soon.', {
+        duration: 4000,
+        style: {
+          background: '#8B1538',
+          color: '#fff',
+          padding: '16px',
+          borderRadius: '12px',
+        },
+      });
 
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast.error('Failed to send message. Please try again.', {
+        style: {
+          background: '#ef4444',
+          color: '#fff',
+          padding: '16px',
+          borderRadius: '12px',
+        },
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

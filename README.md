@@ -161,15 +161,46 @@ const TORCH_OPACITY = 0.15;  // Opacity (0-1)
 - **Lenis** - Smooth scroll
 - **Firebase** - Backend (Firestore, Storage, Auth)
 
-## 📚 Next Steps
+## 🎯 Admin Dashboard
+
+The portfolio includes a **full-featured admin dashboard** for content management!
+
+### Access Admin Panel
+
+1. **Create admin user** in Firebase Console:
+   - Go to Authentication → Users → Add User
+   - Set email and password
+
+2. **Login** at: `http://localhost:5173/admin/login`
+
+### Admin Features
+
+- 📊 **Dashboard** - Stats overview and recent activity
+- 👤 **Profile** - Edit profile info and upload avatar
+- 📁 **Projects** - Manage portfolio projects (CRUD + image upload)
+- 💡 **Skills** - Manage skills with proficiency levels
+- 🎓 **Resume** - Edit experience and education
+- 📧 **Messages** - View contact form submissions
+
+### Admin Routes
+
+- `/admin/login` - Login page
+- `/admin/dashboard` - Overview
+- `/admin/profile` - Profile editor
+- `/admin/projects` - Projects management
+- `/admin/skills` - Skills management
+- `/admin/resume` - Resume editor
+- `/admin/messages` - Messages inbox
+
+## 📚 Project Status
 
 1. ✅ Initial setup
 2. ✅ Tailwind CSS configuration
-3. ⏳ **Firebase setup** ← You are here!
-4. 🔜 Create sections (Hero, Portfolio, About, etc.)
-5. 🔜 Implement GSAP animations
-6. 🔜 Connect Firestore for data
-7. 🔜 Build admin dashboard
+3. ✅ Firebase setup
+4. ✅ Create sections (Hero, Portfolio, About, Resume, Contact)
+5. ✅ Implement GSAP animations
+6. ✅ Connect Firestore for data
+7. ✅ **Build admin dashboard** ← Just completed!
 8. 🔜 Deploy to Firebase Hosting
 
 ## 🆘 Need Help?
@@ -178,3 +209,4 @@ const TORCH_OPACITY = 0.15;  // Opacity (0-1)
 - [GSAP Documentation](https://gsap.com/docs/v3/)
 - [Lenis Documentation](https://github.com/studio-freight/lenis)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [React Router Documentation](https://reactrouter.com/)
