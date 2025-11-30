@@ -25,7 +25,7 @@ const Hero = ({ profile }) => {
   if (!profile) return null;
 
   return (
-    <section id="home" className="min-h-screen flex items-center relative pt-20 pb-20" ref={containerRef}>
+    <section id="home" className="min-h-screen flex items-center relative pt-20 pb-20 bg-purple-100/30 dark:bg-purple-900/10" ref={containerRef}>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
         {/* Headline Content */}
