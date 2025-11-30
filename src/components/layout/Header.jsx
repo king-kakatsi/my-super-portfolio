@@ -1,4 +1,4 @@
-import { House, SquaresFour, User, Article, Envelope, ChatDots, Sun, Moon, Translate } from '@phosphor-icons/react';
+import { House, SquaresFour, User, Article, Envelope, ChatDots, Sun, Moon, Translate, Code } from '@phosphor-icons/react';
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -39,9 +39,9 @@ const Header = () => {
 
   const navItems = [
     { name: t('nav.home'), href: '#home', icon: House },
-    { name: t('nav.portfolio'), href: '#portfolio', icon: SquaresFour },
     { name: t('nav.about'), href: '#about', icon: User },
-    { name: t('nav.resume'), href: '#resume', icon: Article },
+    { name: t('nav.portfolio'), href: '#portfolio', icon: SquaresFour },
+    { name: 'Skills', href: '#skills', icon: Code },
     { name: t('nav.contact'), href: '#contact', icon: Envelope },
   ];
 
