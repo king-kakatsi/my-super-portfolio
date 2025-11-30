@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
-import { db } from '../../../firebase/config';
+import { db } from '../../../services/firebase';
 import toast from 'react-hot-toast';
 import { Database, CheckCircle } from '@phosphor-icons/react';
 import Card from '../ui/Card';
