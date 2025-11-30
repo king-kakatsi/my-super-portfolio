@@ -27,7 +27,8 @@ const Sidebar = ({ profile }) => {
           <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden mb-8 transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-2">
             <div className="absolute inset-0 bg-accent/20 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
             <img 
-              src="https://dummyimage.com/400x400/3c3c3c/636363" 
+            <img 
+              src="/profile.jpg" 
               alt={profile.name}
               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
             />
@@ -50,13 +51,13 @@ const Sidebar = ({ profile }) => {
 
       {/* Social Links */}
       <div className="flex flex-col gap-3">
-        {profile.socials?.filter(s => s.platform.toLowerCase() !== 'web').map((social, index) => (
+        {profile.socials?.filter(s => s.platform.toLowerCase() !== 'web' && s.platform.toLowerCase() !== 'website').map((social, index) => (
           <a 
             key={index}
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full px-6 py-4 rounded-xl border border-white/10 flex items-center justify-center gap-3 text-text-muted hover:text-white hover:bg-wine hover:border-wine transition-all duration-300 group"
+            className="w-full px-6 py-4 rounded-xl border border-white/10 flex items-center justify-center gap-3 text-text-muted hover:text-white hover:bg-accent hover:border-accent transition-all duration-300 group"
             aria-label={social.platform}
           >
             <span className="text-lg font-bold uppercase tracking-wider">{social.platform}</span>
