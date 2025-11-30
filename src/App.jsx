@@ -9,6 +9,7 @@ import Sidebar from './components/layout/Sidebar';
 import Hero from './components/sections/Hero';
 import Portfolio from './components/sections/Portfolio';
 import About from './components/sections/About';
+import Skills from './components/sections/Skills';
 import Resume from './components/sections/Resume';
 import Contact from './components/sections/Contact';
 import { LanguageProvider } from './context/LanguageContext';
@@ -58,6 +59,7 @@ function App() {
                   <Hero profile={data.profile} />
                   <About about={data.about} skills={data.skills} />
                   <Portfolio projects={data.projects} />
+                  <Skills projects={data.projects} skills={data.skills} />
                   {/* Resume section commented out - Education and Experience not needed for now */}
                   {/* <Resume resume={data.resume} /> */}
                   <Contact />
