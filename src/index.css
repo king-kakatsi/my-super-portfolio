@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Braxton-inspired color palette */
-  --color-accent: #8B1538;
-  --color-accent-light: #B8385E;
-  --color-accent-dark: #6B0F2A;
+  /* Purple color palette */
+  --color-accent: #9333EA; /* Purple 600 */
+  --color-accent-light: #A855F7; /* Purple 500 */
+  --color-accent-dark: #7E22CE; /* Purple 700 */
   
   --color-secondary: #7059e2;
   --color-secondary-light: #CEC4EF;
