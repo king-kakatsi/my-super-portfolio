@@ -109,7 +109,6 @@ const Skills = ({ projects }) => {
       'Hive': 'hive',
       'AI Models': 'openai',
       'Laravel': 'laravel',
-      'NestJS': 'nestjs',
     };
 
     const slug = iconMap[techName] || techName.toLowerCase().replace(/\s+/g, '').replace(/\./g, 'dot');
@@ -125,7 +124,7 @@ const Skills = ({ projects }) => {
         {/* Section Title */}
         <div className="mb-16 md:mb-24">
           <div className="animate-in-up flex items-center gap-3 mb-6 text-text-muted">
-            <Code weight="bold" className="text-accent" />
+            <Code weight="bold" className="text-wine" />
             <span className="uppercase tracking-widest text-sm font-medium">Skills & Stats</span>
           </div>
           <h2 className="animate-in-up text-4xl md:text-6xl font-bold text-text-bright max-w-3xl">
@@ -136,7 +135,7 @@ const Skills = ({ projects }) => {
         {/* Stats Block */}
         <div className="mb-20">
           <div className="flex items-center gap-3 mb-8">
-            <ChartBar weight="bold" className="text-3xl text-accent" />
+            <ChartBar weight="bold" className="text-3xl text-wine" />
             <h3 className="text-2xl font-bold text-text-bright">Project Statistics</h3>
           </div>
           
@@ -176,7 +175,7 @@ const Skills = ({ projects }) => {
         {/* Technologies Grid */}
         <div>
           <div className="flex items-center gap-3 mb-8">
-            <Code weight="bold" className="text-3xl text-accent" />
+            <Code weight="bold" className="text-3xl text-wine" />
             <h3 className="text-2xl font-bold text-text-bright">Technologies</h3>
           </div>
           

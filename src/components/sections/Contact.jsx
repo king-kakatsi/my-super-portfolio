@@ -154,7 +154,7 @@ const Contact = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full md:w-auto group flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-accent text-white font-bold hover:bg-accent-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full md:w-auto group flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-wine text-white font-bold hover:bg-wine-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
             <PaperPlaneTilt weight="bold" className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
