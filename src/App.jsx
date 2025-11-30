@@ -56,9 +56,10 @@ function App() {
                 {/* Main Content Area */}
                 <main className="relative z-10 lg:ml-[300px] xl:ml-[350px] px-6 md:px-12 lg:px-20 overflow-hidden">
                   <Hero profile={data.profile} />
-                  <Portfolio projects={data.projects} />
                   <About about={data.about} skills={data.skills} />
-                  <Resume resume={data.resume} />
+                  <Portfolio projects={data.projects} />
+                  {/* Resume section commented out - Education and Experience not needed for now */}
+                  {/* <Resume resume={data.resume} /> */}
                   <Contact />
                 </main>
               </div>
