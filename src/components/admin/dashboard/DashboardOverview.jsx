@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
+import DatabaseUtilities from '../utilities/DatabaseUtilities';
 
 /**
  * Dashboard Overview Component
@@ -131,6 +132,9 @@ const DashboardOverview = () => {
           </div>
         </Card.Body>
       </Card>
+
+      {/* Database Utilities */}
+      <DatabaseUtilities />
 
       {/* Recent Messages */}
       <Card>
