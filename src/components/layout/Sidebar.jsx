@@ -41,25 +41,25 @@ const Sidebar = ({ profile }) => {
             <h3 className="text-xl font-semibold text-text-bright leading-relaxed">{profile.specialization}</h3>
           </div>
           <div>
-            <span className="text-sm uppercase tracking-wider text-text-muted block mb-3 font-medium">Based in:</span>
-            <h3 className="text-xl font-semibold text-text-bright">{profile.location || 'Remote'}</h3>
+            <h3 className="text-lg font-medium text-text-bright leading-relaxed">
+              Looking for a developer to bring your vision to life? I'm the right person for the job.
+            </h3>
           </div>
         </div>
       </div>
 
       {/* Social Links */}
-      <div className="flex gap-4">
-        {profile.socials?.map((social, index) => (
+      <div className="flex flex-col gap-3">
+        {profile.socials?.filter(s => s.platform.toLowerCase() !== 'web').map((social, index) => (
           <a 
             key={index}
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-text-muted hover:text-white hover:bg-wine hover:border-wine transition-all duration-300"
+            className="w-full px-6 py-4 rounded-xl border border-white/10 flex items-center justify-center gap-3 text-text-muted hover:text-white hover:bg-wine hover:border-wine transition-all duration-300 group"
             aria-label={social.platform}
           >
-            {/* Display first letter of platform as icon placeholder since we don't have dynamic icon mapping yet */}
-            <span className="text-xs font-bold">{social.platform[0]}</span>
+            <span className="text-lg font-bold uppercase tracking-wider">{social.platform}</span>
           </a>
         ))}
       </div>

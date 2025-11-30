@@ -62,7 +62,7 @@ const About = ({ about: aboutProp, skills }) => {
           </p>
           <a 
             href="#contact" 
-            className="inline-block px-8 py-4 rounded-xl bg-accent text-white font-bold hover:bg-accent-dark transition-colors"
+            className="inline-block px-8 py-4 rounded-xl bg-wine text-white font-bold hover:bg-wine-dark transition-colors"
           >
             My Services
           </a>

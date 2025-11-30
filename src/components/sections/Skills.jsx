@@ -142,7 +142,7 @@ const Skills = ({ projects }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {/* Total Projects */}
             <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 hover:border-accent/50 transition-all duration-300 group">
-              <p className="text-5xl md:text-6xl font-bold text-accent mb-2 group-hover:scale-110 transition-transform origin-left">
+              <p className="text-5xl md:text-6xl font-bold text-wine mb-2 group-hover:scale-110 transition-transform origin-left">
                 {totalProjects}
               </p>
               <p className="text-text-muted uppercase tracking-wider text-sm font-medium">
@@ -152,7 +152,7 @@ const Skills = ({ projects }) => {
 
             {/* Web Projects */}
             <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 hover:border-accent/50 transition-all duration-300 group">
-              <p className="text-5xl md:text-6xl font-bold text-accent mb-2 group-hover:scale-110 transition-transform origin-left">
+              <p className="text-5xl md:text-6xl font-bold text-wine mb-2 group-hover:scale-110 transition-transform origin-left">
                 {webProjects}
               </p>
               <p className="text-text-muted uppercase tracking-wider text-sm font-medium">
@@ -161,8 +161,8 @@ const Skills = ({ projects }) => {
             </div>
 
             {/* Mobile Projects */}
-            <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 hover:border-accent/50 transition-all duration-300 group">
-              <p className="text-5xl md:text-6xl font-bold text-accent mb-2 group-hover:scale-110 transition-transform origin-left">
+            <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 hover:border-wine/50 transition-all duration-300 group">
+              <p className="text-5xl md:text-6xl font-bold text-wine mb-2 group-hover:scale-110 transition-transform origin-left">
                 {mobileProjects}
               </p>
               <p className="text-text-muted uppercase tracking-wider text-sm font-medium">

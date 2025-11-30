@@ -67,7 +67,7 @@ const Portfolio = ({ projects: projectsProp }) => {
                 {/* Technology tags */}
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.technologies?.map((tag, i) => (
-                    <span key={i} className="px-3 py-1 rounded-full bg-base/90 backdrop-blur-sm text-xs font-medium text-white border border-white/20">
+                    <span key={i} className="px-3 py-1 rounded-full bg-base/90 backdrop-blur-sm text-sm font-medium text-white border border-white/20">
                       {tag}
                     </span>
                   ))}
