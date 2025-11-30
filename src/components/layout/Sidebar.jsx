@@ -18,7 +18,7 @@ const Sidebar = ({ profile }) => {
         <div className="mb-12">
           <a href="#" className="text-2xl font-bold tracking-tighter">
             <span className="text-white">King</span>
-            <span className="text-accent">.</span>
+            <span className="text-wine">.</span>
           </a>
         </div>
 
@@ -55,7 +55,7 @@ const Sidebar = ({ profile }) => {
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-text-muted hover:text-white hover:bg-accent hover:border-accent transition-all duration-300"
+            className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-text-muted hover:text-white hover:bg-wine hover:border-wine transition-all duration-300"
             aria-label={social.platform}
           >
             {/* Display first letter of platform as icon placeholder since we don't have dynamic icon mapping yet */}
