@@ -70,7 +70,7 @@ const Contact = () => {
       {/* Section Title */}
       <div className="mb-16 md:mb-24">
         <div className="animate-in-up flex items-center gap-3 mb-6 text-text-muted">
-          <Envelope weight="bold" className="text-accent" />
+          <Envelope weight="bold" className="text-wine" />
           <span className="uppercase tracking-widest text-sm font-medium">Contact</span>
         </div>
         <h2 className="animate-in-up text-4xl md:text-6xl font-bold text-text-bright max-w-3xl">
