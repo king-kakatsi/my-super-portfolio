@@ -113,7 +113,7 @@ const Skills = ({ projects }) => {
     };
 
     const slug = iconMap[techName] || techName.toLowerCase().replace(/\s+/g, '').replace(/\./g, 'dot');
-    return `https://cdn.simpleicons.org/${slug}/8B1538`; // Using your wine red color
+    return `https://cdn.simpleicons.org/${slug}/9333EA`; // Purple color
   };
 
   return (

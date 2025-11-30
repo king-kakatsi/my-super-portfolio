@@ -82,82 +82,85 @@ const Contact = () => {
       </div>
 
       {/* Contact Form */}
-      <form onSubmit={handleSubmit} className="max-w-3xl animate-in-up">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <label htmlFor="name" className="block text-text-medium font-medium mb-3">
-              Your Name *
+      {/* Contact Form Card */}
+      <div className="max-w-4xl mx-auto animate-in-up bg-gray-800 rounded-xl p-8 md:p-12 border border-white/5 shadow-2xl">
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label htmlFor="name" className="block text-text-medium font-medium mb-3">
+                Your Name *
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="w-full px-6 py-4 rounded-xl bg-base border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors"
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-text-medium font-medium mb-3">
+                Your Email *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-6 py-4 rounded-xl bg-base border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors"
+                placeholder="john@example.com"
+              />
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="subject" className="block text-text-medium font-medium mb-3">
+              Subject *
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
-              value={formData.name}
+              id="subject"
+              name="subject"
+              value={formData.subject}
               onChange={handleChange}
               required
-              className="w-full px-6 py-4 rounded-xl bg-base-tint border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors"
-              placeholder="John Doe"
+              className="w-full px-6 py-4 rounded-xl bg-base border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors"
+              placeholder="Project Inquiry"
             />
           </div>
 
-          <div>
-            <label htmlFor="email" className="block text-text-medium font-medium mb-3">
-              Your Email *
+          <div className="mb-8">
+            <label htmlFor="message" className="block text-text-medium font-medium mb-3">
+              Message *
             </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
               onChange={handleChange}
               required
-              className="w-full px-6 py-4 rounded-xl bg-base-tint border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors"
-              placeholder="john@example.com"
+              rows="6"
+              className="w-full px-6 py-4 rounded-xl bg-base border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors resize-none"
+              placeholder="Tell me about your project..."
             />
           </div>
-        </div>
 
-        <div className="mb-6">
-          <label htmlFor="subject" className="block text-text-medium font-medium mb-3">
-            Subject *
-          </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            required
-            className="w-full px-6 py-4 rounded-xl bg-base-tint border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors"
-            placeholder="Project Inquiry"
-          />
-        </div>
-
-        <div className="mb-8">
-          <label htmlFor="message" className="block text-text-medium font-medium mb-3">
-            Message *
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-            rows="6"
-            className="w-full px-6 py-4 rounded-xl bg-base-tint border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors resize-none"
-            placeholder="Tell me about your project..."
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="group flex items-center gap-3 px-8 py-4 rounded-xl bg-accent text-white font-bold hover:bg-accent-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-          <PaperPlaneTilt weight="bold" className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full md:w-auto group flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-accent text-white font-bold hover:bg-accent-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+            <PaperPlaneTilt weight="bold" className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          </button>
+        </form>
+      </div>
 
     </section>
   );
