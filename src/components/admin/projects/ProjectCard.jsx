@@ -20,10 +20,10 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
         <Card.Body>
           <div className="flex items-center gap-6">
             {/* Thumbnail */}
-            {project.thumbnail && (
+            {project.imageUrl && (
               <img 
-                src={project.thumbnail} 
-                alt={project.title}
+                src={project.imageUrl} 
+                alt={project.name}
                 className="w-24 h-24 object-cover rounded-lg"
               />
             )}
@@ -32,20 +32,14 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <h3 className="text-xl font-bold text-text-bright">
-                  {project.title}
+                  {project.name}
                 </h3>
-                <Badge variant={project.status === 'published' ? 'success' : 'warning'}>
-                  {project.status || 'draft'}
-                </Badge>
-                {project.featured && (
-                  <Badge variant="info">Featured</Badge>
-                )}
               </div>
               <p className="text-text-muted mb-3 line-clamp-2">
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-2">
-                {project.techStack?.map((tech, index) => (
+                {project.technologies?.map((tech, index) => (
                   <span 
                     key={index}
                     className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
@@ -85,11 +79,11 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
   return (
     <Card className="group hover:border-accent/50 transition-all duration-300">
       {/* Thumbnail */}
-      {project.thumbnail && (
+      {project.imageUrl && (
         <div className="aspect-video overflow-hidden">
           <img 
-            src={project.thumbnail} 
-            alt={project.title}
+            src={project.imageUrl} 
+            alt={project.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </div>
@@ -98,46 +92,38 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
       <Card.Body>
         {/* Title & Status */}
         <div className="flex items-start justify-between gap-3 mb-3">
-          <h3 className="text-lg font-bold text-text-bright flex-1">
-            {project.title}
+          <h3 className="text-2xl font-bold text-text-bright flex-1">
+            {project.name}
           </h3>
-          <div className="flex flex-col gap-2">
-            <Badge variant={project.status === 'published' ? 'success' : 'warning'} size="sm">
-              {project.status || 'draft'}
-            </Badge>
-            {project.featured && (
-              <Badge variant="info" size="sm">Featured</Badge>
-            )}
-          </div>
         </div>
 
         {/* Description */}
-        <p className="text-text-muted text-sm mb-4 line-clamp-3">
+        <p className="text-text-muted text-xl mb-4 line-clamp-3">
           {project.description}
         </p>
 
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 mb-4">
-          {project.techStack?.slice(0, 3).map((tech, index) => (
+          {project.technologies?.slice(0, 3).map((tech, index) => (
             <span 
               key={index}
-              className="px-2 py-1 bg-accent/20 text-accent text-xs rounded-full"
+              className="px-5 py-1 bg-purple-800/40 text-gray-300 text-md rounded-full"
             >
               {tech}
             </span>
           ))}
-          {project.techStack?.length > 3 && (
+          {project.technologies?.length > 3 && (
             <span className="px-2 py-1 bg-white/10 text-text-muted text-xs rounded-full">
-              +{project.techStack.length - 3}
+              +{project.technologies.length - 3}
             </span>
           )}
         </div>
 
         {/* Links */}
         <div className="flex items-center gap-2 mb-4">
-          {project.projectUrl && (
+          {project.liveUrl && (
             <a 
-              href={project.projectUrl}
+              href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-muted hover:text-accent transition-colors"
@@ -145,9 +131,9 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
               <Globe size={18} weight="bold" />
             </a>
           )}
-          {project.githubUrl && (
+          {project.sourceUrl && (
             <a 
-              href={project.githubUrl}
+              href={project.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-muted hover:text-accent transition-colors"
