@@ -61,7 +61,7 @@ const Header = () => {
                 className="flex items-center gap-3 px-6 py-3 rounded-xl text-text-bright hover:text-white hover:bg-white/10 transition-all duration-300 group"
               >
                 <span className="text-lg font-semibold">{item.name}</span>
-                <item.icon weight="bold" className="text-2xl group-hover:text-accent transition-colors" />
+                <item.icon weight="bold" className="text-2xl group-hover:text-wine transition-colors" />
               </a>
             </li>
           ))}
@@ -99,7 +99,7 @@ const Header = () => {
           className="flex items-center gap-3 px-8 h-14 rounded-full bg-base-tint/80 border border-white/10 text-text-bright hover:bg-white/10 hover:border-accent/30 transition-all duration-300 group"
         >
           <span className="text-lg font-bold tracking-wide">{t('nav.letsTalk')}</span>
-          <ChatDots weight="bold" className="text-2xl text-accent group-hover:scale-110 transition-transform" />
+          <ChatDots weight="bold" className="text-2xl text-wine group-hover:scale-110 transition-transform" />
         </a>
       </div>
     </header>

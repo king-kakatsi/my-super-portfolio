@@ -9,6 +9,11 @@
   --color-secondary: #7059e2;
   --color-secondary-light: #CEC4EF;
   --color-secondary-dark: #5d4ec4;
+
+  /* Wine Red for harmony */
+  --color-wine: #8B1538;
+  --color-wine-light: #B8385E;
+  --color-wine-dark: #6B0F2A;
   
   --color-base: #111111;
   --color-base-tint: #161616;
