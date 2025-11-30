@@ -55,6 +55,7 @@ const SkillForm = ({ skill, onClose }) => {
         options={[
           { value: 'frontend', label: 'Frontend' },
           { value: 'backend', label: 'Backend' },
+          { value: 'mobile', label: 'Mobile' },
           { value: 'fullstack', label: 'Fullstack' },
           { value: 'tools', label: 'Tools' },
           { value: 'soft', label: 'Soft Skills' }
