@@ -91,13 +91,30 @@ const DatabaseUtilities = () => {
     setLoading(true);
     try {
       const skillsRef = collection(db, 'skills');
+      
+      // Fetch existing skills
+      const snapshot = await getDocs(skillsRef);
+      const existingSkills = snapshot.docs.map(doc => doc.data().name.toLowerCase());
+      
       const allSkills = [...technicalSkills, ...softSkills];
       
-      for (const skill of allSkills) {
+      // Filter out skills that already exist
+      const newSkills = allSkills.filter(skill => 
+        !existingSkills.includes(skill.name.toLowerCase())
+      );
+      
+      if (newSkills.length === 0) {
+        toast.success('All skills already exist in database!');
+        setLoading(false);
+        return;
+      }
+      
+      // Add only new skills
+      for (const skill of newSkills) {
         await addDoc(skillsRef, skill);
       }
       
-      toast.success(`Added ${allSkills.length} skills to database!`);
+      toast.success(`Added ${newSkills.length} new skills! (${existingSkills.length} already existed)`);
     } catch (error) {
       console.error('Error adding skills:', error);
       toast.error('Failed to add skills');
@@ -111,11 +128,27 @@ const DatabaseUtilities = () => {
     try {
       const certificationsRef = collection(db, 'certifications');
       
-      for (const cert of certifications) {
+      // Fetch existing certifications
+      const snapshot = await getDocs(certificationsRef);
+      const existingCerts = snapshot.docs.map(doc => doc.data().name.toLowerCase());
+      
+      // Filter out certifications that already exist
+      const newCerts = certifications.filter(cert => 
+        !existingCerts.includes(cert.name.toLowerCase())
+      );
+      
+      if (newCerts.length === 0) {
+        toast.success('All certifications already exist in database!');
+        setLoading(false);
+        return;
+      }
+      
+      // Add only new certifications
+      for (const cert of newCerts) {
         await addDoc(certificationsRef, cert);
       }
       
-      toast.success(`Added ${certifications.length} certifications to database!`);
+      toast.success(`Added ${newCerts.length} new certifications! (${existingCerts.length} already existed)`);
     } catch (error) {
       console.error('Error adding certifications:', error);
       toast.error('Failed to add certifications');
