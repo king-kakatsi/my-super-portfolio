@@ -108,7 +108,6 @@ const Skills = ({ projects }) => {
       'VS Code': 'visualstudiocode',
       'Hive': 'hive',
       'AI Models': 'openai',
-      'Laravel': 'laravel',
     };
 
     const slug = iconMap[techName] || techName.toLowerCase().replace(/\s+/g, '').replace(/\./g, 'dot');
