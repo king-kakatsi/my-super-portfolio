@@ -25,11 +25,10 @@ const Sidebar = ({ profile }) => {
         {/* Avatar Block */}
         <div className="mb-12 group">
           <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden mb-8 transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-2">
-            <div className="absolute inset-0 bg-accent/20 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
             <img 
               src="/profile.jpg" 
               alt={profile.name}
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              className="w-full h-full object-cover transition-all duration-500"
             />
           </div>
         </div>
