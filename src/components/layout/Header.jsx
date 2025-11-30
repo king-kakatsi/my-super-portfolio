@@ -75,14 +75,14 @@ const Header = () => {
 
       {/* Header Controls */}
       <div className="flex items-center gap-4">
-        {/* Language Toggle */}
-        <button 
+        {/* Language Toggle - Commented out for now, keeping site in English */}
+        {/* <button 
           onClick={toggleLanguage}
           className="w-14 h-14 flex items-center justify-center rounded-full bg-base-tint/80 border border-white/10 text-text-bright hover:text-accent hover:border-accent/30 transition-all duration-300 font-bold text-lg"
           aria-label="Toggle language"
         >
           {language === 'en' ? 'FR' : 'EN'}
-        </button>
+        </button> */}
 
         {/* Theme Switcher */}
         <button 
