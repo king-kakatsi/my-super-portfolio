@@ -10,7 +10,7 @@ const SkillForm = ({ skill, onClose }) => {
   const { create, update } = useFirestore('skills');
   const [formData, setFormData] = useState({
     name: '',
-    category: 'Frontend',
+    category: 'frontend',
     proficiency: 50
   });
   const [saving, setSaving] = useState(false);
@@ -53,10 +53,11 @@ const SkillForm = ({ skill, onClose }) => {
         value={formData.category}
         onChange={handleChange}
         options={[
-          { value: 'Frontend', label: 'Frontend' },
-          { value: 'Backend', label: 'Backend' },
-          { value: 'Tools', label: 'Tools' },
-          { value: 'Other', label: 'Other' }
+          { value: 'frontend', label: 'Frontend' },
+          { value: 'backend', label: 'Backend' },
+          { value: 'fullstack', label: 'Fullstack' },
+          { value: 'tools', label: 'Tools' },
+          { value: 'soft', label: 'Soft Skills' }
         ]}
       />
       <div>

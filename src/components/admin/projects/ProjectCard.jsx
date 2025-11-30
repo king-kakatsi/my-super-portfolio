@@ -54,7 +54,7 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
             <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
-                size="sm"
+                size="lg"
                 icon={<Pencil weight="bold" />}
                 onClick={onEdit}
               >
@@ -62,7 +62,7 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
               </Button>
               <Button
                 variant="danger"
-                size="sm"
+                size="lg"
                 icon={<Trash weight="bold" />}
                 onClick={onDelete}
               >
@@ -148,7 +148,7 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
       <Card.Footer className="flex items-center gap-2">
         <Button
           variant="ghost"
-          size="sm"
+          size="lg"
           icon={<Pencil weight="bold" />}
           onClick={onEdit}
           className="flex-1"
@@ -157,7 +157,7 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
         </Button>
         <Button
           variant="danger"
-          size="sm"
+          size="lg"
           icon={<Trash weight="bold" />}
           onClick={onDelete}
           className="flex-1"

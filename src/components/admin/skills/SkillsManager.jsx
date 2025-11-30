@@ -60,19 +60,19 @@ const SkillsManager = () => {
           <Card key={skill.id} className="group hover:border-accent/50 transition-all">
             <Card.Body>
               <div className="flex items-start justify-between mb-3">
-                <h3 className="text-lg font-bold text-text-bright">{skill.name}</h3>
-                <span className="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full">
+                <h3 className="text-2xl font-bold text-text-bright">{skill.name}</h3>
+                <span className="px-3 py-1 bg-purple-800/50 text-gray-200 text-sm rounded-full">
                   {skill.category}
                 </span>
               </div>
               <div className="mb-4">
                 <div className="flex items-center justify-between text-sm mb-2">
-                  <span className="text-text-muted">Proficiency</span>
-                  <span className="text-accent font-bold">{skill.proficiency}%</span>
+                  <span className="text-text-muted text-lg">Proficiency</span>
+                  <span className="text-purple-600 font-bold">{skill.proficiency}%</span>
                 </div>
                 <div className="w-full h-2 bg-base-tint rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-accent transition-all"
+                    className="h-full bg-purple-800 transition-all"
                     style={{ width: `${skill.proficiency}%` }}
                   />
                 </div>
