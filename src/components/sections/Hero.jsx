@@ -57,7 +57,7 @@ const Hero = ({ profile }) => {
                 wrapper="span"
                 speed={50}
                 repeat={Infinity}
-                className="text-text-medium"
+                className="text-wine"
               />
             </span>
           </h1>
