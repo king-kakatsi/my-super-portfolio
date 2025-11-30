@@ -51,7 +51,7 @@ const About = ({ about: aboutProp, skills }) => {
         {/* Bio */}
         <div className="animate-in-up">
           <div className="flex items-center gap-3 mb-6 text-text-muted">
-            <User weight="bold" className="text-accent" />
+            <User weight="bold" className="text-wine" />
             <span className="uppercase tracking-widest text-sm font-medium">About Me</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-text-bright max-w-3xl mb-8">
