@@ -77,9 +77,33 @@ const Portfolio = ({ projects: projectsProp }) => {
                 <h3 className="text-2xl font-bold text-white mb-2">{project.name}</h3>
                 
                 {/* Project description - visible on hover */}
-                <p className="text-text-muted line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                <p className="text-text-muted line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 mb-4">
                   {project.description}
                 </p>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                  {project.liveUrl && (
+                    <a 
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-2 rounded-full bg-purple-800 text-white font-medium hover:bg-purple-900 transition-colors"
+                    >
+                      Visit
+                    </a>
+                  )}
+                  {project.sourceUrl && (
+                    <a 
+                      href={project.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-2 rounded-full border border-purple-800 text-white font-medium hover:bg-purple-800 transition-colors"
+                    >
+                      View Code
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>
