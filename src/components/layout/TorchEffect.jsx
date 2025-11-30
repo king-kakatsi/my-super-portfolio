@@ -25,8 +25,8 @@ const TorchEffect = () => {
   const { x, y } = useTorchEffect();
 
   // Torch configuration
-  const TORCH_SIZE = 600; // Size of the spotlight in pixels
-  const TORCH_OPACITY = 0.4; // Increased opacity for better visibility
+  const TORCH_SIZE = 200; // Size of the spotlight in pixels
+  const TORCH_OPACITY = 0.3; // Increased opacity for better visibility
 
   return (
     <div 
@@ -36,7 +36,7 @@ const TorchEffect = () => {
       <div 
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
         style={{
-          background: `radial-gradient(600px at ${x}px ${y}px, rgba(139, 21, 56, 0.15), transparent 80%)`,
+          background: `radial-gradient(200px at ${x}px ${y}px, rgba(135, 21, 139, 0.38), transparent 60%)`,
         }}
       />
     </div>
