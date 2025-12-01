@@ -18,7 +18,7 @@ import FileUpload from '../ui/FileUpload';
 const ProfileEditor = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { upload, uploading } = useFileUpload('cv');
+  const { upload, uploading } = useFileUpload('resumes');
   const [formData, setFormData] = useState({
     name: '',
     title: '',
