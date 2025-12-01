@@ -19,7 +19,7 @@ const Sidebar = ({ profile }) => {
         <div className="mb-12 group">
           <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden mb-8 transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-2">
             <img 
-              src="/profile.jpg" 
+              src={profile.avatar || "/profile.jpg"} 
               alt={profile.name}
               className="w-full h-full object-cover transition-all duration-500"
             />

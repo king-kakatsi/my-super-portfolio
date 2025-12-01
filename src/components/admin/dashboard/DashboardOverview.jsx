@@ -64,7 +64,7 @@ const DashboardOverview = () => {
    * Quick actions
    */
   const quickActions = [
-    { label: 'Add Project', icon: Plus, link: '/admin/projects', variant: 'primary' },
+    { label: 'Add Projects', icon: Plus, link: '/admin/projects', variant: 'primary' },
     { label: 'Edit Profile', icon: null, link: '/admin/profile', variant: 'secondary' },
     { label: 'View Messages', icon: Envelope, link: '/admin/messages', variant: 'ghost' }
   ];

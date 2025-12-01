@@ -7,7 +7,8 @@ import {
   Lightbulb, 
   GraduationCap,
   Envelope,
-  SignOut
+  SignOut,
+  Wrench
 } from '@phosphor-icons/react';
 import toast from 'react-hot-toast';
 import { useEffect } from 'react';
@@ -29,6 +30,7 @@ const AdminSidebar = ({ isMobileMenuOpen, closeMobileMenu }) => {
     { path: '/admin/skills', icon: Lightbulb, label: 'Skills' },
     { path: '/admin/resume', icon: GraduationCap, label: 'Resume' },
     { path: '/admin/messages', icon: Envelope, label: 'Messages' },
+    { path: '/admin/utilities', icon: Wrench, label: 'Utilities' },
   ];
 
   /**

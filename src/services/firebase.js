@@ -4,8 +4,9 @@ import { getStorage } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 
 /**
- * Firebase Configuration
+ * Primary Firebase Configuration (Portfolio Project)
  * 
+ * Used for Authentication and Firestore.
  * Loads configuration from environment variables for security.
  * Never commit the .env file to version control!
  * 
@@ -28,12 +29,32 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase app
+/**
+ * Secondary Firebase Configuration (Alpha Project)
+ * 
+ * Used exclusively for Cloud Storage.
+ * This allows us to use Storage from a different Firebase project
+ * while keeping Auth and Firestore from the primary project.
+ */
+const storageConfig = {
+  apiKey: "AIzaSyDSzLIj14wC_7AO5i4osL1sxRLdUUKIS2M",
+  authDomain: "alpha-276ed.firebaseapp.com",
+  projectId: "alpha-276ed",
+  storageBucket: "alpha-276ed.appspot.com",
+  messagingSenderId: "644870471106",
+  appId: "1:644870471106:android:c2e4ae1cfcc7ddc2d42a5b",
+  databaseURL: "https://alpha-276ed-default-rtdb.europe-west1.firebasedatabase.app"
+};
+
+// Initialize primary Firebase app (for Auth & Firestore)
 const app = initializeApp(firebaseConfig);
 
+// Initialize secondary Firebase app (for Storage only)
+const storageApp = initializeApp(storageConfig, 'storage');
+
 // Initialize and export Firebase services
-export const db = getFirestore(app);      // Firestore database
-export const storage = getStorage(app);   // Cloud storage
-export const auth = getAuth(app);         // Authentication
+export const db = getFirestore(app);           // Firestore from primary project
+export const auth = getAuth(app);              // Auth from primary project
+export const storage = getStorage(storageApp); // Storage from Alpha project
 
 export default app;

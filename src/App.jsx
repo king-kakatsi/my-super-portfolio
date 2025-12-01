@@ -60,7 +60,7 @@ function App() {
                   
                   <About about={data.about} skills={data.skills} />
                   <Portfolio projects={data.projects} />
-                  <Skills projects={data.projects} />
+                  <Skills projects={data.projects} skills={data.skills} />
                   {/* Resume section commented out - Education and Experience not needed for now */}
                   {/* <Resume resume={data.resume} /> */}
                   <Contact />

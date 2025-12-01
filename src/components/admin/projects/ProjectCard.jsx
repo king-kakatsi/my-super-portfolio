@@ -2,6 +2,7 @@ import { Pencil, Trash, GithubLogo, Globe, Eye } from '@phosphor-icons/react';
 import Card from '../ui/Card';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
+import { useFirestore } from '../../../hooks/useFirestore';
 
 /**
  * Project Card Component
@@ -15,6 +16,16 @@ import Button from '../ui/Button';
  * @param {string} props.viewMode - 'grid' or 'list'
  */
 const ProjectCard = ({ project, onEdit, onDelete, onViewDetails, viewMode = 'grid' }) => {
+  // Fetch skills to resolve IDs to names
+  const { data: skills } = useFirestore('skills');
+  
+  /**
+   * Helper function to resolve skill ID to skill name
+   */
+  const getSkillName = (techId) => {
+    const skill = skills.find(s => s.id === techId || s.name === techId);
+    return skill ? skill.name : techId;
+  };
   if (viewMode === 'list') {
     return (
       <Card>
@@ -40,12 +51,12 @@ const ProjectCard = ({ project, onEdit, onDelete, onViewDetails, viewMode = 'gri
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-2">
-                {project.technologies?.map((tech, index) => (
+                {project.technologies?.map((techId, index) => (
                   <span 
                     key={index}
                     className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
                   >
-                    {tech}
+                    {getSkillName(techId)}
                   </span>
                 ))}
               </div>
@@ -105,12 +116,12 @@ const ProjectCard = ({ project, onEdit, onDelete, onViewDetails, viewMode = 'gri
 
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 mb-4">
-          {project.technologies?.slice(0, 3).map((tech, index) => (
+          {project.technologies?.slice(0, 3).map((techId, index) => (
             <span 
               key={index}
               className="px-5 py-1 bg-purple-800/40 text-gray-300 text-md rounded-full"
             >
-              {tech}
+              {getSkillName(techId)}
             </span>
           ))}
           {project.technologies?.length > 3 && (

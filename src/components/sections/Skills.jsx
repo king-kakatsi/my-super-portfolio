@@ -1,36 +1,134 @@
-import { ChartBar, Code } from '@phosphor-icons/react';
+import { ChartBar, Code, DeviceMobile, Globe, Database, Wrench, Question } from '@phosphor-icons/react';
 
 /**
  * Skills Section
- * Displays project statistics and technologies used with their icons
+ * Displays project statistics and skills organized by category from database
  */
-const Skills = ({ projects }) => {
+const Skills = ({ projects, skills }) => {
   // Calculate project statistics from real data
   const totalProjects = projects?.length || 0;
   const webProjects = projects?.filter(p => p.category?.toUpperCase() === 'WEB')?.length || 0;
   const mobileProjects = projects?.filter(p => p.category?.toUpperCase() === 'MOBILE')?.length || 0;
 
-  // Count projects by technology - using real data from projects
+  // Create skill ID to skill object mapping for efficient lookups
+  const skillIdToSkill = {};
+  const skillNameToSkill = {};
+  skills?.forEach(skill => {
+    skillIdToSkill[skill.id] = skill;
+    skillNameToSkill[skill.name] = skill;
+  });
+
+  // Count projects by technology (handles both IDs and names for backward compatibility)
   const techCounts = {};
   projects?.forEach(project => {
     if (project.technologies && Array.isArray(project.technologies)) {
       project.technologies.forEach(tech => {
-        techCounts[tech] = (techCounts[tech] || 0) + 1;
+        // Check if tech is an ID or a name
+        const skill = skillIdToSkill[tech] || skillNameToSkill[tech];
+        if (skill) {
+          techCounts[skill.id] = (techCounts[skill.id] || 0) + 1;
+        }
       });
     }
   });
 
-  // Sort technologies by count (most used first)
-  const sortedTechs = Object.entries(techCounts)
-    .sort(([, a], [, b]) => b - a)
-    .map(([name, count]) => ({ name, count }));
+  // Categorize skills based on their category field from database
+  const categorizedSkills = {
+    mobile: [],
+    frontend: [],
+    backend: [],
+    tools: [],
+    others: []
+  };
+
+  // Group skills by their category and add project counts
+  skills?.forEach(skill => {
+    const skillWithCount = {
+      ...skill,
+      count: techCounts[skill.id] || 0
+    };
+    
+    const category = skill.category?.toLowerCase();
+    
+    // Map to our category structure
+    if (categorizedSkills.hasOwnProperty(category)) {
+      categorizedSkills[category].push(skillWithCount);
+    } else {
+      // Put in "others" if category not recognized
+      categorizedSkills.others.push(skillWithCount);
+    }
+  });
+
+  // Sort each category by proficiency (if available) or count
+  Object.keys(categorizedSkills).forEach(category => {
+    categorizedSkills[category].sort((a, b) => {
+      // First sort by proficiency if available
+      if (a.proficiency && b.proficiency) {
+        return b.proficiency - a.proficiency;
+      }
+      // Then by project count
+      return b.count - a.count;
+    });
+  });
+
+  // Category configurations
+  const categories = [
+    {
+      id: 'mobile',
+      title: 'Mobile Development',
+      icon: DeviceMobile,
+      gradient: 'from-purple-600/20 via-purple-500/10 to-transparent',
+      borderColor: 'border-purple-500/30',
+      hoverBorder: 'hover:border-purple-500/60',
+      iconColor: 'text-purple-500',
+      skills: categorizedSkills.mobile
+    },
+    {
+      id: 'frontend',
+      title: 'Frontend Development',
+      icon: Globe,
+      gradient: 'from-blue-600/20 via-blue-500/10 to-transparent',
+      borderColor: 'border-blue-500/30',
+      hoverBorder: 'hover:border-blue-500/60',
+      iconColor: 'text-blue-500',
+      skills: categorizedSkills.frontend
+    },
+    {
+      id: 'backend',
+      title: 'Backend Development',
+      icon: Database,
+      gradient: 'from-wine/20 via-wine/10 to-transparent',
+      borderColor: 'border-wine/30',
+      hoverBorder: 'hover:border-wine/60',
+      iconColor: 'text-wine',
+      skills: categorizedSkills.backend
+    },
+    {
+      id: 'tools',
+      title: 'Tools & DevOps',
+      icon: Wrench,
+      gradient: 'from-green-600/20 via-green-500/10 to-transparent',
+      borderColor: 'border-green-500/30',
+      hoverBorder: 'hover:border-green-500/60',
+      iconColor: 'text-green-500',
+      skills: categorizedSkills.tools
+    },
+    {
+      id: 'others',
+      title: 'Other Skills',
+      icon: Question,
+      gradient: 'from-gray-600/20 via-gray-500/10 to-transparent',
+      borderColor: 'border-gray-500/30',
+      hoverBorder: 'hover:border-gray-500/60',
+      iconColor: 'text-gray-400',
+      skills: categorizedSkills.others
+    }
+  ];
 
   /**
    * Get technology icon URL from Simple Icons CDN
-   * Converts technology name to Simple Icons slug format
    */
   const getTechIcon = (techName) => {
-    // Map common technology names to their Simple Icons slugs
     const iconMap = {
       'React': 'react',
       'React.js': 'react',
@@ -59,6 +157,7 @@ const Skills = ({ projects }) => {
       'HTML5': 'html5',
       'CSS': 'css3',
       'CSS3': 'css3',
+      'HTML/CSS': 'html5',
       'Tailwind': 'tailwindcss',
       'Tailwind CSS': 'tailwindcss',
       'Bootstrap': 'bootstrap',
@@ -108,10 +207,11 @@ const Skills = ({ projects }) => {
       'VS Code': 'visualstudiocode',
       'Hive': 'hive',
       'AI Models': 'openai',
+      'MERN Stack': 'mongodb',
     };
 
     const slug = iconMap[techName] || techName.toLowerCase().replace(/\s+/g, '').replace(/\./g, 'dot');
-    return `https://cdn.simpleicons.org/${slug}/9333EA`; // Purple color
+    return `https://cdn.simpleicons.org/${slug}/9333EA`;
   };
 
   return (
@@ -171,59 +271,79 @@ const Skills = ({ projects }) => {
           </div>
         </div>
 
-        {/* Technologies Grid */}
-        <div>
-          <div className="flex items-center gap-3 mb-8">
-            <Code weight="bold" className="text-3xl text-wine" />
-            <h3 className="text-2xl font-bold text-text-bright">Technologies</h3>
-          </div>
-          
-          {sortedTechs.length === 0 ? (
-            <p className="text-text-muted text-center py-12">No technologies found in projects</p>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {sortedTechs.map((tech, index) => (
-                <div 
-                  key={index} 
-                  className="animate-card-3 opacity-0 translate-y-[100px] p-6 rounded-2xl bg-base-tint/30 border border-white/10 hover:border-accent/50 transition-all duration-300 group"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors p-3">
-                      <img 
-                        src={getTechIcon(tech.name)} 
-                        alt={tech.name}
-                        className="w-full h-full object-contain"
-                        onError={(e) => {
-                          // Fallback to generic code icon if image fails to load
-                          e.target.style.display = 'none';
-                          e.target.parentElement.innerHTML = '<svg class="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 256 256"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"></path></svg>';
-                        }}
-                      />
+        {/* Skills by Category */}
+        <div className="space-y-8">
+          {categories.map((category, categoryIndex) => (
+            category.skills.length > 0 && (
+              <div 
+                key={category.id}
+                className={`animate-card-3 opacity-0 translate-y-[100px] relative overflow-hidden rounded-3xl border ${category.borderColor} ${category.hoverBorder} transition-all duration-500 group`}
+                style={{ animationDelay: `${categoryIndex * 100}ms` }}
+              >
+                {/* Gradient Background */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-50 group-hover:opacity-70 transition-opacity duration-500`}></div>
+                
+                {/* Content */}
+                <div className="relative p-8 md:p-10">
+                  {/* Category Header */}
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.gradient} border ${category.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <category.icon weight="bold" className={`text-3xl ${category.iconColor}`} />
                     </div>
-                    <h4 className="text-lg font-bold text-text-bright mb-2">{tech.name}</h4>
-                    <p className="text-accent font-bold text-2xl">{tech.count}</p>
-                    <p className="text-text-muted text-sm">
-                      {tech.count === 1 ? 'project' : 'projects'}
-                    </p>
+                    <div>
+                      <h3 className="text-2xl md:text-3xl font-bold text-text-bright">{category.title}</h3>
+                      <p className="text-text-muted text-sm mt-1">
+                        {category.skills.length} {category.skills.length === 1 ? 'skill' : 'skills'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Skill Cards Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                    {category.skills.map((skill, skillIndex) => (
+                      <div 
+                        key={skillIndex}
+                        className="p-5 rounded-xl bg-base-tint/40 backdrop-blur-sm border border-white/10 hover:border-white/30 hover:bg-base-tint/60 transition-all duration-300 group/card"
+                      >
+                        <div className="flex flex-col items-center text-center">
+                          <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-3 group-hover/card:bg-white/20 transition-colors p-2.5">
+                            <img 
+                              src={getTechIcon(skill.name)} 
+                              alt={skill.name}
+                              className="w-full h-full object-contain"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.parentElement.innerHTML = '<svg class="w-7 h-7 text-accent" fill="currentColor" viewBox="0 0 256 256"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"></path></svg>';
+                              }}
+                            />
+                          </div>
+                          <h4 className="text-base font-bold text-text-bright mb-1.5 leading-tight">{skill.name}</h4>
+                          
+                          {/* Show proficiency if available, otherwise show project count */}
+                          {skill.proficiency ? (
+                            <>
+                              <p className={`${category.iconColor} font-bold text-xl`}>{skill.proficiency}%</p>
+                              <p className="text-text-muted text-xs mt-0.5">proficiency</p>
+                            </>
+                          ) : skill.count > 0 ? (
+                            <>
+                              <p className={`${category.iconColor} font-bold text-xl`}>{skill.count}</p>
+                              <p className="text-text-muted text-xs mt-0.5">
+                                {skill.count === 1 ? 'project' : 'projects'}
+                              </p>
+                            </>
+                          ) : (
+                            <p className="text-text-muted text-xs mt-0.5">—</p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            )
+          ))}
         </div>
-
-        {/* Soft Skills - Commented out for now */}
-        {/* 
-        <div className="mt-20">
-          <div className="flex items-center gap-3 mb-8">
-            <Users weight="bold" className="text-3xl text-accent" />
-            <h3 className="text-2xl font-bold text-text-bright">Soft Skills</h3>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            // Soft skills content here
-          </div>
-        </div>
-        */}
       </div>
     </section>
   );
