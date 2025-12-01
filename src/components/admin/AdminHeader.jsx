@@ -1,14 +1,12 @@
 import { useLocation, Link } from 'react-router-dom';
 import { House, CaretRight, SquaresFour } from '@phosphor-icons/react';
-import { useMobileMenu } from './AdminLayout';
 
 /**
  * Admin Header
  * Top header with breadcrumbs and page title
  */
-const AdminHeader = () => {
+const AdminHeader = ({ toggleMobileMenu }) => {
   const location = useLocation();
-  const { toggleMobileMenu } = useMobileMenu();
 
   /**
    * Generate breadcrumbs from path

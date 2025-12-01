@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { useMobileMenu } from './AdminLayout';
 import { 
   SquaresFour, 
   User, 
@@ -17,9 +16,8 @@ import { useEffect } from 'react';
  * Admin Sidebar Navigation
  * Fixed sidebar with navigation links and logout
  */
-const AdminSidebar = () => {
+const AdminSidebar = ({ isMobileMenuOpen, closeMobileMenu }) => {
   const { logout, user } = useAuth();
-  const { isMobileMenuOpen, closeMobileMenu } = useMobileMenu();
 
   /**
    * Navigation items
