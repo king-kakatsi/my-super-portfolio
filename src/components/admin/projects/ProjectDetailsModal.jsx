@@ -1,5 +1,6 @@
 import { X, Globe, GithubLogo, Calendar, Tag } from '@phosphor-icons/react';
 import Button from '../ui/Button';
+import { useFirestore } from '../../../hooks/useFirestore';
 
 /**
  * Project Details Modal Component
@@ -11,6 +12,17 @@ import Button from '../ui/Button';
  * @param {Object} props.project - Project data
  */
 const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
+  // Fetch skills to resolve IDs to names
+  const { data: skills } = useFirestore('skills');
+  
+  /**
+   * Helper function to resolve skill ID to skill name
+   */
+  const getSkillName = (techId) => {
+    const skill = skills.find(s => s.id === techId || s.name === techId);
+    return skill ? skill.name : techId;
+  };
+  
   if (!isOpen || !project) return null;
 
   // Format date
@@ -100,12 +112,12 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
               <div>
                 <h3 className="text-xl font-semibold text-white mb-3">Technologies Used</h3>
                 <div className="flex flex-wrap gap-3">
-                  {project.technologies.map((tech, index) => (
+                  {project.technologies.map((techId, index) => (
                     <span 
                       key={index}
                       className="px-4 py-2 bg-purple-500/20 text-purple-200 rounded-xl text-sm font-medium border border-purple-500/30 hover:bg-purple-500/30 transition-colors"
                     >
-                      {tech}
+                      {getSkillName(techId)}
                     </span>
                   ))}
                 </div>

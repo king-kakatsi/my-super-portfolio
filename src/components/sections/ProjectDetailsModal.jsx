@@ -1,5 +1,6 @@
 import { X, Globe, GithubLogo, Calendar, Tag } from '@phosphor-icons/react';
 import { useEffect } from 'react';
+import { useFirestore } from '../../hooks/useFirestore';
 
 /**
  * Project Details Modal Component
@@ -11,6 +12,8 @@ import { useEffect } from 'react';
  * @param {Object} props.project - Project data
  */
 const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
+  // Fetch skills to resolve IDs to names
+  const { data: skills } = useFirestore('skills');
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -144,14 +147,20 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
               <div>
                 <h3 className="text-xl font-semibold text-white mb-3">Technologies Used</h3>
                 <div className="flex flex-wrap gap-3">
-                  {project.technologies.map((tech, index) => (
-                    <span 
-                      key={index}
-                      className="px-4 py-2 bg-purple-500/20 text-purple-200 rounded-xl text-sm font-medium border border-purple-500/30 hover:bg-purple-500/30 transition-colors"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  {project.technologies.map((techId, index) => {
+                    // Find skill name from ID (handles both IDs and names for backward compatibility)
+                    const skill = skills.find(s => s.id === techId || s.name === techId);
+                    const displayName = skill ? skill.name : techId;
+                    
+                    return (
+                      <span 
+                        key={index}
+                        className="px-4 py-2 bg-purple-500/20 text-purple-200 rounded-xl text-sm font-medium border border-purple-500/30 hover:bg-purple-500/30 transition-colors"
+                      >
+                        {displayName}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             )}

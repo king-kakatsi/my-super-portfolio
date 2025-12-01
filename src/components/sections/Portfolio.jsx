@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SquaresFour } from '@phosphor-icons/react';
 import ProjectDetailsModal from './ProjectDetailsModal';
+import { useFirestore } from '../../hooks/useFirestore';
 
 /**
  * Portfolio Section
@@ -10,6 +11,18 @@ import ProjectDetailsModal from './ProjectDetailsModal';
 const Portfolio = ({ projects: projectsProp }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Fetch skills to resolve IDs to names
+  const { data: skills } = useFirestore('skills');
+  
+  /**
+   * Helper function to resolve skill ID to skill name
+   * Handles both IDs and names for backward compatibility
+   */
+  const getSkillName = (techId) => {
+    const skill = skills.find(s => s.id === techId || s.name === techId);
+    return skill ? skill.name : techId;
+  };
 
   const handleProjectClick = (project) => {
     setSelectedProject(project);
@@ -81,9 +94,9 @@ const Portfolio = ({ projects: projectsProp }) => {
               <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 will-change-transform">
                 {/* Technology tags */}
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {project.technologies?.map((tag, i) => (
+                  {project.technologies?.map((techId, i) => (
                     <span key={i} className="px-3 py-1 rounded-full bg-base/90 backdrop-blur-sm text-sm font-medium text-white border border-white/20">
-                      {tag}
+                      {getSkillName(techId)}
                     </span>
                   ))}
                 </div>

@@ -8,6 +8,7 @@ import ProjectsList from '../components/admin/projects/ProjectsList';
 import SkillsManager from '../components/admin/skills/SkillsManager';
 import ResumeEditor from '../components/admin/resume/ResumeEditor';
 import MessagesList from '../components/admin/messages/MessagesList';
+import DatabaseUtilities from '../components/admin/utilities/DatabaseUtilities';
 
 /**
  * Admin Page Router
@@ -35,6 +36,7 @@ const AdminPage = () => {
         <Route path="skills" element={<SkillsManager />} />
         <Route path="resume" element={<ResumeEditor />} />
         <Route path="messages" element={<MessagesList />} />
+        <Route path="utilities" element={<DatabaseUtilities />} />
       </Route>
     </Routes>
   );

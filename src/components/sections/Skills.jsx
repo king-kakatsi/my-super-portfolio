@@ -10,12 +10,24 @@ const Skills = ({ projects, skills }) => {
   const webProjects = projects?.filter(p => p.category?.toUpperCase() === 'WEB')?.length || 0;
   const mobileProjects = projects?.filter(p => p.category?.toUpperCase() === 'MOBILE')?.length || 0;
 
-  // Count projects by technology - using real data from projects
+  // Create skill ID to skill object mapping for efficient lookups
+  const skillIdToSkill = {};
+  const skillNameToSkill = {};
+  skills?.forEach(skill => {
+    skillIdToSkill[skill.id] = skill;
+    skillNameToSkill[skill.name] = skill;
+  });
+
+  // Count projects by technology (handles both IDs and names for backward compatibility)
   const techCounts = {};
   projects?.forEach(project => {
     if (project.technologies && Array.isArray(project.technologies)) {
       project.technologies.forEach(tech => {
-        techCounts[tech] = (techCounts[tech] || 0) + 1;
+        // Check if tech is an ID or a name
+        const skill = skillIdToSkill[tech] || skillNameToSkill[tech];
+        if (skill) {
+          techCounts[skill.id] = (techCounts[skill.id] || 0) + 1;
+        }
       });
     }
   });
@@ -33,7 +45,7 @@ const Skills = ({ projects, skills }) => {
   skills?.forEach(skill => {
     const skillWithCount = {
       ...skill,
-      count: techCounts[skill.name] || 0
+      count: techCounts[skill.id] || 0
     };
     
     const category = skill.category?.toLowerCase();

@@ -4,6 +4,7 @@ import { useFileUpload } from '../../../hooks/useFileUpload';
 import toast from 'react-hot-toast';
 import { FloppyDisk, Plus, X } from '@phosphor-icons/react';
 import Input from '../ui/Input';
+import Textarea from '../ui/Textarea';
 import Select from '../ui/Select';
 import Button from '../ui/Button';
 import FileUpload from '../ui/FileUpload';
@@ -71,14 +72,14 @@ const ProjectForm = ({ project, onClose }) => {
   };
 
   /**
-   * Handle technology selection
+   * Handle technology selection (stores skill ID)
    */
   const handleTechAdd = (e) => {
-    const tech = e.target.value;
-    if (tech && !formData.technologies.includes(tech)) {
+    const skillId = e.target.value;
+    if (skillId && !formData.technologies.includes(skillId)) {
       setFormData({
         ...formData,
-        technologies: [...formData.technologies, tech]
+        technologies: [...formData.technologies, skillId]
       });
     }
   };
@@ -168,9 +169,9 @@ const ProjectForm = ({ project, onClose }) => {
               >
                 <option value="" disabled>Select a technology to add...</option>
                 {skills
-                  .filter(skill => !formData.technologies.includes(skill.name))
+                  .filter(skill => !formData.technologies.includes(skill.id))
                   .map(skill => (
-                    <option key={skill.id} value={skill.name}>
+                    <option key={skill.id} value={skill.id}>
                       {skill.name}
                     </option>
                   ))
@@ -185,21 +186,27 @@ const ProjectForm = ({ project, onClose }) => {
               {formData.technologies.length === 0 && (
                 <span className="text-text-muted text-sm italic p-1">No technologies selected</span>
               )}
-              {formData.technologies.map((tech, index) => (
-                <span 
-                  key={index}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
-                >
-                  {tech}
-                  <button
-                    type="button"
-                    onClick={() => handleTechRemove(tech)}
-                    className="hover:text-white transition-colors"
+              {formData.technologies.map((techId, index) => {
+                // Find skill name from ID (handles both IDs and names for backward compatibility)
+                const skill = skills.find(s => s.id === techId || s.name === techId);
+                const displayName = skill ? skill.name : techId;
+                
+                return (
+                  <span 
+                    key={index}
+                    className="inline-flex items-center gap-1 px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
                   >
-                    <X size={14} weight="bold" />
-                  </button>
-                </span>
-              ))}
+                    {displayName}
+                    <button
+                      type="button"
+                      onClick={() => handleTechRemove(techId)}
+                      className="hover:text-white transition-colors"
+                    >
+                      <X size={14} weight="bold" />
+                    </button>
+                  </span>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -183,6 +183,90 @@ const DatabaseUtilities = () => {
     }
   };
 
+  /**
+   * Migrate projects to use skill IDs instead of skill names
+   * Converts technologies array from ['React', 'Node.js'] to ['skillId1', 'skillId2']
+   */
+  const migrateProjectsToSkillIds = async () => {
+    setLoading(true);
+    try {
+      // Step 1: Fetch all skills and create name-to-ID mapping
+      const skillsRef = collection(db, 'skills');
+      const skillsSnapshot = await getDocs(skillsRef);
+      
+      const skillNameToId = {};
+      skillsSnapshot.docs.forEach(doc => {
+        const skill = doc.data();
+        skillNameToId[skill.name] = doc.id;
+      });
+
+      console.log('Skill mapping created:', skillNameToId);
+
+      // Step 2: Fetch all projects
+      const projectsRef = collection(db, 'projects');
+      const projectsSnapshot = await getDocs(projectsRef);
+      
+      let updated = 0;
+      let skipped = 0;
+      const missingSkills = new Set();
+
+      // Step 3: Update each project
+      for (const docSnapshot of projectsSnapshot.docs) {
+        const project = docSnapshot.data();
+        
+        // Check if technologies exist and are strings (not already IDs)
+        if (project.technologies && Array.isArray(project.technologies)) {
+          // Check if already migrated (technologies are IDs, not names)
+          const firstTech = project.technologies[0];
+          const isAlreadyMigrated = firstTech && skillsSnapshot.docs.some(doc => doc.id === firstTech);
+          
+          if (isAlreadyMigrated) {
+            console.log(`Project "${project.name}" already migrated, skipping...`);
+            skipped++;
+            continue;
+          }
+
+          // Convert skill names to IDs
+          const technologyIds = [];
+          project.technologies.forEach(techName => {
+            const skillId = skillNameToId[techName];
+            if (skillId) {
+              technologyIds.push(skillId);
+            } else {
+              console.warn(`Skill "${techName}" not found in database`);
+              missingSkills.add(techName);
+            }
+          });
+
+          // Update project with skill IDs
+          await updateDoc(doc(db, 'projects', docSnapshot.id), {
+            technologies: technologyIds
+          });
+          
+          console.log(`Updated project "${project.name}": ${project.technologies.join(', ')} -> ${technologyIds.length} IDs`);
+          updated++;
+        }
+      }
+
+      // Report results
+      let message = `✅ Migration complete! Updated ${updated} projects`;
+      if (skipped > 0) {
+        message += `, skipped ${skipped} already migrated`;
+      }
+      if (missingSkills.size > 0) {
+        message += `\n⚠️ Missing skills: ${Array.from(missingSkills).join(', ')}`;
+        console.warn('Missing skills:', Array.from(missingSkills));
+      }
+      
+      toast.success(message);
+    } catch (error) {
+      console.error('Error migrating projects:', error);
+      toast.error('Failed to migrate projects to skill IDs');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const populateAll = async () => {
     setLoading(true);
     try {
@@ -236,6 +320,15 @@ const DatabaseUtilities = () => {
               icon={<CheckCircle weight="bold" />}
             >
               Update Project Categories
+            </Button>
+
+            <Button
+              variant="danger"
+              onClick={migrateProjectsToSkillIds}
+              loading={loading}
+              icon={<Database weight="bold" />}
+            >
+              Migrate Projects to Skill IDs
             </Button>
 
             <Button
