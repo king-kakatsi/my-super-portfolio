@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow admin pages from search engines
+Disallow: /admin/
+Disallow: /admin/*
+
+# Sitemap
+Sitemap: https://leroikakatsi.netlify.app/sitemap.xml
