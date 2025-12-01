@@ -1,4 +1,4 @@
-import { House, SquaresFour, User, Article, Envelope, ChatDots, Sun, Moon, Translate, Code, X } from '@phosphor-icons/react';
+import { House, SquaresFour, User, Article, Envelope, ChatDots, Sun, Moon, Translate, Code } from '@phosphor-icons/react';
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -84,18 +84,8 @@ const Header = () => {
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         {/* Mobile Menu Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10">
+        <div className="p-6 border-b border-white/10">
           <h2 className="text-2xl font-bold gradient-text">Menu</h2>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              closeMobileMenu();
-            }}
-            className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-            aria-label="Close menu"
-          >
-            <X size={24} className="text-text-bright" />
-          </button>
         </div>
 
         {/* Mobile Navigation */}
