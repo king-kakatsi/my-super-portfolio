@@ -72,13 +72,18 @@ const Hero = ({ profile }) => {
               <SquaresFour weight="bold" className="text-xl group-hover:text-accent transition-colors" />
             </a>
 
-            <a 
-              href="#" 
-              className="group flex items-center justify-between px-8 py-4 rounded-xl bg-transparent border border-white/10 text-text-bright hover:border-white/30 transition-all duration-300 w-full sm:w-auto min-w-[200px]"
-            >
-              <span className="font-bold">Download CV</span>
-              <DownloadSimple weight="bold" className="text-xl group-hover:text-white transition-colors" />
-            </a>
+            {profile.cvUrl && (
+              <a 
+                href={profile.cvUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="group flex items-center justify-between px-8 py-4 rounded-xl bg-transparent border border-white/10 text-text-bright hover:border-white/30 transition-all duration-300 w-full sm:w-auto min-w-[200px]"
+              >
+                <span className="font-bold">Download CV</span>
+                <DownloadSimple weight="bold" className="text-xl group-hover:text-white transition-colors" />
+              </a>
+            )}
           </div>
         </div>
 

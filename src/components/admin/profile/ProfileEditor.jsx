@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../services/firebase';
+import { useFileUpload } from '../../../hooks/useFileUpload';
 import toast from 'react-hot-toast';
 import { FloppyDisk } from '@phosphor-icons/react';
 import Card from '../ui/Card';
@@ -8,6 +9,7 @@ import Input from '../ui/Input';
 import Textarea from '../ui/Textarea';
 import Button from '../ui/Button';
 import AvatarUploader from './AvatarUploader';
+import FileUpload from '../ui/FileUpload';
 
 /**
  * Profile Editor Component
@@ -16,6 +18,7 @@ import AvatarUploader from './AvatarUploader';
 const ProfileEditor = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const { upload, uploading } = useFileUpload('cv');
   const [formData, setFormData] = useState({
     name: '',
     title: '',
@@ -24,6 +27,7 @@ const ProfileEditor = () => {
     location: '',
     bio: '',
     avatar: '',
+    cvUrl: '',
     social: {
       github: '',
       linkedin: '',
@@ -85,6 +89,23 @@ const ProfileEditor = () => {
       ...formData,
       avatar: url
     });
+  };
+
+  /**
+   * Handle CV upload
+   */
+  const handleCVUpload = async (file) => {
+    try {
+      const url = await upload(file);
+      setFormData({
+        ...formData,
+        cvUrl: url
+      });
+      toast.success('CV uploaded successfully!');
+    } catch (error) {
+      console.error('CV upload error:', error);
+      toast.error('Failed to upload CV');
+    }
   };
 
   /**
@@ -242,6 +263,39 @@ const ProfileEditor = () => {
               onChange={handleChange}
               placeholder="https://twitter.com/username"
             />
+          </div>
+        </Card.Body>
+      </Card>
+
+      {/* CV Upload */}
+      <Card>
+        <Card.Header>
+          <h3 className="text-xl font-bold text-text-bright">
+            Resume/CV
+          </h3>
+        </Card.Header>
+        <Card.Body>
+          <div>
+            <label className="block text-text-medium font-medium mb-3">
+              Upload CV (PDF)
+            </label>
+            <FileUpload
+              onUpload={handleCVUpload}
+              accept=".pdf,application/pdf"
+              currentUrl={formData.cvUrl}
+            />
+            {formData.cvUrl && (
+              <div className="mt-4">
+                <a
+                  href={formData.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:text-accent/80 transition-colors text-sm"
+                >
+                  View Current CV →
+                </a>
+              </div>
+            )}
           </div>
         </Card.Body>
       </Card>
