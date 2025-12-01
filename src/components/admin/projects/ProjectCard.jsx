@@ -1,4 +1,4 @@
-import { Pencil, Trash, GithubLogo, Globe } from '@phosphor-icons/react';
+import { Pencil, Trash, GithubLogo, Globe, Eye } from '@phosphor-icons/react';
 import Card from '../ui/Card';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
@@ -11,9 +11,10 @@ import Button from '../ui/Button';
  * @param {Object} props.project - Project data
  * @param {Function} props.onEdit - Edit handler
  * @param {Function} props.onDelete - Delete handler
+ * @param {Function} props.onViewDetails - View details handler
  * @param {string} props.viewMode - 'grid' or 'list'
  */
-const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
+const ProjectCard = ({ project, onEdit, onDelete, onViewDetails, viewMode = 'grid' }) => {
   if (viewMode === 'list') {
     return (
       <Card>
@@ -77,7 +78,7 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
 
   // Grid view
   return (
-    <Card className="group hover:border-accent/50 transition-all duration-300">
+    <Card className="group hover:border-accent/50 transition-all duration-300 cursor-pointer" onClick={onViewDetails}>
       {/* Thumbnail */}
       {project.imageUrl && (
         <div className="aspect-video overflow-hidden">
@@ -147,10 +148,25 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
       {/* Actions */}
       <Card.Footer className="flex items-center gap-2">
         <Button
+          variant="secondary"
+          size="lg"
+          icon={<Eye weight="bold" />}
+          onClick={(e) => {
+            e.stopPropagation();
+            onViewDetails();
+          }}
+          className="flex-1"
+        >
+          View
+        </Button>
+        <Button
           variant="ghost"
           size="lg"
           icon={<Pencil weight="bold" />}
-          onClick={onEdit}
+          onClick={(e) => {
+            e.stopPropagation();
+            onEdit();
+          }}
           className="flex-1"
         >
           Edit
@@ -159,7 +175,10 @@ const ProjectCard = ({ project, onEdit, onDelete, viewMode = 'grid' }) => {
           variant="danger"
           size="lg"
           icon={<Trash weight="bold" />}
-          onClick={onDelete}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
           className="flex-1"
         >
           Delete

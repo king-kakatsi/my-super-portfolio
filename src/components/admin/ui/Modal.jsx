@@ -39,13 +39,33 @@ const Modal = ({
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Lock body scroll
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      // Cleanup on unmount
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
     };
   }, [isOpen]);
 
@@ -53,14 +73,16 @@ const Modal = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto"
       onClick={onClose}
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
     >
       <div 
         className={`
           relative w-full ${sizes[size]} 
           bg-base border border-white/10 rounded-2xl 
-          shadow-2xl shadow-accent/20
+          shadow-2xl shadow-accent/20 my-8
           ${className}
         `}
         onClick={(e) => e.stopPropagation()}

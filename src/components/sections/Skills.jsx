@@ -108,7 +108,6 @@ const Skills = ({ projects }) => {
       'VS Code': 'visualstudiocode',
       'Hive': 'hive',
       'AI Models': 'openai',
-      'Laravel': 'laravel',
     };
 
     const slug = iconMap[techName] || techName.toLowerCase().replace(/\s+/g, '').replace(/\./g, 'dot');
@@ -118,7 +117,7 @@ const Skills = ({ projects }) => {
   return (
     <section id="skills" className="py-20 md:py-32 relative">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10 pointer-events-none"></div>
+      <div className="absolute inset-0 pointer-events-none"></div>
       
       <div className="relative z-10">
         {/* Section Title */}
@@ -139,7 +138,7 @@ const Skills = ({ projects }) => {
             <h3 className="text-2xl font-bold text-text-bright">Project Statistics</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 bg-gray-800 p-10 rounded-lg">
             {/* Total Projects */}
             <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 hover:border-accent/50 transition-all duration-300 group">
               <p className="text-5xl md:text-6xl font-bold text-wine mb-2 group-hover:scale-110 transition-transform origin-left">

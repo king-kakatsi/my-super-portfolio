@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { SquaresFour } from '@phosphor-icons/react';
+import ProjectDetailsModal from './ProjectDetailsModal';
 
 /**
  * Portfolio Section
@@ -6,6 +8,18 @@ import { SquaresFour } from '@phosphor-icons/react';
  * Cards feature improved borders and backgrounds for better visual hierarchy
  */
 const Portfolio = ({ projects: projectsProp }) => {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
   // Fallback data for when Firestore data is not available
   const fallbackProjects = [
     {
@@ -45,7 +59,8 @@ const Portfolio = ({ projects: projectsProp }) => {
         {projects.map((project, index) => (
           <div 
             key={project.id}
-            className={`group relative rounded-3xl overflow-hidden bg-base-tint/50 border border-white/10 hover:border-accent/50 transition-all duration-500 will-change-transform hover:shadow-lg hover:shadow-accent/10 ${
+            onClick={() => handleProjectClick(project)}
+            className={`group relative rounded-3xl overflow-hidden bg-base-tint/50 border border-white/10 hover:border-accent/50 transition-all duration-500 will-change-transform hover:shadow-lg hover:shadow-accent/10 cursor-pointer ${
               index % 2 === 1 ? 'md:translate-y-16' : ''
             }`}
           >
@@ -81,34 +96,30 @@ const Portfolio = ({ projects: projectsProp }) => {
                   {project.description}
                 </p>
 
-                {/* Action Buttons */}
-                <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                  {project.liveUrl && (
-                    <a 
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-6 py-2 rounded-full bg-purple-800 text-white font-medium hover:bg-purple-900 transition-colors"
-                    >
-                      Visit
-                    </a>
-                  )}
-                  {project.sourceUrl && (
-                    <a 
-                      href={project.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-6 py-2 rounded-full border border-purple-800 text-white font-medium hover:bg-purple-800 transition-colors"
-                    >
-                      View Code
-                    </a>
-                  )}
+                {/* View Details Button */}
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleProjectClick(project);
+                    }}
+                    className="px-6 py-2 rounded-full bg-purple-600 text-white font-medium hover:bg-purple-700 transition-colors shadow-lg shadow-purple-600/30"
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Project Details Modal */}
+      <ProjectDetailsModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        project={selectedProject}
+      />
     </section>
   );
 };

@@ -6,6 +6,7 @@ import Button from '../ui/Button';
 import ProjectCard from './ProjectCard';
 import ProjectForm from './ProjectForm';
 import Modal from '../ui/Modal';
+import ProjectDetailsModal from './ProjectDetailsModal';
 
 /**
  * Projects List Component
@@ -20,6 +21,8 @@ const ProjectsList = () => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   /**
    * Handle add new project
@@ -56,6 +59,22 @@ const ProjectsList = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     setEditingProject(null);
+  };
+
+  /**
+   * Handle view project details
+   */
+  const handleViewDetails = (project) => {
+    setSelectedProject(project);
+    setIsDetailsModalOpen(true);
+  };
+
+  /**
+   * Handle details modal close
+   */
+  const handleDetailsModalClose = () => {
+    setIsDetailsModalOpen(false);
+    setSelectedProject(null);
   };
 
   if (loading) {
@@ -149,6 +168,7 @@ const ProjectsList = () => {
               project={project}
               onEdit={() => handleEdit(project)}
               onDelete={() => handleDelete(project.id)}
+              onViewDetails={() => handleViewDetails(project)}
               viewMode={viewMode}
             />
           ))}
@@ -171,8 +191,16 @@ const ProjectsList = () => {
           />
         </Modal.Body>
       </Modal>
+
+      {/* Project Details Modal */}
+      <ProjectDetailsModal
+        isOpen={isDetailsModalOpen}
+        onClose={handleDetailsModalClose}
+        project={selectedProject}
+      />
     </div>
   );
 };
 
 export default ProjectsList;
+

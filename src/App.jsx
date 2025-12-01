@@ -51,12 +51,13 @@ function App() {
                 {/* Header (Navigation) */}
                 <Header />
 
-                {/* Sidebar (Avatar & Info) */}
-                <Sidebar profile={data.profile} />
-
                 {/* Main Content Area */}
                 <main className="relative z-10 lg:ml-[300px] xl:ml-[350px] px-6 md:px-12 lg:px-20 overflow-hidden">
                   <Hero profile={data.profile} />
+
+                  {/* Sidebar (Avatar & Info) */}
+                  <Sidebar profile={data.profile} />
+                  
                   <About about={data.about} skills={data.skills} />
                   <Portfolio projects={data.projects} />
                   <Skills projects={data.projects} />
