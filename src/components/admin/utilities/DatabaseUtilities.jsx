@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../../services/firebase';
 import toast from 'react-hot-toast';
 import { Database, CheckCircle } from '@phosphor-icons/react';
@@ -27,6 +27,8 @@ const DatabaseUtilities = () => {
     { name: 'Python', category: 'backend', proficiency: 80 },
     { name: 'REST API', category: 'backend', proficiency: 90 },
     { name: 'Firebase', category: 'backend', proficiency: 85 },
+    { name: 'MongoDB', category: 'backend', proficiency: 80 },
+    { name: 'Express', category: 'backend', proficiency: 80 },
     
     // Mobile
     { name: 'Flutter', category: 'mobile', proficiency: 85 },
@@ -267,6 +269,120 @@ const DatabaseUtilities = () => {
     }
   };
 
+  /**
+   * Break down MERN Stack into individual skills
+   * Replaces "MERN Stack" with MongoDB, Express, React, Node.js in projects
+   */
+  const breakdownMernStack = async () => {
+    setLoading(true);
+    try {
+      // Step 1: Fetch all skills
+      const skillsRef = collection(db, 'skills');
+      const skillsSnapshot = await getDocs(skillsRef);
+      
+      // Find MERN Stack skill and individual component skills
+      let mernSkill = null;
+      const componentSkills = {
+        mongodb: null,
+        express: null,
+        react: null,
+        nodejs: null
+      };
+      
+      skillsSnapshot.docs.forEach(doc => {
+        const skill = doc.data();
+        const skillName = skill.name.toLowerCase();
+        
+        if (skillName === 'mern stack' || skillName === 'mern') {
+          mernSkill = { id: doc.id, ...skill };
+        } else if (skillName === 'mongodb') {
+          componentSkills.mongodb = doc.id;
+        } else if (skillName === 'express' || skillName === 'express.js') {
+          componentSkills.express = doc.id;
+        } else if (skillName === 'react' || skillName === 'react.js') {
+          componentSkills.react = doc.id;
+        } else if (skillName === 'node.js' || skillName === 'node') {
+          componentSkills.nodejs = doc.id;
+        }
+      });
+
+      if (!mernSkill) {
+        toast.success('No MERN Stack skill found in database');
+        setLoading(false);
+        return;
+      }
+
+      // Check if all component skills exist
+      const missingSkills = [];
+      if (!componentSkills.mongodb) missingSkills.push('MongoDB');
+      if (!componentSkills.express) missingSkills.push('Express');
+      if (!componentSkills.react) missingSkills.push('React');
+      if (!componentSkills.nodejs) missingSkills.push('Node.js');
+
+      if (missingSkills.length > 0) {
+        toast.error(`Missing component skills: ${missingSkills.join(', ')}. Please add them first.`);
+        setLoading(false);
+        return;
+      }
+
+      // Step 2: Find and update projects using MERN Stack
+      const projectsRef = collection(db, 'projects');
+      const projectsSnapshot = await getDocs(projectsRef);
+      
+      let updatedProjects = 0;
+      const componentIds = Object.values(componentSkills).filter(Boolean);
+
+      for (const docSnapshot of projectsSnapshot.docs) {
+        const project = docSnapshot.data();
+        
+        if (project.technologies && Array.isArray(project.technologies)) {
+          // Check if project uses MERN (by ID or name)
+          const usesMern = project.technologies.some(tech => 
+            tech === mernSkill.id || 
+            tech === 'MERN Stack' || 
+            tech === 'MERN'
+          );
+
+          if (usesMern) {
+            // Remove MERN and add individual components (avoid duplicates)
+            const newTechnologies = project.technologies
+              .filter(tech => 
+                tech !== mernSkill.id && 
+                tech !== 'MERN Stack' && 
+                tech !== 'MERN'
+              );
+            
+            // Add component skills if not already present
+            componentIds.forEach(skillId => {
+              if (!newTechnologies.includes(skillId)) {
+                newTechnologies.push(skillId);
+              }
+            });
+
+            // Update project
+            await updateDoc(doc(db, 'projects', docSnapshot.id), {
+              technologies: newTechnologies
+            });
+
+            console.log(`Updated project "${project.name}": Replaced MERN with individual components`);
+            updatedProjects++;
+          }
+        }
+      }
+
+      // Step 3: Delete MERN Stack skill from database
+      await deleteDoc(doc(db, 'skills', mernSkill.id));
+      console.log('Deleted MERN Stack skill from database');
+
+      toast.success(`✅ Breakdown complete! Updated ${updatedProjects} projects and removed MERN Stack skill`);
+    } catch (error) {
+      console.error('Error breaking down MERN stack:', error);
+      toast.error('Failed to breakdown MERN stack');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const populateAll = async () => {
     setLoading(true);
     try {
@@ -329,6 +445,15 @@ const DatabaseUtilities = () => {
               icon={<Database weight="bold" />}
             >
               Migrate Projects to Skill IDs
+            </Button>
+
+            <Button
+              variant="danger"
+              onClick={breakdownMernStack}
+              loading={loading}
+              icon={<Database weight="bold" />}
+            >
+              Breakdown MERN Stack
             </Button>
 
             <Button
