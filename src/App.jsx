@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useLenis } from './hooks/useLenis';
 import { useTorchEffect } from './hooks/useTorchEffect';
 import { useAnimations } from './hooks/useAnimations';
@@ -14,7 +14,17 @@ import Resume from './components/sections/Resume';
 import Contact from './components/sections/Contact';
 import { LanguageProvider } from './context/LanguageContext';
 import { usePortfolioData } from './hooks/usePortfolioData';
-import AdminPage from './pages/AdminPage';
+
+// Admin Imports
+import LoginForm from './components/auth/LoginForm';
+import ProtectedRoute from './components/admin/ProtectedRoute';
+import AdminLayout from './components/admin/AdminLayout';
+import DashboardOverview from './components/admin/dashboard/DashboardOverview';
+import ProfileEditor from './components/admin/profile/ProfileEditor';
+import ProjectsList from './components/admin/projects/ProjectsList';
+import SkillsManager from './components/admin/skills/SkillsManager';
+import ResumeEditor from './components/admin/resume/ResumeEditor';
+import MessagesList from './components/admin/messages/MessagesList';
 
 function App() {
   // Initialize Lenis smooth scroll
@@ -31,8 +41,24 @@ function App() {
 
   return (
     <Routes>
-      {/* Admin Routes */}
-      <Route path="/admin/*" element={<AdminPage />} />
+      {/* Admin Login */}
+      <Route path="/admin/login" element={<LoginForm />} />
+
+      {/* Protected Admin Routes */}
+      <Route path="/admin" element={
+        <ProtectedRoute>
+          <AdminLayout />
+        </ProtectedRoute>
+      }>
+        <Route index element={<Navigate to="dashboard" replace />} />
+        <Route path="dashboard" element={<DashboardOverview />} />
+        <Route path="profile" element={<ProfileEditor />} />
+        <Route path="projects" element={<ProjectsList />} />
+        <Route path="skills" element={<SkillsManager />} />
+        <Route path="resume" element={<ResumeEditor />} />
+        <Route path="messages" element={<MessagesList />} />
+        <Route path="*" element={<Navigate to="dashboard" replace />} />
+      </Route>
 
       {/* Main Portfolio Route */}
       <Route
@@ -51,12 +77,13 @@ function App() {
                 {/* Header (Navigation) */}
                 <Header />
 
-                {/* Sidebar (Avatar & Info) */}
-                <Sidebar profile={data.profile} />
-
                 {/* Main Content Area */}
                 <main className="relative z-10 lg:ml-[300px] xl:ml-[350px] px-6 md:px-12 lg:px-20 overflow-hidden">
                   <Hero profile={data.profile} />
+
+                  {/* Sidebar (Avatar & Info) */}
+                  <Sidebar profile={data.profile} />
+                  
                   <About about={data.about} skills={data.skills} />
                   <Portfolio projects={data.projects} />
                   <Skills projects={data.projects} />

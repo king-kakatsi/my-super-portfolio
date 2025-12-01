@@ -8,9 +8,9 @@ const About = ({ about: aboutProp, skills }) => {
   // Fallback data if Firestore data is missing
   const fallbackAbout = {
     stats: [
-      { number: '10+', label: 'Happy clients' },
+      { number: '5+', label: 'Happy clients' },
       { number: '3+', label: 'Years of experience' },
-      { number: '15+', label: 'Projects completed' }
+      { number: '20+', label: 'Projects completed' }
     ],
     bio: {
       headline: "Turning complex problems into simple design",

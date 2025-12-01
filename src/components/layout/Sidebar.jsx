@@ -10,17 +10,10 @@ const Sidebar = ({ profile }) => {
   if (!profile) return null;
 
   return (
-    <aside className="fixed top-0 left-0 h-full w-[300px] xl:w-[350px] hidden lg:flex flex-col justify-between p-12 bg-base border-r border-white/5 z-40">
+    <aside className="lg:fixed top-0 mt-10 lg:mt-40 rounded-lg mx-auto pt-10 lg:left-0 h-full w-full lg:w-[300px] xl:w-[350px] lg:flex flex-col pb-12 px-10 bg-purple-800/20 border-r border-white/5 z-40">
       
       {/* Top Content */}
       <div>
-        {/* Logo */}
-        <div className="mb-12">
-          <a href="#" className="text-2xl font-bold tracking-tighter">
-            <span className="text-white">King</span>
-            <span className="text-wine">.</span>
-          </a>
-        </div>
 
         {/* Avatar Block */}
         <div className="mb-12 group">
@@ -48,7 +41,7 @@ const Sidebar = ({ profile }) => {
       </div>
 
       {/* Social Links */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 mt-10">
         {profile.socials?.filter(s => s.platform.toLowerCase() !== 'web' && s.platform.toLowerCase() !== 'website').map((social, index) => (
           <a 
             key={index}
