@@ -87,7 +87,10 @@ const Header = () => {
         <div className="flex items-center justify-between p-6 border-b border-white/10">
           <h2 className="text-2xl font-bold gradient-text">Menu</h2>
           <button
-            onClick={closeMobileMenu}
+            onClick={(e) => {
+              e.stopPropagation();
+              closeMobileMenu();
+            }}
             className="p-2 rounded-lg hover:bg-white/10 transition-colors"
             aria-label="Close menu"
           >
