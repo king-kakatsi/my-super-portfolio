@@ -1,14 +1,10 @@
 import { ChartBar, Code, DeviceMobile, Globe, Database, Wrench, Question, Stack, Cloud, Table, Users, HardDrives } from '@phosphor-icons/react';
-import { useFirestore } from '../../hooks/useFirestore';
 
 /**
  * Skills Section
  * Displays project statistics and skills organized by category from database
  */
 const Skills = ({ projects, skills }) => {
-  // Fetch categories from Firestore
-  const { data: categoriesData } = useFirestore('categories');
-
   // Calculate project statistics from real data
   const totalProjects = projects?.length || 0;
   const webProjects = projects?.filter(p => p.category?.toUpperCase() === 'WEB')?.length || 0;
@@ -37,12 +33,18 @@ const Skills = ({ projects, skills }) => {
   });
 
   // Categorize skills based on their category field from database
-  const categorizedSkills = {};
-  
-  // Initialize categories from Firestore data
-  categoriesData?.forEach(cat => {
-    categorizedSkills[cat.id] = [];
-  });
+  const categorizedSkills = {
+    mobile: [],
+    frontend: [],
+    backend: [],
+    fullstack: [],
+    database: [],
+    infrastructure: [],
+    orm: [],
+    tools: [],
+    soft: [],
+    others: []
+  };
 
   // Group skills by their category and add project counts
   skills?.forEach(skill => {
@@ -51,16 +53,13 @@ const Skills = ({ projects, skills }) => {
       count: techCounts[skill.id] || 0
     };
     
-    const categoryId = skill.category;
+    const category = skill.category?.toLowerCase();
     
     // Map to our category structure
-    if (categorizedSkills.hasOwnProperty(categoryId)) {
-      categorizedSkills[categoryId].push(skillWithCount);
+    if (categorizedSkills.hasOwnProperty(category)) {
+      categorizedSkills[category].push(skillWithCount);
     } else {
       // Put in "others" if category not recognized
-      if (!categorizedSkills.others) {
-        categorizedSkills.others = [];
-      }
       categorizedSkills.others.push(skillWithCount);
     }
   });
@@ -77,45 +76,109 @@ const Skills = ({ projects, skills }) => {
     });
   });
 
-  // Icon mapping
-  const iconMap = {
-    'DeviceMobile': DeviceMobile,
-    'Globe': Globe,
-    'HardDrives': HardDrives,
-    'Stack': Stack,
-    'Database': Database,
-    'Cloud': Cloud,
-    'Table': Table,
-    'Wrench': Wrench,
-    'Users': Users,
-    'Question': Question
-  };
-
-  // Build categories from Firestore data
-  const categories = categoriesData?.map(cat => ({
-    id: cat.id,
-    title: cat.name === 'Mobile' ? 'Mobile Development' :
-           cat.name === 'Frontend' ? 'Frontend Development' :
-           cat.name === 'Backend' ? 'Backend Development' :
-           cat.name === 'Fullstack' ? 'Fullstack Development' :
-           cat.name === 'Database' ? 'Databases' :
-           cat.name === 'Infrastructure' ? 'Infrastructure & Cloud' :
-           cat.name === 'ORM' ? 'ORM & Data Access' :
-           cat.name === 'Tools' ? 'Tools & DevOps' :
-           cat.name === 'Soft Skills' ? 'Soft Skills' :
-           cat.name === 'Others' ? 'Other Skills' : cat.name,
-    icon: iconMap[cat.icon] || Question,
-    gradient: cat.gradient || 'from-gray-600/20 via-gray-500/10 to-transparent',
-    borderColor: cat.borderColor || 'border-gray-500/30',
-    hoverBorder: cat.borderColor?.replace('border-', 'hover:border-').replace('/30', '/60') || 'hover:border-gray-500/60',
-    iconColor: `text-${cat.color}-500` || 'text-gray-400',
-    skills: categorizedSkills[cat.id] || []
-  })).sort((a, b) => {
-    // Sort by order if available
-    const orderA = categoriesData.find(c => c.id === a.id)?.order || 999;
-    const orderB = categoriesData.find(c => c.id === b.id)?.order || 999;
-    return orderA - orderB;
-  }) || [];
+  // Category configurations
+  const categories = [
+    {
+      id: 'mobile',
+      title: 'Mobile Development',
+      icon: DeviceMobile,
+      gradient: 'from-purple-600/20 via-purple-500/10 to-transparent',
+      borderColor: 'border-purple-500/30',
+      hoverBorder: 'hover:border-purple-500/60',
+      iconColor: 'text-purple-500',
+      skills: categorizedSkills.mobile
+    },
+    {
+      id: 'frontend',
+      title: 'Frontend Development',
+      icon: Globe,
+      gradient: 'from-blue-600/20 via-blue-500/10 to-transparent',
+      borderColor: 'border-blue-500/30',
+      hoverBorder: 'hover:border-blue-500/60',
+      iconColor: 'text-blue-500',
+      skills: categorizedSkills.frontend
+    },
+    {
+      id: 'backend',
+      title: 'Backend Development',
+      icon: HardDrives,
+      gradient: 'from-wine/20 via-wine/10 to-transparent',
+      borderColor: 'border-wine/30',
+      hoverBorder: 'hover:border-wine/60',
+      iconColor: 'text-wine',
+      skills: categorizedSkills.backend
+    },
+    {
+      id: 'fullstack',
+      title: 'Fullstack Development',
+      icon: Stack,
+      gradient: 'from-orange-600/20 via-orange-500/10 to-transparent',
+      borderColor: 'border-orange-500/30',
+      hoverBorder: 'hover:border-orange-500/60',
+      iconColor: 'text-orange-500',
+      skills: categorizedSkills.fullstack
+    },
+    {
+      id: 'database',
+      title: 'Databases',
+      icon: Database,
+      gradient: 'from-yellow-600/20 via-yellow-500/10 to-transparent',
+      borderColor: 'border-yellow-500/30',
+      hoverBorder: 'hover:border-yellow-500/60',
+      iconColor: 'text-yellow-500',
+      skills: categorizedSkills.database
+    },
+    {
+      id: 'infrastructure',
+      title: 'Infrastructure & Cloud',
+      icon: Cloud,
+      gradient: 'from-cyan-600/20 via-cyan-500/10 to-transparent',
+      borderColor: 'border-cyan-500/30',
+      hoverBorder: 'hover:border-cyan-500/60',
+      iconColor: 'text-cyan-500',
+      skills: categorizedSkills.infrastructure
+    },
+    {
+      id: 'orm',
+      title: 'ORM & Data Access',
+      icon: Table,
+      gradient: 'from-pink-600/20 via-pink-500/10 to-transparent',
+      borderColor: 'border-pink-500/30',
+      hoverBorder: 'hover:border-pink-500/60',
+      iconColor: 'text-pink-500',
+      skills: categorizedSkills.orm
+    },
+    {
+      id: 'tools',
+      title: 'Tools & DevOps',
+      icon: Wrench,
+      gradient: 'from-green-600/20 via-green-500/10 to-transparent',
+      borderColor: 'border-green-500/30',
+      hoverBorder: 'hover:border-green-500/60',
+      iconColor: 'text-green-500',
+      skills: categorizedSkills.tools
+    },
+    {
+      id: 'soft',
+      title: 'Soft Skills',
+      icon: Users,
+      gradient: 'from-teal-600/20 via-teal-500/10 to-transparent',
+      borderColor: 'border-teal-500/30',
+      hoverBorder: 'hover:border-teal-500/60',
+      iconColor: 'text-teal-500',
+      skills: categorizedSkills.soft
+    },
+    {
+      id: 'others',
+      title: 'Other Skills',
+      icon: Question,
+      gradient: 'from-gray-600/20 via-gray-500/10 to-transparent',
+      borderColor: 'border-gray-500/30',
+      hoverBorder: 'hover:border-gray-500/60',
+      iconColor: 'text-gray-400',
+      skills: categorizedSkills.others
+    }
+  ];
 
   /**
    * Get technology icon URL from Simple Icons CDN
