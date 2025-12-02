@@ -12,8 +12,15 @@ import SkillForm from './SkillForm';
  */
 const SkillsManager = () => {
   const { data: skills, loading, remove } = useFirestore('skills');
+  const { data: categories } = useFirestore('categories');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingSkill, setEditingSkill] = useState(null);
+
+  // Create category ID to name mapping
+  const categoryIdToName = {};
+  categories?.forEach(cat => {
+    categoryIdToName[cat.id] = cat.name;
+  });
 
   const handleAdd = () => {
     setEditingSkill(null);
@@ -62,7 +69,7 @@ const SkillsManager = () => {
               <div className="flex items-start justify-between mb-3">
                 <h3 className="text-2xl font-bold text-text-bright">{skill.name}</h3>
                 <span className="px-3 py-1 bg-purple-800/50 text-gray-200 text-sm rounded-full">
-                  {skill.category}
+                  {categoryIdToName[skill.category] || skill.category}
                 </span>
               </div>
               <div className="mb-4">

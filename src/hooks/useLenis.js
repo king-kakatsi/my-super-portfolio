@@ -35,6 +35,9 @@ export const useLenis = () => {
       infinite: false,
     });
 
+    // Expose lenis to window for global access
+    window.lenis = lenis;
+
     // Sync Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
@@ -49,6 +52,7 @@ export const useLenis = () => {
     // Cleanup on unmount
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
 };

@@ -17,28 +17,30 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
+      // Stop Lenis if available
+      if (window.lenis) {
+        window.lenis.stop();
+      }
+
+      // Lock body scroll without changing position
       document.body.style.overflow = 'hidden';
     } else {
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
+      // Unlock body
       document.body.style.overflow = '';
       
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      // Resume Lenis
+      if (window.lenis) {
+        window.lenis.start();
       }
     }
 
+    // Cleanup function
     return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
       document.body.style.overflow = '';
+      
+      if (window.lenis) {
+        window.lenis.start();
+      }
     };
   }, [isOpen]);
 

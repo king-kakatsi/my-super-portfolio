@@ -8,6 +8,7 @@ import Button from '../ui/Button';
 
 const SkillForm = ({ skill, onClose }) => {
   const { create, update } = useFirestore('skills');
+  const { data: categories } = useFirestore('categories');
   const [formData, setFormData] = useState({
     name: '',
     category: 'frontend',
@@ -44,6 +45,9 @@ const SkillForm = ({ skill, onClose }) => {
     }
   };
 
+  // Sort categories by order
+  const sortedCategories = [...(categories || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <Input label="Skill Name" name="name" value={formData.name} onChange={handleChange} required />
@@ -52,14 +56,10 @@ const SkillForm = ({ skill, onClose }) => {
         name="category"
         value={formData.category}
         onChange={handleChange}
-        options={[
-          { value: 'frontend', label: 'Frontend' },
-          { value: 'backend', label: 'Backend' },
-          { value: 'mobile', label: 'Mobile' },
-          { value: 'fullstack', label: 'Fullstack' },
-          { value: 'tools', label: 'Tools' },
-          { value: 'soft', label: 'Soft Skills' }
-        ]}
+        options={sortedCategories.map(cat => ({
+          value: cat.id,
+          label: cat.name
+        }))}
       />
       <div>
         <label className="block text-text-medium font-medium mb-3">

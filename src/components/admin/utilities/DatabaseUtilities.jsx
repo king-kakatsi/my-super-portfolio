@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../../services/firebase';
 import toast from 'react-hot-toast';
 import { Database, CheckCircle } from '@phosphor-icons/react';
@@ -88,6 +88,208 @@ const DatabaseUtilities = () => {
       description: 'Xamarin and .NET MAUI mobile development'
     },
   ];
+
+  // Categories Data
+  const categories = [
+    { 
+      id: 'mobile', 
+      name: 'Mobile', 
+      icon: 'DeviceMobile',
+      color: 'purple',
+      gradient: 'from-purple-600/20 via-purple-500/10 to-transparent',
+      borderColor: 'border-purple-500/30',
+      order: 1
+    },
+    { 
+      id: 'frontend', 
+      name: 'Frontend', 
+      icon: 'Globe',
+      color: 'blue',
+      gradient: 'from-blue-600/20 via-blue-500/10 to-transparent',
+      borderColor: 'border-blue-500/30',
+      order: 2
+    },
+    { 
+      id: 'backend', 
+      name: 'Backend', 
+      icon: 'HardDrives',
+      color: 'wine',
+      gradient: 'from-wine/20 via-wine/10 to-transparent',
+      borderColor: 'border-wine/30',
+      order: 3
+    },
+    { 
+      id: 'fullstack', 
+      name: 'Fullstack', 
+      icon: 'Stack',
+      color: 'orange',
+      gradient: 'from-orange-600/20 via-orange-500/10 to-transparent',
+      borderColor: 'border-orange-500/30',
+      order: 4
+    },
+    { 
+      id: 'database', 
+      name: 'Database', 
+      icon: 'Database',
+      color: 'yellow',
+      gradient: 'from-yellow-600/20 via-yellow-500/10 to-transparent',
+      borderColor: 'border-yellow-500/30',
+      order: 5
+    },
+    { 
+      id: 'infrastructure', 
+      name: 'Infrastructure', 
+      icon: 'Cloud',
+      color: 'cyan',
+      gradient: 'from-cyan-600/20 via-cyan-500/10 to-transparent',
+      borderColor: 'border-cyan-500/30',
+      order: 6
+    },
+    { 
+      id: 'orm', 
+      name: 'ORM', 
+      icon: 'Table',
+      color: 'pink',
+      gradient: 'from-pink-600/20 via-pink-500/10 to-transparent',
+      borderColor: 'border-pink-500/30',
+      order: 7
+    },
+    { 
+      id: 'tools', 
+      name: 'Tools', 
+      icon: 'Wrench',
+      color: 'green',
+      gradient: 'from-green-600/20 via-green-500/10 to-transparent',
+      borderColor: 'border-green-500/30',
+      order: 8
+    },
+    { 
+      id: 'soft', 
+      name: 'Soft Skills', 
+      icon: 'Users',
+      color: 'teal',
+      gradient: 'from-teal-600/20 via-teal-500/10 to-transparent',
+      borderColor: 'border-teal-500/30',
+      order: 9
+    },
+    { 
+      id: 'others', 
+      name: 'Others', 
+      icon: 'Question',
+      color: 'gray',
+      gradient: 'from-gray-600/20 via-gray-500/10 to-transparent',
+      borderColor: 'border-gray-500/30',
+      order: 10
+    }
+  ];
+
+  /**
+   * Populate categories collection
+   */
+  const populateCategories = async () => {
+    setLoading(true);
+    try {
+      const categoriesRef = collection(db, 'categories');
+      
+      // Fetch existing categories
+      const snapshot = await getDocs(categoriesRef);
+      const existingCategoryIds = snapshot.docs.map(doc => doc.id);
+      
+      // Filter out categories that already exist
+      const newCategories = categories.filter(cat => 
+        !existingCategoryIds.includes(cat.id)
+      );
+      
+      if (newCategories.length === 0) {
+        toast.success('All categories already exist in database!');
+        setLoading(false);
+        return;
+      }
+      
+      // Add only new categories with custom IDs
+      for (const category of newCategories) {
+        const { id, ...categoryData } = category;
+        await setDoc(doc(db, 'categories', id), categoryData);
+      }
+      
+      toast.success(`Added ${newCategories.length} new categories! (${existingCategoryIds.length} already existed)`);
+    } catch (error) {
+      console.error('Error adding categories:', error);
+      toast.error('Failed to add categories');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /**
+   * Migrate skills to use category IDs instead of category names
+   */
+  const migrateSkillsToCategories = async () => {
+    setLoading(true);
+    try {
+      // Step 1: Fetch all categories
+      const categoriesRef = collection(db, 'categories');
+      const categoriesSnapshot = await getDocs(categoriesRef);
+      
+      const categoryNameToId = {};
+      categoriesSnapshot.docs.forEach(docSnap => {
+        const category = docSnap.data();
+        categoryNameToId[category.name.toLowerCase()] = docSnap.id;
+      });
+
+      console.log('Category mapping created:', categoryNameToId);
+
+      // Step 2: Fetch all skills
+      const skillsRef = collection(db, 'skills');
+      const skillsSnapshot = await getDocs(skillsRef);
+      
+      let updated = 0;
+      let skipped = 0;
+
+      // Step 3: Update each skill
+      for (const docSnapshot of skillsSnapshot.docs) {
+        const skill = docSnapshot.data();
+        
+        // Check if category is a string (name) and not already an ID
+        if (skill.category && typeof skill.category === 'string') {
+          // Check if it's already an ID
+          const isAlreadyId = categoriesSnapshot.docs.some(doc => doc.id === skill.category);
+          
+          if (isAlreadyId) {
+            console.log(`Skill "${skill.name}" already has category ID, skipping...`);
+            skipped++;
+            continue;
+          }
+
+          // Convert category name to ID
+          const categoryId = categoryNameToId[skill.category.toLowerCase()];
+          
+          if (categoryId) {
+            await updateDoc(doc(db, 'skills', docSnapshot.id), {
+              category: categoryId
+            });
+            console.log(`Updated skill "${skill.name}": ${skill.category} -> ${categoryId}`);
+            updated++;
+          } else {
+            console.warn(`Category "${skill.category}" not found for skill "${skill.name}"`);
+          }
+        }
+      }
+
+      // Report results
+      let message = `✅ Migration complete! Updated ${updated} skills`;
+      if (skipped > 0) {
+        message += `, skipped ${skipped} already migrated`;
+      }
+      
+      toast.success(message);
+    } catch (error) {
+      console.error('Error migrating skills:', error);
+      toast.error('Failed to migrate skills to category IDs');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const populateSkills = async () => {
     setLoading(true);
@@ -413,6 +615,15 @@ const DatabaseUtilities = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button
               variant="primary"
+              onClick={populateCategories}
+              loading={loading}
+              icon={<CheckCircle weight="bold" />}
+            >
+              Add Categories ({categories.length})
+            </Button>
+
+            <Button
+              variant="primary"
               onClick={populateSkills}
               loading={loading}
               icon={<CheckCircle weight="bold" />}
@@ -436,6 +647,15 @@ const DatabaseUtilities = () => {
               icon={<CheckCircle weight="bold" />}
             >
               Update Project Categories
+            </Button>
+
+            <Button
+              variant="danger"
+              onClick={migrateSkillsToCategories}
+              loading={loading}
+              icon={<Database weight="bold" />}
+            >
+              Migrate Skills to Category IDs
             </Button>
 
             <Button
