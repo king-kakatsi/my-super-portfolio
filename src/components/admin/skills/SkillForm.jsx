@@ -57,6 +57,9 @@ const SkillForm = ({ skill, onClose }) => {
           { value: 'backend', label: 'Backend' },
           { value: 'mobile', label: 'Mobile' },
           { value: 'fullstack', label: 'Fullstack' },
+          { value: 'database', label: 'Database' },
+          { value: 'infrastructure', label: 'Infrastructure' },
+          { value: 'orm', label: 'ORM' },
           { value: 'tools', label: 'Tools' },
           { value: 'soft', label: 'Soft Skills' }
         ]}

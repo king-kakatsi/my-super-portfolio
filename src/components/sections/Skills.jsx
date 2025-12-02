@@ -1,4 +1,4 @@
-import { ChartBar, Code, DeviceMobile, Globe, Database, Wrench, Question } from '@phosphor-icons/react';
+import { ChartBar, Code, DeviceMobile, Globe, Database, Wrench, Question, Stack, Cloud, Table, Users, HardDrives } from '@phosphor-icons/react';
 
 /**
  * Skills Section
@@ -37,7 +37,12 @@ const Skills = ({ projects, skills }) => {
     mobile: [],
     frontend: [],
     backend: [],
+    fullstack: [],
+    database: [],
+    infrastructure: [],
+    orm: [],
     tools: [],
+    soft: [],
     others: []
   };
 
@@ -96,12 +101,52 @@ const Skills = ({ projects, skills }) => {
     {
       id: 'backend',
       title: 'Backend Development',
-      icon: Database,
+      icon: HardDrives,
       gradient: 'from-wine/20 via-wine/10 to-transparent',
       borderColor: 'border-wine/30',
       hoverBorder: 'hover:border-wine/60',
       iconColor: 'text-wine',
       skills: categorizedSkills.backend
+    },
+    {
+      id: 'fullstack',
+      title: 'Fullstack Development',
+      icon: Stack,
+      gradient: 'from-orange-600/20 via-orange-500/10 to-transparent',
+      borderColor: 'border-orange-500/30',
+      hoverBorder: 'hover:border-orange-500/60',
+      iconColor: 'text-orange-500',
+      skills: categorizedSkills.fullstack
+    },
+    {
+      id: 'database',
+      title: 'Databases',
+      icon: Database,
+      gradient: 'from-yellow-600/20 via-yellow-500/10 to-transparent',
+      borderColor: 'border-yellow-500/30',
+      hoverBorder: 'hover:border-yellow-500/60',
+      iconColor: 'text-yellow-500',
+      skills: categorizedSkills.database
+    },
+    {
+      id: 'infrastructure',
+      title: 'Infrastructure & Cloud',
+      icon: Cloud,
+      gradient: 'from-cyan-600/20 via-cyan-500/10 to-transparent',
+      borderColor: 'border-cyan-500/30',
+      hoverBorder: 'hover:border-cyan-500/60',
+      iconColor: 'text-cyan-500',
+      skills: categorizedSkills.infrastructure
+    },
+    {
+      id: 'orm',
+      title: 'ORM & Data Access',
+      icon: Table,
+      gradient: 'from-pink-600/20 via-pink-500/10 to-transparent',
+      borderColor: 'border-pink-500/30',
+      hoverBorder: 'hover:border-pink-500/60',
+      iconColor: 'text-pink-500',
+      skills: categorizedSkills.orm
     },
     {
       id: 'tools',
@@ -112,6 +157,16 @@ const Skills = ({ projects, skills }) => {
       hoverBorder: 'hover:border-green-500/60',
       iconColor: 'text-green-500',
       skills: categorizedSkills.tools
+    },
+    {
+      id: 'soft',
+      title: 'Soft Skills',
+      icon: Users,
+      gradient: 'from-teal-600/20 via-teal-500/10 to-transparent',
+      borderColor: 'border-teal-500/30',
+      hoverBorder: 'hover:border-teal-500/60',
+      iconColor: 'text-teal-500',
+      skills: categorizedSkills.soft
     },
     {
       id: 'others',
@@ -227,7 +282,7 @@ const Skills = ({ projects, skills }) => {
             <span className="uppercase tracking-widest text-sm font-medium">Skills & Stats</span>
           </div>
           <h2 className="animate-in-up text-4xl md:text-6xl font-bold text-text-bright max-w-3xl">
-            Technologies & Expertise
+            Skills & Expertise
           </h2>
         </div>
 
