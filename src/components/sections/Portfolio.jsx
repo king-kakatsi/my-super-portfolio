@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { SquaresFour, MagnifyingGlass, Funnel, X } from '@phosphor-icons/react';
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { SquaresFour, MagnifyingGlass, Funnel, X, CaretLeft, CaretRight } from '@phosphor-icons/react';
 import ProjectDetailsModal from './ProjectDetailsModal';
 import PortfolioFilterModal from './PortfolioFilterModal';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -8,19 +8,22 @@ import { useFirestore } from '../../hooks/useFirestore';
  * Portfolio Section
  * 
  * **Interactive Project Showcase**
- * Displays a grid of project cards with search and filter capabilities.
+ * Displays a grid of project cards with search, filter, and pagination capabilities.
  * Features include:
  * - Real-time search across project names, descriptions, and technologies
  * - Multi-select filtering by category, technology, and status
  * - Responsive filter UI (modal on desktop, bottom sheet on mobile)
  * - Active filter chips with removal capability
  * - Dynamic result count display
+ * - Pagination with configurable items per page
+ * - Smooth scroll to top on page change
  */
 const Portfolio = ({ projects: projectsProp }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
     categories: [],
     technologies: [],
@@ -28,6 +31,9 @@ const Portfolio = ({ projects: projectsProp }) => {
     hasLiveUrl: false,
     hasGithubUrl: false
   });
+  
+  const ITEMS_PER_PAGE = 6;
+  const portfolioRef = useRef(null);
   
   // Fetch skills to resolve IDs to names
   const { data: skills } = useFirestore('skills');
@@ -273,8 +279,72 @@ const Portfolio = ({ projects: projectsProp }) => {
    */
   const hasActiveFilters = activeFilterCount > 0 || searchQuery.length > 0;
 
+
+
+
+  /**
+   * Reset to page 1 when filters or search changes
+   */
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, filters]);
+
+
+
+
+  /**
+   * Calculate pagination
+   */
+  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
+
+
+
+
+  /**
+   * Handle page change with smooth scroll
+   */
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      // Smooth scroll to portfolio section
+      portfolioRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+
+
+
+  /**
+   * Generate page numbers for pagination
+   */
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxVisiblePages = 5;
+    
+    if (totalPages <= maxVisiblePages) {
+      // Show all pages if total is small
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Show smart pagination with ellipsis
+      if (currentPage <= 3) {
+        pages.push(1, 2, 3, 4, '...', totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+      }
+    }
+    
+    return pages;
+  };
+
   return (
-    <section id="portfolio" className="py-20 md:py-32">
+    <section id="portfolio" className="py-20 md:py-32" ref={portfolioRef}>
       
       {/* Section Title */}
       <div className="mb-12 md:mb-16">
@@ -440,8 +510,9 @@ const Portfolio = ({ projects: projectsProp }) => {
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-          {filteredProjects.map((project, index) => (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            {paginatedProjects.map((project, index) => (
           <div 
             key={project.id}
             onClick={() => handleProjectClick(project)}
@@ -496,8 +567,86 @@ const Portfolio = ({ projects: projectsProp }) => {
               </div>
             </div>
           </div>
-        ))}
-        </div>
+          ))}
+          </div>
+
+
+
+
+
+
+          {/* %%%%%%%% PAGINATION %%%%%%%% */}
+          {totalPages > 1 && (
+            <div className="mt-16 flex flex-col items-center gap-6">
+              {/* Page Info */}
+              {/* <p className="text-sm text-text-muted">
+                Page <span className="font-bold text-text-bright">{currentPage}</span> of{' '}
+                <span className="font-bold text-text-bright">{totalPages}</span>
+                {' '}• Showing{' '}
+                <span className="font-bold text-text-bright">{startIndex + 1}-{Math.min(endIndex, filteredProjects.length)}</span>
+                {' '}of{' '}
+                <span className="font-bold text-text-bright">{filteredProjects.length}</span>
+              </p> */}
+
+              {/* Pagination Controls */}
+              <div className="flex items-center gap-2">
+                {/* Previous Button */}
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={`p-3 rounded-xl transition-all duration-300 ${
+                    currentPage === 1
+                      ? 'bg-base-tint/30 text-text-muted cursor-not-allowed opacity-50'
+                      : 'bg-base-tint/50 text-text-bright border border-white/10 hover:border-wine/50 hover:bg-wine/20 hover:text-wine'
+                  }`}
+                  aria-label="Previous page"
+                >
+                  <CaretLeft size={20} weight="bold" />
+                </button>
+
+                {/* Page Numbers */}
+                <div className="flex items-center gap-2">
+                  {getPageNumbers().map((pageNum, index) => (
+                    pageNum === '...' ? (
+                      <span key={`ellipsis-${index}`} className="px-3 text-text-muted">
+                        ...
+                      </span>
+                    ) : (
+                      <button
+                        key={pageNum}
+                        onClick={() => handlePageChange(pageNum)}
+                        className={`min-w-[44px] h-[44px] rounded-xl font-medium transition-all duration-300 ${
+                          currentPage === pageNum
+                            ? 'bg-wine text-white border border-wine shadow-lg shadow-wine/30'
+                            : 'bg-base-tint/50 text-text-bright border border-white/10 hover:border-wine/50 hover:bg-wine/20 hover:text-wine'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    )
+                  ))}
+                </div>
+
+                {/* Next Button */}
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={`p-3 rounded-xl transition-all duration-300 ${
+                    currentPage === totalPages
+                      ? 'bg-base-tint/30 text-text-muted cursor-not-allowed opacity-50'
+                      : 'bg-base-tint/50 text-text-bright border border-white/10 hover:border-wine/50 hover:bg-wine/20 hover:text-wine'
+                  }`}
+                  aria-label="Next page"
+                >
+                  <CaretRight size={20} weight="bold" />
+                </button>
+              </div>
+            </div>
+          )}
+          {/* %%%%%%%% END - PAGINATION %%%%%%%% */}
+
+
+        </>
       )}
       {/* %%%%%%%% END - PROJECTS GRID %%%%%%%% */}
 
