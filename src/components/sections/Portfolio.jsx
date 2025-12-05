@@ -579,14 +579,14 @@ const Portfolio = ({ projects: projectsProp }) => {
           {totalPages > 1 && (
             <div className="mt-16 flex flex-col items-center gap-6">
               {/* Page Info */}
-              <p className="text-sm text-text-muted">
+              {/* <p className="text-sm text-text-muted">
                 Page <span className="font-bold text-text-bright">{currentPage}</span> of{' '}
                 <span className="font-bold text-text-bright">{totalPages}</span>
                 {' '}• Showing{' '}
                 <span className="font-bold text-text-bright">{startIndex + 1}-{Math.min(endIndex, filteredProjects.length)}</span>
                 {' '}of{' '}
                 <span className="font-bold text-text-bright">{filteredProjects.length}</span>
-              </p>
+              </p> */}
 
               {/* Pagination Controls */}
               <div className="flex items-center gap-2">
