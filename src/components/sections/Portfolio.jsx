@@ -293,7 +293,7 @@ const Portfolio = ({ projects: projectsProp }) => {
 
 
       {/* %%%%%%%% SEARCH AND FILTER BAR %%%%%%%% */}
-      <div className="mb-8 space-y-4">
+      <div className="mb-20 space-y-4">
         {/* Search and Filter Controls */}
         <div className="flex gap-3">
           {/* Search Bar */}
@@ -342,7 +342,7 @@ const Portfolio = ({ projects: projectsProp }) => {
         {/* Active Filter Chips */}
         {hasActiveFilters && (
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm text-text-muted font-medium">Active filters:</span>
+            <span className="text-lg text-text-muted font-medium">Active filters:</span>
             
             {/* Category chips */}
             {filters.categories.map(category => (
