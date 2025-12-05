@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { SquaresFour, MagnifyingGlass, Funnels, X } from '@phosphor-icons/react';
+import { SquaresFour, MagnifyingGlass, Funnel, X } from '@phosphor-icons/react';
 import ProjectDetailsModal from './ProjectDetailsModal';
 import PortfolioFilterModal from './PortfolioFilterModal';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -329,7 +329,7 @@ const Portfolio = ({ projects: projectsProp }) => {
                 : 'bg-base-tint/50 text-text-muted border border-white/10 hover:border-white/30 hover:text-text-bright'
             }`}
           >
-            <Funnels size={20} weight="bold" />
+            <Funnel size={20} weight="bold" />
             <span className="hidden sm:inline">Filter</span>
             {activeFilterCount > 0 && (
               <span className="absolute -top-2 -right-2 w-6 h-6 bg-accent text-white text-xs font-bold rounded-full flex items-center justify-center">
