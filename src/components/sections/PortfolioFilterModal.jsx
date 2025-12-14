@@ -267,8 +267,8 @@ const PortfolioFilterModal = ({
               <h4 className="text-lg font-bold text-text-bright mb-3">Status & Links</h4>
               <div className="space-y-3">
                 {/* Featured */}
-                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer"
-                  <span className="text-text-bright font-medium">⭐ Featured Projects</span>
+                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer">
+                  <span className="text-text-bright font-medium">Featured Projects</span>
                   <input
                     type="checkbox"
                     checked={tempFilters.featured}
@@ -278,8 +278,8 @@ const PortfolioFilterModal = ({
                 </label>
 
                 {/* Has Live URL */}
-                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer"
-                  <span className="text-text-bright font-medium">🔗 Has Live Demo</span>
+                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer">
+                  <span className="text-text-bright font-medium">Has Live Demo</span>
                   <input
                     type="checkbox"
                     checked={tempFilters.hasLiveUrl}
@@ -289,8 +289,8 @@ const PortfolioFilterModal = ({
                 </label>
 
                 {/* Has GitHub URL */}
-                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer"
-                  <span className="text-text-bright font-medium">💻 Has GitHub Repo</span>
+                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer">
+                  <span className="text-text-bright font-medium">Has GitHub Repo</span>
                   <input
                     type="checkbox"
                     checked={tempFilters.hasGithubUrl}

@@ -445,7 +445,7 @@ const Portfolio = ({ projects: projectsProp }) => {
                 onClick={() => removeFilter('featured')}
                 className="px-3 py-1.5 rounded-full bg-yellow-500/20 text-yellow-500 border border-yellow-500/30 text-sm font-medium flex items-center gap-1.5 hover:bg-yellow-500/30 transition-colors"
               >
-                ⭐ Featured
+                Featured
                 <X size={14} weight="bold" />
               </button>
             )}
@@ -456,7 +456,7 @@ const Portfolio = ({ projects: projectsProp }) => {
                 onClick={() => removeFilter('hasLiveUrl')}
                 className="px-3 py-1.5 rounded-full bg-green-500/20 text-green-500 border border-green-500/30 text-sm font-medium flex items-center gap-1.5 hover:bg-green-500/30 transition-colors"
               >
-                🔗 Live Demo
+                Live Demo
                 <X size={14} weight="bold" />
               </button>
             )}
@@ -467,7 +467,7 @@ const Portfolio = ({ projects: projectsProp }) => {
                 onClick={() => removeFilter('hasGithubUrl')}
                 className="px-3 py-1.5 rounded-full bg-blue-500/20 text-blue-500 border border-blue-500/30 text-sm font-medium flex items-center gap-1.5 hover:bg-blue-500/30 transition-colors"
               >
-                💻 GitHub
+                GitHub
                 <X size={14} weight="bold" />
               </button>
             )}
@@ -498,7 +498,7 @@ const Portfolio = ({ projects: projectsProp }) => {
       {/* %%%%%%%% PROJECTS GRID %%%%%%%% */}
       {filteredProjects.length === 0 ? (
         <div className="text-center py-20">
-          <div className="mb-6 text-6xl">🔍</div>
+          <div className="mb-6 text-6xl opacity-50">No results</div>
           <h3 className="text-2xl font-bold text-text-bright mb-3">No projects found</h3>
           <p className="text-text-muted mb-6">Try adjusting your search or filters</p>
           {hasActiveFilters && (
