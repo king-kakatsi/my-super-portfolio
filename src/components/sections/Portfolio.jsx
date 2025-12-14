@@ -159,7 +159,79 @@ const Portfolio = ({ projects: projectsProp }) => {
     }
   ];
 
-  const allProjects = (projectsProp && projectsProp.length > 0) ? projectsProp : fallbackProjects;
+  const allProjectsRaw = (projectsProp && projectsProp.length > 0) ? projectsProp : fallbackProjects;
+
+
+
+
+  // %%%%%%%% SORT PROJECTS BY ORDER %%%%%%%
+  /**
+   * Sort projects by order field (z-index behavior)
+   * 
+   * **Custom Sorting Logic**
+   * Sorts projects with the following priority:
+   * 1. Higher order numbers appear first (descending, like z-index)
+   * 2. Negative numbers are allowed and sorted accordingly
+   * 3. Non-numeric values (null, undefined, strings) treated as lowest priority
+   * 4. Same order or non-numeric: use createdAt as tiebreaker (newest first)
+   * 
+   * @param {Array} projects - Array of project objects
+   * @returns {Array} Sorted array of projects
+   */
+  const sortProjectsByOrder = (projects) => {
+    return [...projects].sort((a, b) => {
+      // Get order values
+      const orderA = a.order;
+      const orderB = b.order;
+      
+      // Check if values are numeric
+      const isNumericA = typeof orderA === 'number' && !isNaN(orderA);
+      const isNumericB = typeof orderB === 'number' && !isNaN(orderB);
+      
+      // Both numeric: compare by order (descending - higher order first)
+      if (isNumericA && isNumericB) {
+        if (orderA !== orderB) {
+          return orderB - orderA; // Descending: higher order first
+        }
+      }
+      // A is numeric, B is not: A comes first
+      else if (isNumericA && !isNumericB) {
+        return -1;
+      }
+      // B is numeric, A is not: B comes first
+      else if (!isNumericA && isNumericB) {
+        return 1;
+      }
+      // Both non-numeric: fall through to createdAt
+      
+      // Tiebreaker: use createdAt (newest first)
+      const getDate = (project) => {
+        if (!project.createdAt) return new Date(0);
+        if (project.createdAt.toDate) {
+          return project.createdAt.toDate();
+        }
+        if (project.createdAt instanceof Date) {
+          return project.createdAt;
+        }
+        return new Date(project.createdAt);
+      };
+      
+      const dateA = getDate(a);
+      const dateB = getDate(b);
+      return dateB - dateA; // Descending: newest first
+    });
+  };
+  // %%%%%%%% END - SORT PROJECTS BY ORDER %%%%%%%%
+
+
+
+
+  /**
+   * Sorted projects (by order field)
+   */
+  const allProjects = useMemo(() => {
+    return sortProjectsByOrder(allProjectsRaw);
+  }, [allProjectsRaw]);
 
 
 

@@ -31,6 +31,7 @@ const ProjectForm = ({ project, onClose }) => {
     liveUrl: '',
     sourceUrl: '',
     imageUrl: '',
+    order: 0,
   });
   const [saving, setSaving] = useState(false);
 
@@ -48,12 +49,17 @@ const ProjectForm = ({ project, onClose }) => {
 
   /**
    * Handle input change
+   * 
+   * **Input Handler**
+   * Handles all input changes, converting number inputs appropriately.
+   * 
+   * @param {Event} e - Change event
    */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : (type === 'number' ? (value === '' ? '' : Number(value)) : value)
     });
   };
 
@@ -190,6 +196,18 @@ const ProjectForm = ({ project, onClose }) => {
           onUpload={handleThumbnailUpload}
           accept="image/*"
           currentUrl={formData.imageUrl}
+        />
+      </div>
+
+      <div>
+        <Input
+          label="Display Order"
+          name="order"
+          type="number"
+          value={formData.order ?? ''}
+          onChange={handleChange}
+          placeholder="0"
+          helperText="Higher numbers appear first. Negative numbers allowed. Leave empty for lowest priority."
         />
       </div>
 

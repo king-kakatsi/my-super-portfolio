@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
-import { doc, getDoc, collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 
 /**
  * Custom hook to fetch portfolio data from Firestore
@@ -28,7 +28,8 @@ export const usePortfolioData = () => {
         const resumeDoc = await getDoc(doc(db, 'content', 'resume'));
 
         // Fetch collections
-        const projectsSnapshot = await getDocs(query(collection(db, 'projects'), orderBy('createdAt', 'desc')));
+        // Projects are sorted client-side by order field (see Portfolio.jsx)
+        const projectsSnapshot = await getDocs(collection(db, 'projects'));
         const skillsSnapshot = await getDocs(collection(db, 'skills'));
 
         setData({
