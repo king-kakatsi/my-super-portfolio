@@ -521,7 +521,7 @@ const Portfolio = ({ projects: projectsProp }) => {
             }`}
           >
             {/* Image Container */}
-            <div className="aspect-[4/3] overflow-hidden will-change-transform">
+            <div className="aspect-[4/3] overflow-hidden will-change-transform relative">
               <img 
                 src={project.imageUrl} 
                 alt={project.name}
@@ -530,6 +530,8 @@ const Portfolio = ({ projects: projectsProp }) => {
               />
               {/* Gradient overlay for better text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-base via-base/50 to-transparent opacity-80"></div>
+              {/* Dark overlay on hover for better text readability */}
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
 
             {/* Content overlay */}

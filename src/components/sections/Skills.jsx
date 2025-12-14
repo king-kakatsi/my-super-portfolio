@@ -182,8 +182,15 @@ const Skills = ({ projects, skills }) => {
 
   /**
    * Get technology icon URL from Simple Icons CDN
+   * 
+   * **Dynamic Icon Color Support**
+   * Returns icon URL with specified color. Color should be a hex code without the #.
+   * 
+   * @param {string} techName - Technology name
+   * @param {string} color - Hex color code (without #) or Tailwind color class converted to hex
+   * @returns {string} Icon URL
    */
-  const getTechIcon = (techName) => {
+  const getTechIcon = (techName, color = '9333EA') => {
     const iconMap = {
       'React': 'react',
       'React.js': 'react',
@@ -266,7 +273,32 @@ const Skills = ({ projects, skills }) => {
     };
 
     const slug = iconMap[techName] || techName.toLowerCase().replace(/\s+/g, '').replace(/\./g, 'dot');
-    return `https://cdn.simpleicons.org/${slug}/9333EA`;
+    return `https://cdn.simpleicons.org/${slug}/${color}`;
+  };
+
+  /**
+   * Convert Tailwind color class to hex code
+   * 
+   * **Color Mapping Helper**
+   * Maps common Tailwind color classes to their hex equivalents for use with Simple Icons.
+   * 
+   * @param {string} colorClass - Tailwind color class (e.g., 'text-purple-500')
+   * @returns {string} Hex color code without #
+   */
+  const getColorHex = (colorClass) => {
+    const colorMap = {
+      'text-purple-500': '9333EA',
+      'text-blue-500': '3B82F6',
+      'text-wine': '8B1538',
+      'text-orange-500': 'F97316',
+      'text-yellow-500': 'EAB308',
+      'text-cyan-500': '06B6D4',
+      'text-pink-500': 'EC4899',
+      'text-green-500': '22C55E',
+      'text-teal-500': '14B8A6',
+      'text-gray-400': '9CA3AF',
+    };
+    return colorMap[colorClass] || '9333EA';
   };
 
   return (
@@ -363,33 +395,16 @@ const Skills = ({ projects, skills }) => {
                         <div className="flex flex-col items-center text-center">
                           <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-3 group-hover/card:bg-white/20 transition-colors p-2.5">
                             <img 
-                              src={getTechIcon(skill.name)} 
+                              src={getTechIcon(skill.name, getColorHex(category.iconColor))} 
                               alt={skill.name}
                               className="w-full h-full object-contain"
                               onError={(e) => {
                                 e.target.style.display = 'none';
-                                e.target.parentElement.innerHTML = '<svg class="w-7 h-7 text-accent" fill="currentColor" viewBox="0 0 256 256"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"></path></svg>';
+                                e.target.parentElement.innerHTML = `<svg class="w-7 h-7 ${category.iconColor}" fill="currentColor" viewBox="0 0 256 256"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"></path></svg>`;
                               }}
                             />
                           </div>
-                          <h4 className="text-base font-bold text-text-bright mb-1.5 leading-tight">{skill.name}</h4>
-                          
-                          {/* Show proficiency if available, otherwise show project count */}
-                          {skill.proficiency ? (
-                            <>
-                              <p className={`${category.iconColor} font-bold text-xl`}>{skill.proficiency}%</p>
-                              <p className="text-text-muted text-xs mt-0.5">proficiency</p>
-                            </>
-                          ) : skill.count > 0 ? (
-                            <>
-                              <p className={`${category.iconColor} font-bold text-xl`}>{skill.count}</p>
-                              <p className="text-text-muted text-xs mt-0.5">
-                                {skill.count === 1 ? 'project' : 'projects'}
-                              </p>
-                            </>
-                          ) : (
-                            <p className="text-text-muted text-xs mt-0.5">—</p>
-                          )}
+                          <h4 className="text-base font-bold text-text-bright leading-tight">{skill.name}</h4>
                         </div>
                       </div>
                     ))}

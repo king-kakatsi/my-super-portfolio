@@ -1,4 +1,4 @@
-import { X, Globe, GithubLogo, Calendar, Tag } from '@phosphor-icons/react';
+import { X, Globe, GithubLogo, Tag } from '@phosphor-icons/react';
 import { useEffect } from 'react';
 import { useFirestore } from '../../hooks/useFirestore';
 
@@ -58,17 +58,6 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
 
   if (!isOpen || !project) return null;
 
-  // Format date
-  const formatDate = (timestamp) => {
-    if (!timestamp) return null;
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
-  };
-
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn"
@@ -119,20 +108,12 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
             </div>
 
             {/* Metadata */}
-            {(project.createdAt || project.category) && (
+            {project.category && (
               <div className="flex flex-wrap items-center gap-6 text-gray-400">
-                {project.createdAt && formatDate(project.createdAt) && (
-                  <div className="flex items-center gap-2">
-                    <Calendar size={20} weight="bold" className="text-purple-400" />
-                    <span>{formatDate(project.createdAt)}</span>
-                  </div>
-                )}
-                {project.category && (
-                  <div className="flex items-center gap-2">
-                    <Tag size={20} weight="bold" className="text-purple-400" />
-                    <span>{project.category}</span>
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <Tag size={20} weight="bold" className="text-purple-400" />
+                  <span>{project.category}</span>
+                </div>
               </div>
             )}
 
