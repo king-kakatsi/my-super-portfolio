@@ -60,13 +60,13 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
 
   return (
     <div 
-      className="fixed inset-0 z-60 flex items-center justify-center p-4 dark:bg-black/80 bg-black/40 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 dark:bg-black/80 bg-black/40 backdrop-blur-md animate-fadeIn"
       onClick={onClose}
       onWheel={(e) => e.stopPropagation()}
       onTouchMove={(e) => e.stopPropagation()}
     >
       <div 
-        className="relative w-full max-w-4xl bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 from-white via-gray-50 to-white border dark:border-purple-500/30 border-purple-400/30 rounded-3xl shadow-2xl dark:shadow-purple-500/20 shadow-purple-400/20 max-h-[90vh] overflow-hidden animate-scaleIn"
+        className="relative w-full max-w-4xl bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 from-white via-gray-50 to-white border dark:border-purple-500/30 border-purple-400/30 rounded-3xl shadow-2xl dark:shadow-purple-500/20 shadow-purple-400/20 max-h-[70vh] overflow-hidden animate-scaleIn"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
