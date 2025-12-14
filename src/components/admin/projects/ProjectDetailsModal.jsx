@@ -42,7 +42,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-4xl bg-linear-to-br from-gray-900 to-gray-800 border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-500/20 max-h-[90vh] overflow-hidden animate-scaleIn"
+        className="relative w-full max-w-4xl bg-gradient-to-br from-gray-900 to-gray-800 border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-500/20 max-h-[70vh] overflow-hidden animate-scaleIn"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -55,7 +55,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
         </button>
 
         {/* Scrollable Content */}
-        <div className="overflow-y-auto max-h-[90vh] custom-scrollbar">
+        <div className="overflow-y-auto max-h-[70vh] custom-scrollbar">
           {/* Project Image */}
           {project.imageUrl && (
             <div className="relative h-72 overflow-hidden">
