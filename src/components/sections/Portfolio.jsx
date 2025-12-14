@@ -580,7 +580,7 @@ const Portfolio = ({ projects: projectsProp }) => {
 
           {/* %%%%%%%% PAGINATION %%%%%%%% */}
           {totalPages > 1 && (
-            <div className="mt-16 flex flex-col items-center gap-6">
+            <div className="mt-26 flex flex-col items-center gap-6">
               {/* Page Info */}
               {/* <p className="text-sm text-text-muted">
                 Page <span className="font-bold text-text-bright">{currentPage}</span> of{' '}

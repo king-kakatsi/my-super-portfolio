@@ -83,7 +83,7 @@ const Contact = () => {
 
       {/* Contact Form */}
       {/* Contact Form Card */}
-      <div className="max-w-4xl animate-in-up dark:bg-gray-500/20 bg-gray-100/50 rounded-xl p-8 md:p-12 border dark:border-white/5 border-gray-300/30 shadow-2xl">
+      <div className="max-w-4xl animate-in-up dark:bg-gray-800/40 bg-gray-100/50 rounded-xl p-8 md:p-12 border dark:border-white/5 border-gray-300/30 shadow-2xl">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
