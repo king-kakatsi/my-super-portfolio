@@ -83,7 +83,7 @@ const Contact = () => {
 
       {/* Contact Form */}
       {/* Contact Form Card */}
-      <div className="max-w-4xl mx-auto animate-in-up bg-gray-500/20 rounded-xl p-8 md:p-12 border border-white/5 shadow-2xl">
+      <div className="max-w-4xl animate-in-up dark:bg-gray-800/40 bg-gray-100/50 rounded-xl p-8 md:p-12 border dark:border-white/5 border-gray-300/30 shadow-2xl">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
@@ -97,7 +97,7 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-6 py-4 rounded-xl bg-base border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors"
+                className="w-full px-6 py-4 rounded-xl bg-base border border-white/10 dark:border-white/10 border-gray-300/50 text-text-bright focus:border-accent focus:outline-none transition-colors"
                 placeholder="John Doe"
               />
             </div>
@@ -113,7 +113,7 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-6 py-4 rounded-xl bg-base border border-white/10 text-text-bright focus:border-accent focus:outline-none transition-colors"
+                className="w-full px-6 py-4 rounded-xl bg-base border border-white/10 dark:border-white/10 border-gray-300/50 text-text-bright focus:border-accent focus:outline-none transition-colors"
                 placeholder="john@example.com"
               />
             </div>

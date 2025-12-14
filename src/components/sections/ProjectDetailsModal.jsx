@@ -1,4 +1,4 @@
-import { X, Globe, GithubLogo, Calendar, Tag } from '@phosphor-icons/react';
+import { X, Globe, GithubLogo, Tag } from '@phosphor-icons/react';
 import { useEffect } from 'react';
 import { useFirestore } from '../../hooks/useFirestore';
 
@@ -58,35 +58,24 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
 
   if (!isOpen || !project) return null;
 
-  // Format date
-  const formatDate = (timestamp) => {
-    if (!timestamp) return null;
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
-  };
-
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 dark:bg-black/80 bg-black/40 backdrop-blur-md animate-fadeIn"
       onClick={onClose}
       onWheel={(e) => e.stopPropagation()}
       onTouchMove={(e) => e.stopPropagation()}
     >
       <div 
-        className="relative w-full max-w-4xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-500/20 max-h-[90vh] overflow-hidden animate-scaleIn"
+        className="relative w-full max-w-4xl bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 from-white via-gray-50 to-white border dark:border-purple-500/30 border-purple-400/30 rounded-3xl shadow-2xl dark:shadow-purple-500/20 shadow-purple-400/20 max-h-[90vh] overflow-hidden animate-scaleIn"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors z-10 group"
+          className="absolute top-6 right-6 p-2 rounded-xl dark:bg-white/5 bg-gray-800/10 hover:bg-white/10 dark:hover:bg-white/10 hover:bg-gray-700/20 transition-colors z-10 group"
           aria-label="Close modal"
         >
-          <X size={24} className="text-gray-400 group-hover:text-white transition-colors" />
+          <X size={24} className="dark:text-gray-400 text-gray-600 dark:group-hover:text-white group-hover:text-gray-900 transition-colors" />
         </button>
 
         {/* Scrollable Content */}
@@ -99,7 +88,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
                 alt={project.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t dark:from-gray-900 dark:via-gray-900/60 from-gray-800 via-gray-800/60 to-transparent" />
             </div>
           )}
 
@@ -107,7 +96,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
           <div className="p-8 md:p-10 space-y-6">
             {/* Title */}
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              <h2 className="text-3xl md:text-4xl font-bold dark:text-white text-gray-900 mb-3">
                 {project.name}
               </h2>
               {project.featured && (
@@ -119,27 +108,19 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
             </div>
 
             {/* Metadata */}
-            {(project.createdAt || project.category) && (
-              <div className="flex flex-wrap items-center gap-6 text-gray-400">
-                {project.createdAt && formatDate(project.createdAt) && (
-                  <div className="flex items-center gap-2">
-                    <Calendar size={20} weight="bold" className="text-purple-400" />
-                    <span>{formatDate(project.createdAt)}</span>
-                  </div>
-                )}
-                {project.category && (
-                  <div className="flex items-center gap-2">
-                    <Tag size={20} weight="bold" className="text-purple-400" />
-                    <span>{project.category}</span>
-                  </div>
-                )}
+            {project.category && (
+              <div className="flex flex-wrap items-center gap-6 dark:text-gray-400 text-gray-600">
+                <div className="flex items-center gap-2">
+                  <Tag size={20} weight="bold" className="text-purple-400" />
+                  <span>{project.category}</span>
+                </div>
               </div>
             )}
 
             {/* Description */}
             <div>
-              <h3 className="text-xl font-semibold text-white mb-3">About This Project</h3>
-              <p className="text-gray-300 text-lg leading-relaxed whitespace-pre-wrap">
+              <h3 className="text-xl font-semibold dark:text-white text-gray-900 mb-3">About This Project</h3>
+              <p className="dark:text-gray-300 text-gray-700 text-lg leading-relaxed whitespace-pre-wrap">
                 {project.description}
               </p>
             </div>
@@ -147,7 +128,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
             {/* Technologies */}
             {project.technologies && project.technologies.length > 0 && (
               <div>
-                <h3 className="text-xl font-semibold text-white mb-3">Technologies Used</h3>
+                <h3 className="text-xl font-semibold dark:text-white text-gray-900 mb-3">Technologies Used</h3>
                 <div className="flex flex-wrap gap-3">
                   {project.technologies.map((techId, index) => {
                     // Find skill name from ID (handles both IDs and names for backward compatibility)
@@ -170,10 +151,10 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
             {/* Additional Info */}
             {project.highlights && project.highlights.length > 0 && (
               <div>
-                <h3 className="text-xl font-semibold text-white mb-3">Key Highlights</h3>
+                <h3 className="text-xl font-semibold dark:text-white text-gray-900 mb-3">Key Highlights</h3>
                 <ul className="space-y-2">
                   {project.highlights.map((highlight, index) => (
-                    <li key={index} className="flex items-start gap-3 text-gray-300">
+                    <li key={index} className="flex items-start gap-3 dark:text-gray-300 text-gray-700">
                       <span className="text-purple-400 mt-1 text-xl">•</span>
                       <span className="text-lg">{highlight}</span>
                     </li>

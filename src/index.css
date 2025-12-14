@@ -15,9 +15,9 @@
   --color-wine-light: #B8385E;
   --color-wine-dark: #6B0F2A;
   
-  --color-base: #111111;
-  --color-base-tint: #161616;
-  --color-base-shade: #000000;
+  --color-base: #1a1a1a;
+  --color-base-tint: #1f1f1f;
+  --color-base-shade: #0f0f0f;
   
   --color-text-bright: #e9e9f1;
   --color-text-medium: #C7C6D3;
@@ -38,13 +38,16 @@
 
 /* Light Theme Override */
 [data-theme="light"] {
-  --color-base: #f5f5f5;
+  --color-base: #fafafa;
   --color-base-tint: #ffffff;
-  --color-base-shade: #e0e0e0;
+  --color-base-shade: #f0f0f0;
   
   --color-text-bright: #1a1a1a;
   --color-text-medium: #4a4a4a;
   --color-text-muted: #6a6a6a;
+  
+  /* Border adjustments for light mode */
+  --color-border: rgba(0, 0, 0, 0.08);
 }
 
 /* Global Styles */

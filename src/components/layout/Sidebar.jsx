@@ -48,7 +48,7 @@ const Sidebar = ({ profile }) => {
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full px-6 py-4 rounded-xl border border-white/10 flex items-center justify-center gap-3 text-text-muted hover:text-white hover:bg-accent hover:border-accent transition-all duration-300 group"
+            className="w-full px-6 py-4 rounded-xl border border-white/10 dark:border-white/10 border-gray-300/50 flex items-center justify-center gap-3 text-text-muted hover:text-white dark:hover:text-white hover:text-gray-900 hover:bg-accent hover:border-accent transition-all duration-300 group"
             aria-label={social.platform}
           >
             <span className="text-lg font-bold uppercase tracking-wider">{social.platform}</span>

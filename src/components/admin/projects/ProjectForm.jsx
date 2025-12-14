@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useFirestore } from '../../../hooks/useFirestore';
 import { useFileUpload } from '../../../hooks/useFileUpload';
 import toast from 'react-hot-toast';
-import { FloppyDisk, Plus, X } from '@phosphor-icons/react';
+import { FloppyDisk } from '@phosphor-icons/react';
 import Input from '../ui/Input';
 import Textarea from '../ui/Textarea';
-import Select from '../ui/Select';
+import SearchableSelect from '../ui/SearchableSelect';
+import MultiSelect from '../ui/MultiSelect';
 import Button from '../ui/Button';
 import FileUpload from '../ui/FileUpload';
 
@@ -72,25 +73,17 @@ const ProjectForm = ({ project, onClose }) => {
   };
 
   /**
-   * Handle technology selection (stores skill ID)
+   * Handle technology selection change
+   * 
+   * **Multi-Select Handler**
+   * Updates technologies array when MultiSelect selection changes.
+   * 
+   * @param {Array} selectedValues - Array of selected technology IDs
    */
-  const handleTechAdd = (e) => {
-    const skillId = e.target.value;
-    if (skillId && !formData.technologies.includes(skillId)) {
-      setFormData({
-        ...formData,
-        technologies: [...formData.technologies, skillId]
-      });
-    }
-  };
-
-  /**
-   * Handle technology removal
-   */
-  const handleTechRemove = (techToRemove) => {
+  const handleTechChange = (selectedValues) => {
     setFormData({
       ...formData,
-      technologies: formData.technologies.filter(tech => tech !== techToRemove)
+      technologies: selectedValues
     });
   };
 
@@ -145,7 +138,7 @@ const ProjectForm = ({ project, onClose }) => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Select
+        <SearchableSelect
           label="Category"
           name="category"
           value={formData.category}
@@ -154,62 +147,19 @@ const ProjectForm = ({ project, onClose }) => {
             { value: 'Web', label: 'Web Application' },
             { value: 'Mobile', label: 'Mobile Application' }
           ]}
+          placeholder="Search and select category..."
         />
 
-        <div className="w-full">
-          <label className="block text-text-medium font-medium mb-3">
-            Technologies
-          </label>
-          <div className="space-y-3">
-            <div className="relative">
-              <select
-                onChange={handleTechAdd}
-                value=""
-                className="w-full px-6 py-4 rounded-xl bg-base-tint border border-white/10 text-text-bright focus:border-accent focus:outline-none cursor-pointer appearance-none"
-              >
-                <option value="" disabled>Select a technology to add...</option>
-                {skills
-                  .filter(skill => !formData.technologies.includes(skill.id))
-                  .map(skill => (
-                    <option key={skill.id} value={skill.id}>
-                      {skill.name}
-                    </option>
-                  ))
-                }
-              </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">
-                <Plus weight="bold" />
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2 min-h-[40px] p-2 rounded-xl border border-white/5 bg-base-tint/50">
-              {formData.technologies.length === 0 && (
-                <span className="text-text-muted text-sm italic p-1">No technologies selected</span>
-              )}
-              {formData.technologies.map((techId, index) => {
-                // Find skill name from ID (handles both IDs and names for backward compatibility)
-                const skill = skills.find(s => s.id === techId || s.name === techId);
-                const displayName = skill ? skill.name : techId;
-                
-                return (
-                  <span 
-                    key={index}
-                    className="inline-flex items-center gap-1 px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
-                  >
-                    {displayName}
-                    <button
-                      type="button"
-                      onClick={() => handleTechRemove(techId)}
-                      className="hover:text-white transition-colors"
-                    >
-                      <X size={14} weight="bold" />
-                    </button>
-                  </span>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        <MultiSelect
+          label="Technologies"
+          options={skills.map(skill => ({
+            value: skill.id,
+            label: skill.name
+          }))}
+          value={formData.technologies}
+          onChange={handleTechChange}
+          placeholder="Search and select technologies..."
+        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

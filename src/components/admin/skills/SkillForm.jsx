@@ -3,7 +3,7 @@ import { useFirestore } from '../../../hooks/useFirestore';
 import toast from 'react-hot-toast';
 import { FloppyDisk } from '@phosphor-icons/react';
 import Input from '../ui/Input';
-import Select from '../ui/Select';
+import SearchableSelect from '../ui/SearchableSelect';
 import Button from '../ui/Button';
 
 const SkillForm = ({ skill, onClose }) => {
@@ -45,13 +45,15 @@ const SkillForm = ({ skill, onClose }) => {
     }
   };
 
-  // Sort categories by order
-  const sortedCategories = [...(categories || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
+  // Sort categories alphabetically for display
+  const sortedCategories = [...(categories || [])].sort((a, b) => 
+    (a.name || '').localeCompare(b.name || '')
+  );
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <Input label="Skill Name" name="name" value={formData.name} onChange={handleChange} required />
-      <Select
+      <SearchableSelect
         label="Category"
         name="category"
         value={formData.category}
@@ -60,6 +62,7 @@ const SkillForm = ({ skill, onClose }) => {
           value: cat.id,
           label: cat.name
         }))}
+        placeholder="Search and select category..."
       />
       <div>
         <label className="block text-text-medium font-medium mb-3">
