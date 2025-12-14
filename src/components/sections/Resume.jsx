@@ -44,7 +44,7 @@ const Resume = ({ resume: resumeProp }) => {
     <section id="resume" className="py-20 md:py-32 relative">
       
       {/* Background gradient with blur effect for visual appeal */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-accent/10 pointer-events-none"></div>
       <div className="absolute inset-0 backdrop-blur-3xl opacity-30 pointer-events-none"></div>
       
       {/* Content container with adaptive background for light/dark modes */}

@@ -530,7 +530,7 @@ const Portfolio = ({ projects: projectsProp }) => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
               />
               {/* Gradient overlay for better text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-base via-base/50 to-transparent dark:from-base dark:via-base/50 dark:to-transparent from-gray-50 via-gray-50/80 to-transparent opacity-80"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-base via-base/50 to-transparent dark:from-base dark:via-base/50 dark:to-transparent from-gray-50 via-gray-50/80 to-transparent opacity-80"></div>
               {/* Overlay on hover for better text readability */}
               <div className="absolute inset-0 dark:bg-black/60 bg-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>

@@ -42,7 +42,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-4xl bg-gradient-to-br from-gray-900 to-gray-800 border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-500/20 max-h-[90vh] overflow-hidden animate-scaleIn"
+        className="relative w-full max-w-4xl bg-linear-to-br from-gray-900 to-gray-800 border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-500/20 max-h-[90vh] overflow-hidden animate-scaleIn"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -64,7 +64,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
                 alt={project.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/50 to-transparent" />
             </div>
           )}
 
