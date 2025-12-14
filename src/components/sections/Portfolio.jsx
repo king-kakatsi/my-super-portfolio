@@ -344,7 +344,7 @@ const Portfolio = ({ projects: projectsProp }) => {
   };
 
   return (
-    <section id="portfolio" className="py-20 md:py-32 bg-base-tint/20 dark:bg-base-tint/30 -mx-6 md:-mx-12 lg:-mx-20" ref={portfolioRef}>
+    <section id="portfolio" className="py-20 md:py-32 bg-[#1a1625] -mx-6 md:-mx-12 lg:-mx-20" ref={portfolioRef}>
       <div className="px-6 md:px-12 lg:px-20">
       
       {/* Section Title */}

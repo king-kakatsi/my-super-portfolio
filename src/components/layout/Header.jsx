@@ -161,14 +161,14 @@ const Header = () => {
             {language === 'en' ? 'FR' : 'EN'}
           </button> */}
 
-          {/* Theme Switcher */}
-          <button 
+          {/* Theme Switcher - Commented out, staying in dark mode */}
+          {/* <button 
             onClick={toggleTheme}
             className="w-14 h-14 flex items-center justify-center rounded-full bg-base-tint/80 border border-white/10 dark:border-white/10 border-gray-300/50 text-text-bright hover:text-accent hover:border-accent/30 transition-all duration-300"
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? <Sun weight="bold" size={24} /> : <Moon weight="bold" size={24} />}
-          </button>
+          </button> */}
 
           {/* Let's Talk Button */}
           <a 
