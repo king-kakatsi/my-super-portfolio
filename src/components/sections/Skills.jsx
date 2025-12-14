@@ -368,13 +368,13 @@ const Skills = ({ projects, skills }) => {
                 style={{ animationDelay: `${categoryIndex * 100}ms` }}
               >
                 {/* Gradient Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-50 group-hover:opacity-70 transition-opacity duration-500`}></div>
+                <div className={`absolute inset-0 bg-linear-to-br ${category.gradient} opacity-50 group-hover:opacity-70 transition-opacity duration-500`}></div>
                 
                 {/* Content */}
                 <div className="relative p-8 md:p-10">
                   {/* Category Header */}
                   <div className="flex items-center gap-4 mb-8">
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.gradient} border ${category.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`w-14 h-14 rounded-2xl bg-linear-to-br ${category.gradient} border ${category.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                       <category.icon weight="bold" className={`text-3xl ${category.iconColor}`} />
                     </div>
                     <div>

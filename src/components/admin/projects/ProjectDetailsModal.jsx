@@ -42,20 +42,20 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-4xl bg-gradient-to-br from-gray-900 to-gray-800 border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-500/20 max-h-[90vh] overflow-hidden animate-scaleIn"
+        className="relative w-full max-w-4xl bg-gradient-to-br from-gray-900 to-gray-800 border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-500/20 max-h-[70vh] overflow-hidden animate-scaleIn"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors z-10 group"
+          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-purple-600 hover:bg-purple-700 shadow-lg shadow-purple-600/30 transition-all duration-300 z-10 group"
           aria-label="Close modal"
         >
-          <X size={24} className="text-gray-400 group-hover:text-white transition-colors" />
+          <X size={20} weight="bold" className="text-white transition-colors" />
         </button>
 
         {/* Scrollable Content */}
-        <div className="overflow-y-auto max-h-[90vh] custom-scrollbar">
+        <div className="overflow-y-auto max-h-[70vh] custom-scrollbar">
           {/* Project Image */}
           {project.imageUrl && (
             <div className="relative h-72 overflow-hidden">
@@ -64,7 +64,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
                 alt={project.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/50 to-transparent" />
             </div>
           )}
 

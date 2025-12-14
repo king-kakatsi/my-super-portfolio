@@ -60,26 +60,26 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 dark:bg-black/80 bg-black/40 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 dark:bg-black/80 bg-black/40 backdrop-blur-md animate-fadeIn"
       onClick={onClose}
       onWheel={(e) => e.stopPropagation()}
       onTouchMove={(e) => e.stopPropagation()}
     >
       <div 
-        className="relative w-full max-w-4xl bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 from-white via-gray-50 to-white border dark:border-purple-500/30 border-purple-400/30 rounded-3xl shadow-2xl dark:shadow-purple-500/20 shadow-purple-400/20 max-h-[90vh] overflow-hidden animate-scaleIn"
+        className="relative w-full max-w-4xl bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 from-white via-gray-50 to-white border dark:border-purple-500/30 border-purple-400/30 rounded-3xl shadow-2xl dark:shadow-purple-500/20 shadow-purple-400/20 max-h-[70vh] overflow-hidden animate-scaleIn"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-xl dark:bg-white/5 bg-gray-800/10 hover:bg-white/10 dark:hover:bg-white/10 hover:bg-gray-700/20 transition-colors z-10 group"
+          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-purple-600 hover:bg-purple-700 shadow-lg shadow-purple-600/30 transition-all duration-300 z-10 group"
           aria-label="Close modal"
         >
-          <X size={24} className="dark:text-gray-400 text-gray-600 dark:group-hover:text-white group-hover:text-gray-900 transition-colors" />
+          <X size={20} weight="bold" className="text-white transition-colors" />
         </button>
 
         {/* Scrollable Content */}
-        <div className="overflow-y-auto max-h-[90vh] custom-scrollbar">
+        <div className="overflow-y-auto max-h-[70vh] custom-scrollbar">
           {/* Project Image */}
           {project.imageUrl && (
             <div className="relative h-80 overflow-hidden">
@@ -88,7 +88,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
                 alt={project.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t dark:from-gray-900 dark:via-gray-900/60 from-gray-800 via-gray-800/60 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t dark:from-gray-900 dark:via-gray-900/60 from-gray-800 via-gray-800/60 to-transparent" />
             </div>
           )}
 
