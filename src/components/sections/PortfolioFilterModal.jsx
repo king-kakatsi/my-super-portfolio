@@ -158,7 +158,7 @@ const PortfolioFilterModal = ({
     <>
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300"
+        className="fixed inset-0 dark:bg-black/60 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300"
         onClick={onClose}
       />
 
@@ -171,7 +171,7 @@ const PortfolioFilterModal = ({
       {/* Desktop: Modal, Mobile: Bottom Sheet */}
       <div className="fixed inset-x-0 bottom-0 md:inset-0 md:flex md:items-center md:justify-center z-50 pointer-events-none">
         <div 
-          className="pointer-events-auto bg-base border border-white/10 w-full md:w-[600px] md:max-h-[80vh] md:rounded-3xl overflow-hidden shadow-2xl animate-slide-up md:animate-scale-in"
+          className="pointer-events-auto bg-base border border-white/10 dark:border-white/10 border-gray-300/50 w-full md:w-[600px] md:max-h-[80vh] md:rounded-3xl overflow-hidden shadow-2xl animate-slide-up md:animate-scale-in"
           onClick={(e) => e.stopPropagation()}
         >
 
@@ -179,7 +179,7 @@ const PortfolioFilterModal = ({
 
 
           {/* ooooooooooooo HEADER ooooooooooooo */}
-          <div className="flex items-center justify-between p-6 border-b border-white/10 bg-base-tint/30">
+          <div className="flex items-center justify-between p-6 border-b border-white/10 dark:border-white/10 border-gray-300/50 bg-base-tint/30">
             <div>
               <h3 className="text-2xl font-bold text-text-bright">Filter Projects</h3>
               <p className="text-sm text-text-muted mt-1">
@@ -188,7 +188,7 @@ const PortfolioFilterModal = ({
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-white/10 transition-colors text-text-muted hover:text-text-bright"
+              className="p-2 rounded-full dark:hover:bg-white/10 hover:bg-gray-100 transition-colors text-text-muted hover:text-text-bright"
             >
               <X size={24} weight="bold" />
             </button>
@@ -216,7 +216,7 @@ const PortfolioFilterModal = ({
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                         tempFilters.categories.includes(category)
                           ? 'bg-wine text-white border border-wine'
-                          : 'bg-base-tint/30 text-text-muted border border-white/10 hover:border-white/30'
+                          : 'bg-base-tint/30 text-text-muted border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/30 dark:hover:border-white/30 hover:border-gray-400/50'
                       }`}
                     >
                       {tempFilters.categories.includes(category) && (
@@ -245,7 +245,7 @@ const PortfolioFilterModal = ({
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                         tempFilters.technologies.includes(tech)
                           ? 'bg-accent text-white border border-accent'
-                          : 'bg-base-tint/30 text-text-muted border border-white/10 hover:border-white/30'
+                          : 'bg-base-tint/30 text-text-muted border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/30 dark:hover:border-white/30 hover:border-gray-400/50'
                       }`}
                     >
                       {tempFilters.technologies.includes(tech) && (
@@ -267,35 +267,35 @@ const PortfolioFilterModal = ({
               <h4 className="text-lg font-bold text-text-bright mb-3">Status & Links</h4>
               <div className="space-y-3">
                 {/* Featured */}
-                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 hover:border-white/20 transition-colors cursor-pointer">
+                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer"
                   <span className="text-text-bright font-medium">⭐ Featured Projects</span>
                   <input
                     type="checkbox"
                     checked={tempFilters.featured}
                     onChange={() => toggleBooleanFilter('featured')}
-                    className="w-5 h-5 rounded border-white/20 bg-base-tint text-accent focus:ring-2 focus:ring-accent/50"
+                    className="w-5 h-5 rounded border-white/20 dark:border-white/20 border-gray-400/50 bg-base-tint text-accent focus:ring-2 focus:ring-accent/50"
                   />
                 </label>
 
                 {/* Has Live URL */}
-                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 hover:border-white/20 transition-colors cursor-pointer">
+                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer"
                   <span className="text-text-bright font-medium">🔗 Has Live Demo</span>
                   <input
                     type="checkbox"
                     checked={tempFilters.hasLiveUrl}
                     onChange={() => toggleBooleanFilter('hasLiveUrl')}
-                    className="w-5 h-5 rounded border-white/20 bg-base-tint text-accent focus:ring-2 focus:ring-accent/50"
+                    className="w-5 h-5 rounded border-white/20 dark:border-white/20 border-gray-400/50 bg-base-tint text-accent focus:ring-2 focus:ring-accent/50"
                   />
                 </label>
 
                 {/* Has GitHub URL */}
-                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 hover:border-white/20 transition-colors cursor-pointer">
+                <label className="flex items-center justify-between p-4 rounded-xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-colors cursor-pointer"
                   <span className="text-text-bright font-medium">💻 Has GitHub Repo</span>
                   <input
                     type="checkbox"
                     checked={tempFilters.hasGithubUrl}
                     onChange={() => toggleBooleanFilter('hasGithubUrl')}
-                    className="w-5 h-5 rounded border-white/20 bg-base-tint text-accent focus:ring-2 focus:ring-accent/50"
+                    className="w-5 h-5 rounded border-white/20 dark:border-white/20 border-gray-400/50 bg-base-tint text-accent focus:ring-2 focus:ring-accent/50"
                   />
                 </label>
               </div>
@@ -311,10 +311,10 @@ const PortfolioFilterModal = ({
 
 
           {/* ooooooooooooo FOOTER ACTIONS ooooooooooooo */}
-          <div className="p-6 border-t border-white/10 bg-base-tint/30 flex gap-3">
+          <div className="p-6 border-t border-white/10 dark:border-white/10 border-gray-300/50 bg-base-tint/30 flex gap-3">
             <button
               onClick={handleClearAll}
-              className="flex-1 px-6 py-3 rounded-xl font-medium text-text-muted bg-base-tint/50 hover:bg-base-tint hover:text-text-bright border border-white/10 hover:border-white/20 transition-all duration-300"
+              className="flex-1 px-6 py-3 rounded-xl font-medium text-text-muted bg-base-tint/50 hover:bg-base-tint hover:text-text-bright border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/20 dark:hover:border-white/20 hover:border-gray-400/50 transition-all duration-300"
             >
               Clear All
             </button>

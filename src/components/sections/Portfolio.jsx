@@ -344,7 +344,8 @@ const Portfolio = ({ projects: projectsProp }) => {
   };
 
   return (
-    <section id="portfolio" className="py-20 md:py-32" ref={portfolioRef}>
+    <section id="portfolio" className="py-20 md:py-32 bg-base-tint/20 dark:bg-base-tint/30 -mx-6 md:-mx-12 lg:-mx-20" ref={portfolioRef}>
+      <div className="px-6 md:px-12 lg:px-20">
       
       {/* Section Title */}
       <div className="mb-12 md:mb-16">
@@ -378,12 +379,12 @@ const Portfolio = ({ projects: projectsProp }) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search projects by name or technology..."
-              className="w-full pl-12 pr-10 py-4 rounded-2xl bg-base-tint/50 border border-white/10 text-text-bright placeholder:text-text-muted focus:outline-none focus:border-accent/50 focus:bg-base-tint/70 transition-all duration-300"
+              className="w-full pl-12 pr-10 py-4 rounded-2xl bg-base-tint/50 border border-white/10 dark:border-white/10 border-gray-300/50 text-text-bright placeholder:text-text-muted focus:outline-none focus:border-accent/50 focus:bg-base-tint/70 transition-all duration-300"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 text-text-muted hover:text-text-bright transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 dark:hover:bg-white/10 hover:bg-gray-200/50 text-text-muted hover:text-text-bright transition-colors"
               >
                 <X size={16} weight="bold" />
               </button>
@@ -396,7 +397,7 @@ const Portfolio = ({ projects: projectsProp }) => {
             className={`relative px-6 py-4 rounded-2xl font-medium transition-all duration-300 flex items-center gap-2 ${
               activeFilterCount > 0
                 ? 'bg-wine text-white border border-wine shadow-lg shadow-wine/30'
-                : 'bg-base-tint/50 text-text-muted border border-white/10 hover:border-white/30 hover:text-text-bright'
+                : 'bg-base-tint/50 text-text-muted border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/30 dark:hover:border-white/30 hover:border-gray-400/50 hover:text-text-bright'
             }`}
           >
             <Funnel size={20} weight="bold" />
@@ -516,7 +517,7 @@ const Portfolio = ({ projects: projectsProp }) => {
           <div 
             key={project.id}
             onClick={() => handleProjectClick(project)}
-            className={`group relative rounded-3xl overflow-hidden bg-base-tint/50 border border-white/10 hover:border-accent/50 transition-all duration-500 will-change-transform hover:shadow-lg hover:shadow-accent/10 cursor-pointer ${
+            className={`group relative rounded-3xl overflow-hidden bg-base-tint/50 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-accent/50 transition-all duration-500 will-change-transform hover:shadow-lg hover:shadow-accent/10 cursor-pointer ${
               index % 2 === 1 ? 'md:translate-y-16' : ''
             }`}
           >
@@ -529,9 +530,9 @@ const Portfolio = ({ projects: projectsProp }) => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
               />
               {/* Gradient overlay for better text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-base via-base/50 to-transparent opacity-80"></div>
-              {/* Dark overlay on hover for better text readability */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-base via-base/50 to-transparent dark:from-base dark:via-base/50 dark:to-transparent from-gray-50 via-gray-50/80 to-transparent opacity-80"></div>
+              {/* Overlay on hover for better text readability */}
+              <div className="absolute inset-0 dark:bg-black/60 bg-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
 
             {/* Content overlay */}
@@ -540,14 +541,14 @@ const Portfolio = ({ projects: projectsProp }) => {
                 {/* Technology tags */}
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.technologies?.map((techId, i) => (
-                    <span key={i} className="px-3 py-1 rounded-full bg-base/90 backdrop-blur-sm text-sm font-medium text-white border border-white/20">
+                    <span key={i} className="px-3 py-1 rounded-full bg-base/90 dark:bg-base/90 bg-gray-800/90 backdrop-blur-sm text-sm font-medium text-white dark:text-white text-gray-100 border border-white/20 dark:border-white/20 border-gray-700/30">
                       {getSkillName(techId)}
                     </span>
                   ))}
                 </div>
                 
                 {/* Project title */}
-                <h3 className="text-2xl font-bold text-white mb-2">{project.name}</h3>
+                <h3 className="text-2xl font-bold text-white dark:text-white text-gray-900 mb-2">{project.name}</h3>
                 
                 {/* Project description - visible on hover */}
                 <p className="text-text-muted line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 mb-4">
@@ -599,7 +600,7 @@ const Portfolio = ({ projects: projectsProp }) => {
                   className={`p-3 rounded-xl transition-all duration-300 ${
                     currentPage === 1
                       ? 'bg-base-tint/30 text-text-muted cursor-not-allowed opacity-50'
-                      : 'bg-base-tint/50 text-text-bright border border-white/10 hover:border-wine/50 hover:bg-wine/20 hover:text-wine'
+                      : 'bg-base-tint/50 text-text-bright border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-wine/50 hover:bg-wine/20 hover:text-wine'
                   }`}
                   aria-label="Previous page"
                 >
@@ -636,7 +637,7 @@ const Portfolio = ({ projects: projectsProp }) => {
                   className={`p-3 rounded-xl transition-all duration-300 ${
                     currentPage === totalPages
                       ? 'bg-base-tint/30 text-text-muted cursor-not-allowed opacity-50'
-                      : 'bg-base-tint/50 text-text-bright border border-white/10 hover:border-wine/50 hover:bg-wine/20 hover:text-wine'
+                      : 'bg-base-tint/50 text-text-bright border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-wine/50 hover:bg-wine/20 hover:text-wine'
                   }`}
                   aria-label="Next page"
                 >
@@ -676,7 +677,7 @@ const Portfolio = ({ projects: projectsProp }) => {
       />
       {/* %%%%%%%% END - MODALS %%%%%%%% */}
 
-
+      </div>
     </section>
   );
 };

@@ -325,9 +325,9 @@ const Skills = ({ projects, skills }) => {
             <h3 className="text-2xl font-bold text-text-bright">Project Statistics</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 bg-gray-800 p-10 rounded-lg">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 dark:bg-gray-800 bg-gray-100 p-10 rounded-lg">
             {/* Total Projects */}
-            <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 hover:border-accent/50 transition-all duration-300 group">
+            <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-accent/50 transition-all duration-300 group">
               <p className="text-5xl md:text-6xl font-bold text-wine mb-2 group-hover:scale-110 transition-transform origin-left">
                 {totalProjects}
               </p>
@@ -337,7 +337,7 @@ const Skills = ({ projects, skills }) => {
             </div>
 
             {/* Web Projects */}
-            <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 hover:border-accent/50 transition-all duration-300 group">
+            <div className="animate-card-3 opacity-0 translate-y-[100px] p-8 rounded-3xl bg-base-tint/30 border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-accent/50 transition-all duration-300 group">
               <p className="text-5xl md:text-6xl font-bold text-wine mb-2 group-hover:scale-110 transition-transform origin-left">
                 {webProjects}
               </p>
@@ -390,10 +390,10 @@ const Skills = ({ projects, skills }) => {
                     {category.skills.map((skill, skillIndex) => (
                       <div 
                         key={skillIndex}
-                        className="p-5 rounded-xl bg-base-tint/40 backdrop-blur-sm border border-white/10 hover:border-white/30 hover:bg-base-tint/60 transition-all duration-300 group/card"
+                        className="p-5 rounded-xl bg-base-tint/40 backdrop-blur-sm border border-white/10 dark:border-white/10 border-gray-300/50 hover:border-white/30 dark:hover:border-white/30 hover:border-gray-400/50 hover:bg-base-tint/60 transition-all duration-300 group/card"
                       >
                         <div className="flex flex-col items-center text-center">
-                          <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-3 group-hover/card:bg-white/20 transition-colors p-2.5">
+                          <div className="w-14 h-14 rounded-full bg-white/10 dark:bg-white/10 bg-gray-200/50 flex items-center justify-center mb-3 group-hover/card:bg-white/20 dark:group-hover/card:bg-white/20 group-hover/card:bg-gray-300/50 transition-colors p-2.5">
                             <img 
                               src={getTechIcon(skill.name, getColorHex(category.iconColor))} 
                               alt={skill.name}
