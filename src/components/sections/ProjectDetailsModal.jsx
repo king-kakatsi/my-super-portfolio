@@ -72,7 +72,7 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full dark:bg-white/10 bg-gray-800/20 hover:bg-white/20 dark:hover:bg-white/20 hover:bg-gray-700/30 shadow-lg dark:shadow-black/30 shadow-gray-900/30 transition-all duration-300 z-10 group"
+          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full dark:bg-white/10 bg-gray-800/20 dark:hover:bg-white/20 hover:bg-gray-700/30 shadow-lg dark:shadow-black/30 shadow-gray-900/30 transition-all duration-300 z-10 group"
           aria-label="Close modal"
         >
           <X size={20} weight="bold" className="dark:text-gray-300 text-gray-700 dark:group-hover:text-white group-hover:text-gray-900 transition-colors" />
