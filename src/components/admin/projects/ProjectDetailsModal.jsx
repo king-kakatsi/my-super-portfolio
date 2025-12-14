@@ -48,10 +48,10 @@ const ProjectDetailsModal = ({ isOpen, onClose, project }) => {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors z-10 group"
+          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-purple-600 hover:bg-purple-700 shadow-lg shadow-purple-600/30 transition-all duration-300 z-10 group"
           aria-label="Close modal"
         >
-          <X size={24} className="text-gray-400 group-hover:text-white transition-colors" />
+          <X size={20} weight="bold" className="text-white transition-colors" />
         </button>
 
         {/* Scrollable Content */}
